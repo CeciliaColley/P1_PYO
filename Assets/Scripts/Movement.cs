@@ -31,11 +31,12 @@ public class Movement : MonoBehaviour
         activePlayer = playerActivator.activePlayer;
         Vector3 newPosition = GetNewPosition(movementInput);
         PlayerBehaviour playerBehaviour = activePlayer.GetComponent<PlayerBehaviour>();
-        if (playerBehaviour.IsPositionOccupied(newPosition))
+        if (playerBehaviour.IsPositionOccupied(newPosition) || playerBehaviour.movements <= 0)
         {
             return;
         }
         activePlayer.transform.position = newPosition;
+        playerBehaviour.movements--;
     }
 
     private Vector3 GetNewPosition(Vector2 moveVector)

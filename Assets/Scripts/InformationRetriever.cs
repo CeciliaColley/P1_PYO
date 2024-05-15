@@ -31,6 +31,8 @@ public class InformationRetriever : MonoBehaviour
         }
 
         GetInformation(ref boardInformation, boardSOName);
+        boardInformation.maxInteractionDistance =  Mathf.Sqrt(boardInformation.playerStepLength * boardInformation.playerStepLength + boardInformation.playerStepLength * boardInformation.playerStepLength);
+
         GetInformation(ref rangeInformation, rangeSOName);
         GetInformation(ref healerInformation, healerSOName);
         GetInformation(ref fighterInformation, fighterSOName);

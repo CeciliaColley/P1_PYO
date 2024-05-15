@@ -42,7 +42,7 @@ public class Initializer : MonoBehaviour
 
     public void SetVariables(PlayerBehaviour playerBehaviour, HealerInformation healerInformation)
     {
-        playerBehaviour.health = healerInformation.health;
+        playerBehaviour.maxHealth = healerInformation.health;
         playerBehaviour.movements = healerInformation.movements;
         playerBehaviour.meleeAttack = healerInformation.meleeAttack;
         playerBehaviour.heal = healerInformation.heal;
@@ -53,7 +53,7 @@ public class Initializer : MonoBehaviour
 
     public void SetVariables(PlayerBehaviour playerBehaviour, RangeInformation rangeInformation)
     {
-        playerBehaviour.health = rangeInformation.health;
+        playerBehaviour.maxHealth = rangeInformation.health;
         playerBehaviour.movements = rangeInformation.movements;
         playerBehaviour.meleeAttack = rangeInformation.meleeAttack;
         playerBehaviour.heal = rangeInformation.heal;
@@ -64,7 +64,7 @@ public class Initializer : MonoBehaviour
 
     public void SetVariables(PlayerBehaviour playerBehaviour, FighterInformation fighterInformation)
     {
-        playerBehaviour.health = fighterInformation.health;
+        playerBehaviour.maxHealth = fighterInformation.health;
         playerBehaviour.movements = fighterInformation.movements;
         playerBehaviour.meleeAttack = fighterInformation.meleeAttack;
         playerBehaviour.heal = fighterInformation.heal;
@@ -73,7 +73,7 @@ public class Initializer : MonoBehaviour
 
     public void SetVariables(PlayerBehaviour playerBehaviour, EnemyInformation enemyInformation)
     {
-        playerBehaviour.health = enemyInformation.health;
+        playerBehaviour.maxHealth = enemyInformation.health;
         playerBehaviour.movements = enemyInformation.movements;
         playerBehaviour.meleeAttack = enemyInformation.meleeAttack;
     }
