@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class InformationRetriever : MonoBehaviour
 {
+    [SerializeField] private PlayerActivator playerActivator;
+
     public string boardSOName;
     public string rangeSOName;
     public string healerSOName;
@@ -45,5 +48,18 @@ public class InformationRetriever : MonoBehaviour
         }
         var reference = Resources.Load<T>("Scriptable Objects/" + resourceName);
         information = reference;
+    }
+
+    public void EndTurn()
+    {
+        int playerIndex = playerActivator.activePlayerIndex++;
+        if (playerIndex < playerActivator.activePlayers.Count)
+        {
+            playerActivator.activePlayer = playerActivator.activePlayers[playerIndex];
+        }
+        else
+        {
+            playerActivator.activePlayer = playerActivator.activePlayers.First();
+        }
     }
 }

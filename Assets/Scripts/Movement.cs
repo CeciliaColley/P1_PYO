@@ -41,6 +41,10 @@ public class Movement : MonoBehaviour
         activePlayer.transform.position = newPosition;
         playerBehaviour.movements--;
         playerBehaviour.PrintStats();
+        if (playerBehaviour.movements == 0 && playerBehaviour.acted)
+        {
+            InformationRetriever.Instance.EndTurn();
+        }
     }
 
     private Vector3 GetNewPosition(Vector2 moveVector)

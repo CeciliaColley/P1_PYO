@@ -50,18 +50,34 @@ public class AllowActions : MonoBehaviour
     public void Heal()
     {
         clickedPlayerBehaviour.Heal(playerBehaviour.heal);
+        playerBehaviour.acted = true;
+        if (playerBehaviour.movements <= 0)
+        {
+            InformationRetriever.Instance.EndTurn();
+        }
         gameObject.SetActive(false);
     }
 
     public void MeleeAttack()
     {
         clickedPlayerBehaviour.RecieveDamage(playerBehaviour.meleeAttack);
+        playerBehaviour.acted = true;
+        if (playerBehaviour.movements <= 0)
+        {
+            InformationRetriever.Instance.EndTurn();
+        }
         gameObject.SetActive(false);
     }
 
     public void RangeAttack()
     {
         clickedPlayerBehaviour.RecieveDamage(playerBehaviour.rangeAttack);
+        playerBehaviour.acted = true;
+        if (playerBehaviour.movements <= 0)
+        {
+            InformationRetriever.Instance.EndTurn();
+        }
+        
         gameObject.SetActive(false);
     }
 }

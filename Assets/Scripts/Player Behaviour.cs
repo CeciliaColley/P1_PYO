@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using TMPro;
 using Unity.VisualScripting;
@@ -19,6 +20,7 @@ public class PlayerBehaviour : MonoBehaviour
     public bool canRangeAttack;
     public bool canHealOthers;
     public bool clickedPlayerIsAdyacent;
+    public bool acted = false;
     public int currentHealth;
 
     [SerializeField] private PlayerActivator playerActivator;

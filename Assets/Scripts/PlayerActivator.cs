@@ -9,6 +9,7 @@ public class PlayerActivator : MonoBehaviour
 {
     public GameObject activePlayer;
     public List<GameObject> activePlayers = new List<GameObject>(); // Referenced by Player Behaviour, so players can add themselves to the list.
+    public int activePlayerIndex = 1;
 
     private void Start()
     {
