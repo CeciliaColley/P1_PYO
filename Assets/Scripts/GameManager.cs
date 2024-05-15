@@ -1,18 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private GameObject Fighter;
-    [SerializeField] private GameObject Range;
-    [SerializeField] private GameObject Healer;
-    [SerializeField] private GameObject Enemy1;
-    [SerializeField] private GameObject Enemy2;
+    [SerializeField] private string boardInformationSOName;
 
-    private List<Vector3> playerPositions = new List<Vector3>();
+    private InputReader inputReader;
+    private BoardInformation boardInformation;
+    private Movement movement;
+    private GameObject activePlayer;
 
-    public GameObject activePlayer;
+    public List<GameObject> activePlayers = new List<GameObject>(); // Referenced by Player Behaviour, so players can add themselves to the list.
 
 
     private enum playerTurn
@@ -28,11 +29,34 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        
+        GetBoardInformation(boardInformationSOName);
+        activePlayer = activePlayers.First();
+        movement = gameObject.GetComponent<Movement>();
+        inputReader = gameObject.GetComponent<InputReader>();
+        inputReader.onMovementInput += PassActivePlayer;
     }
 
     private void PositionPlayersRandomly()
     {
-        
+        int randomX = Random.Range(1 , boardInformation.boardWidth+1) * boardInformation.playerStepLength;
+        int randomY = Random.Range(1, boardInformation.boardHeight+1) * boardInformation.playerStepLength;
     }
+
+    private void GetBoardInformation(string scriptableObjectName)
+    {
+        if (boardInformation != null)
+        {
+            Destroy(boardInformation);
+        }
+        var reference = Resources.Load<BoardInformation>("Scriptable Objects/" + scriptableObjectName);
+        boardInformation = reference;
+    }
+
+    private void PassActivePlayer(Vector2 movementInput, InputActionPhase phase)
+    {
+        Debug.Log("PassingPlayer");
+        movement.activePlayer = activePlayer;
+        movement.OnMove(movementInput);
+    }
+
 }

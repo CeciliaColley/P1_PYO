@@ -5,41 +5,40 @@ using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour
 {
-    [SerializeField] private GameManager gameManager;
-    [SerializeField] string boardInformationSOName;
+    [SerializeField] private string boardInformationSOName;
 
-    private MovementInputAction movement;
+    //private MovementInputAction movement;
     private Vector2 moveInput;
-    private GameObject player;
     private BoardInformation boardInformation;
+
+    public GameObject activePlayer; // Referenced by Game Manager when Game Manager assigns it's value.
 
     private void Awake()
     {
-        movement = new MovementInputAction();
+        //movement = new MovementInputAction();
         GetBoardInformation(boardInformationSOName);
     }
 
-    private void OnEnable()
-    {
-        movement.AM_Movement.Move.performed += OnMove;
-        movement.AM_Movement.Enable();
-    }
+    //private void OnEnable()
+    //{
+    //    movement.AM_Movement.Move.performed += OnMove;
+    //    movement.AM_Movement.Enable();
+    //}
 
-    private void OnDisable()
-    {
-        movement.AM_Movement.Move.performed -= OnMove;
-        movement.AM_Movement.Disable();
-    }
+    //private void OnDisable()
+    //{
+    //    movement.AM_Movement.Move.performed -= OnMove;
+    //    movement.AM_Movement.Disable();
+    //}
 
-    private void OnMove(InputAction.CallbackContext context)
+    public void OnMove(Vector2 moveVector)
     {
-        player = gameManager.activePlayer;
-        Vector2 inputVector = context.ReadValue<Vector2>();
-        setMovementDirectionAndLength(inputVector);
-        Vector3 newPosition = player.transform.position + new Vector3(moveInput.x, moveInput.y, 0);
+        Debug.Log("Moving");
+        setMovementDirectionAndLength(moveVector);
+        Vector3 newPosition = activePlayer.transform.position + new Vector3(moveInput.x, moveInput.y, 0);
         newPosition.x = Mathf.Clamp(newPosition.x, boardInformation.lowestTilesY, boardInformation.boardWidth);
         newPosition.y = Mathf.Clamp(newPosition.y, boardInformation.leftmostTilesX, boardInformation.boardHeight);
-        player.transform.position = newPosition;
+        activePlayer.transform.position = newPosition;
     }
 
     private void setMovementDirectionAndLength(Vector2 inputVector)
@@ -56,7 +55,7 @@ public class Movement : MonoBehaviour
         }
     }
 
-    public void GetBoardInformation(string scriptableObjectName)
+    private void GetBoardInformation(string scriptableObjectName)
     {
         if (boardInformation != null)
         {
