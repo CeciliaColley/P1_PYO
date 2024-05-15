@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Initializer : MonoBehaviour
 {
-    [SerializeField] private PlayerActivator playerActivator;
+    private PlayerActivator playerActivator;
 
     private void Start()
     {
+        playerActivator = GetComponent<PlayerActivator>();
         InitializeCharacters();
     }
 
@@ -77,5 +77,5 @@ public class Initializer : MonoBehaviour
         playerBehaviour.movements = enemyInformation.movements;
         playerBehaviour.meleeAttack = enemyInformation.meleeAttack;
     }
-
 }
+

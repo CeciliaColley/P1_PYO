@@ -7,10 +7,6 @@ public class PlayerBehaviour : MonoBehaviour
     public bool isHealer = false;
     public bool isFighter = false;
     public bool isRange = false;
-    
-    [SerializeField] private PlayerActivator playerActivator;
-    
-    private BoardInformation boardInformation;
     public int health;
     public int movements;
     public int meleeAttack;
@@ -18,6 +14,11 @@ public class PlayerBehaviour : MonoBehaviour
     public int heal;
     public bool canRangeAttack;
     public bool canCureOthers;
+
+    [SerializeField] private PlayerActivator playerActivator;
+    
+    private BoardInformation boardInformation;
+
 
     void Awake()
     {
@@ -28,7 +29,6 @@ public class PlayerBehaviour : MonoBehaviour
     {
         boardInformation = InformationRetriever.Instance.boardInformation;
         PositionPlayerRandomly();
-
     }
 
     private void PositionPlayerRandomly()
