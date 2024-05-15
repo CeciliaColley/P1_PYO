@@ -5,13 +5,18 @@ using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour
 {
+    [SerializeField] private GameManager gameManager;
+    [SerializeField] string boardInformationSOName;
+
     private MovementInputAction movement;
     private Vector2 moveInput;
-    [SerializeField] private GameObject player;
+    private GameObject player;
+    private BoardInformation boardInformation;
 
     private void Awake()
     {
         movement = new MovementInputAction();
+        GetBoardInformation(boardInformationSOName);
     }
 
     private void OnEnable()
@@ -26,69 +31,38 @@ public class Movement : MonoBehaviour
         movement.AM_Movement.Disable();
     }
 
-    //private void OnMove(InputAction.CallbackContext context)
-    //{
-    //    if (context.control.IsPressed())
-    //    {
-    //        Debug.Log("Multiple keys are pressed");
-    //        return;
-    //    }
-
-    //    // Read move input
-    //    moveInput = context.ReadValue<Vector2>();
-    //    Debug.Log(moveInput);
-
-    //    // Calculate the new position vector directly
-    //    Vector3 newPosition = new Vector3(
-    //        player.transform.position.x + moveInput.x,
-    //        player.transform.position.y + moveInput.y,
-    //        player.transform.position.z
-    //    );
-
-
-    //        // Apply constraints (if necessary) before updating the position
-    //        if (newPosition.x < 1 || newPosition.x > 6)
-    //    {
-    //        newPosition.x = player.transform.position.x;
-    //    }
-
-    //    if (newPosition.y < 1 || newPosition.y > 4)
-    //    {
-    //        newPosition.y = player.transform.position.y;
-    //    }
-
-    //    // Apply the new position to the player
-    //    player.transform.position = newPosition;
-    //}
-
     private void OnMove(InputAction.CallbackContext context)
     {
+        player = gameManager.activePlayer;
         Vector2 inputVector = context.ReadValue<Vector2>();
+        setMovementDirectionAndLength(inputVector);
+        Vector3 newPosition = player.transform.position + new Vector3(moveInput.x, moveInput.y, 0);
+        newPosition.x = Mathf.Clamp(newPosition.x, boardInformation.lowestTilesY, boardInformation.boardWidth);
+        newPosition.y = Mathf.Clamp(newPosition.y, boardInformation.leftmostTilesX, boardInformation.boardHeight);
+        player.transform.position = newPosition;
+    }
 
-        //either move in x or y but not both
+    private void setMovementDirectionAndLength(Vector2 inputVector)
+    {
         if (inputVector.x != 0)
         {
-            // always move by a unit of 1
-            moveInput.x = inputVector.x;
-            moveInput.x = Mathf.Round(moveInput.x);
-            moveInput.y = 0;
+            moveInput = new Vector2(inputVector.x, 0);
+            moveInput.x = Mathf.Round(moveInput.x) * boardInformation.playerStepLength;
         }
         else if (inputVector.y != 0)
         {
-            // always move by a unit of 1
-            moveInput.y = inputVector.y;
-            moveInput.y = Mathf.Round(moveInput.y);
-            moveInput.x = 0;
+            moveInput = new Vector2(0, inputVector.y);
+            moveInput.y = Mathf.Round(moveInput.y) * boardInformation.playerStepLength;
         }
+    }
 
-        // Calculate the new position
-        Vector3 newPosition = player.transform.position + new Vector3(moveInput.x, moveInput.y, 0);
-
-        // Apply constraints (if necessary) before updating the position
-        newPosition.x = Mathf.Clamp(newPosition.x, 1f, 6f);
-        newPosition.y = Mathf.Clamp(newPosition.y, 1f, 4f);
-
-        // Apply the new position to the player
-        player.transform.position = newPosition;
+    public void GetBoardInformation(string scriptableObjectName)
+    {
+        if (boardInformation != null)
+        {
+            Destroy(boardInformation);
+        }
+        var reference = Resources.Load<BoardInformation>("Scriptable Objects/" + scriptableObjectName);
+        boardInformation = reference;
     }
 }

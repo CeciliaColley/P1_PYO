@@ -4,9 +4,35 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject Fighter;
-    public GameObject Range;
-    public GameObject Healer;
-    public GameObject Enemy1;
-    public GameObject Enemy2;
+    [SerializeField] private GameObject Fighter;
+    [SerializeField] private GameObject Range;
+    [SerializeField] private GameObject Healer;
+    [SerializeField] private GameObject Enemy1;
+    [SerializeField] private GameObject Enemy2;
+
+    private List<Vector3> playerPositions = new List<Vector3>();
+
+    public GameObject activePlayer;
+
+
+    private enum playerTurn
+    {
+        Fighter,
+        Range, 
+        Healer, 
+        Enemy1, 
+        Enemy2,
+        LAST
+    }
+    private playerTurn currentPlayer;
+
+    private void Start()
+    {
+        
+    }
+
+    private void PositionPlayersRandomly()
+    {
+        
+    }
 }
