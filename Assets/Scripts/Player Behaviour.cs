@@ -15,14 +15,16 @@ public class PlayerBehaviour : MonoBehaviour
     public int rangeAttack;
     public int heal;
     public bool canRangeAttack;
-    public bool canCureOthers;
+    public bool canHealOthers;
+    public bool clickedPlayerIsAdyacent;
+    public int currentHealth;
 
     [SerializeField] private PlayerActivator playerActivator;
     [SerializeField] private GameObject optionsPanel;
     
     private BoardInformation boardInformation;
     private GameObject activePlayer;
-    private int currentHealth;
+    
 
 
     void Awake()
@@ -70,22 +72,22 @@ public class PlayerBehaviour : MonoBehaviour
         return false;
     }
 
-    public void Heal()
+    public void InteractIfInRange()
     {
-        activePlayer = playerActivator.activePlayer;
-        PlayerBehaviour playerBehaviour = activePlayer.GetComponent<PlayerBehaviour>();
-        currentHealth += playerBehaviour.heal;
-        if (currentHealth > maxHealth)
+        if (optionsPanel.activeSelf)
         {
-            currentHealth = maxHealth;
+            optionsPanel .SetActive(false);
         }
-    }
-
-    public void ShowOptions()
-    {
-
+        InformationRetriever.Instance.clickedPlayer = gameObject;
         activePlayer = playerActivator.activePlayer;
+        PlayerBehaviour activePlayerBehaviour = activePlayer.GetComponent<PlayerBehaviour>();
         if (!(Vector3.Distance(transform.position, activePlayer.transform.position) > boardInformation.maxInteractionDistance))
+        {
+            optionsPanel.transform.position = Camera.main.WorldToScreenPoint(transform.position);
+            clickedPlayerIsAdyacent = true;
+            optionsPanel.SetActive(true);
+        }
+        else if (activePlayerBehaviour.canRangeAttack)
         {
             optionsPanel.transform.position = Camera.main.WorldToScreenPoint(transform.position);
             optionsPanel.SetActive(true);

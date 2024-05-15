@@ -46,7 +46,7 @@ public class Initializer : MonoBehaviour
         playerBehaviour.movements = healerInformation.movements;
         playerBehaviour.meleeAttack = healerInformation.meleeAttack;
         playerBehaviour.heal = healerInformation.heal;
-        playerBehaviour.canCureOthers = healerInformation.canCureOthers;
+        playerBehaviour.canHealOthers = healerInformation.canCureOthers;
         playerBehaviour.rangeAttack = healerInformation.rangeAttack;
         playerBehaviour.canRangeAttack = true;
     }
@@ -57,7 +57,7 @@ public class Initializer : MonoBehaviour
         playerBehaviour.movements = rangeInformation.movements;
         playerBehaviour.meleeAttack = rangeInformation.meleeAttack;
         playerBehaviour.heal = rangeInformation.heal;
-        playerBehaviour.canCureOthers = rangeInformation.canCureOthers;
+        playerBehaviour.canHealOthers = rangeInformation.canCureOthers;
         playerBehaviour.rangeAttack = rangeInformation.rangeAttack;
         playerBehaviour.canRangeAttack = true;
     }
@@ -68,7 +68,7 @@ public class Initializer : MonoBehaviour
         playerBehaviour.movements = fighterInformation.movements;
         playerBehaviour.meleeAttack = fighterInformation.meleeAttack;
         playerBehaviour.heal = fighterInformation.heal;
-        playerBehaviour.canCureOthers = fighterInformation.canCureOthers;
+        playerBehaviour.canHealOthers = fighterInformation.canCureOthers;
     }
 
     public void SetVariables(PlayerBehaviour playerBehaviour, EnemyInformation enemyInformation)

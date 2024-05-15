@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour
 {
+    [SerializeField] private GameObject optionsPanel;
+
     private PlayerActivator playerActivator;
     private BoardInformation boardInformation;
     private InputReader inputReader;
@@ -23,6 +25,7 @@ public class Movement : MonoBehaviour
     {
         if (phase == InputActionPhase.Performed)
         {
+            optionsPanel.SetActive(false);
             Move(movementInput);
         }
     }

@@ -14,21 +14,19 @@ public class InformationRetriever : MonoBehaviour
     public HealerInformation healerInformation;
     public FighterInformation fighterInformation;
     public EnemyInformation enemyInformation;
-
-    private static InformationRetriever instance;
-    public static InformationRetriever Instance => instance ?? (instance = FindFirstObjectByType<InformationRetriever>());
+    public GameObject clickedPlayer;
+    public static InformationRetriever Instance;
 
     private void Awake()
     {
-        if (instance != null && instance != this)
+        if (Instance != null)
         {
             Destroy(gameObject);
+            return;
         }
-        else
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
 
         GetInformation(ref boardInformation, boardSOName);
         boardInformation.maxInteractionDistance =  Mathf.Sqrt(boardInformation.playerStepLength * boardInformation.playerStepLength + boardInformation.playerStepLength * boardInformation.playerStepLength);
