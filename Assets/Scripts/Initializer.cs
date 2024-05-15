@@ -43,7 +43,7 @@ public class Initializer : MonoBehaviour
     public void SetVariables(PlayerBehaviour playerBehaviour, HealerInformation healerInformation)
     {
         playerBehaviour.maxHealth = healerInformation.health;
-        playerBehaviour.movements = healerInformation.movements;
+        playerBehaviour.maxMovements = healerInformation.movements;
         playerBehaviour.meleeAttack = healerInformation.meleeAttack;
         playerBehaviour.heal = healerInformation.heal;
         playerBehaviour.canHealOthers = healerInformation.canCureOthers;
@@ -54,7 +54,7 @@ public class Initializer : MonoBehaviour
     public void SetVariables(PlayerBehaviour playerBehaviour, RangeInformation rangeInformation)
     {
         playerBehaviour.maxHealth = rangeInformation.health;
-        playerBehaviour.movements = rangeInformation.movements;
+        playerBehaviour.maxMovements = rangeInformation.movements;
         playerBehaviour.meleeAttack = rangeInformation.meleeAttack;
         playerBehaviour.heal = rangeInformation.heal;
         playerBehaviour.canHealOthers = rangeInformation.canCureOthers;
@@ -65,7 +65,7 @@ public class Initializer : MonoBehaviour
     public void SetVariables(PlayerBehaviour playerBehaviour, FighterInformation fighterInformation)
     {
         playerBehaviour.maxHealth = fighterInformation.health;
-        playerBehaviour.movements = fighterInformation.movements;
+        playerBehaviour.maxMovements = fighterInformation.movements;
         playerBehaviour.meleeAttack = fighterInformation.meleeAttack;
         playerBehaviour.heal = fighterInformation.heal;
         playerBehaviour.canHealOthers = fighterInformation.canCureOthers;
@@ -74,7 +74,7 @@ public class Initializer : MonoBehaviour
     public void SetVariables(PlayerBehaviour playerBehaviour, EnemyInformation enemyInformation)
     {
         playerBehaviour.maxHealth = enemyInformation.health;
-        playerBehaviour.movements = enemyInformation.movements;
+        playerBehaviour.maxMovements = enemyInformation.movements;
         playerBehaviour.meleeAttack = enemyInformation.meleeAttack;
     }
 }

@@ -34,14 +34,12 @@ public class AllowActions : MonoBehaviour
             meleeAttackButton.interactable = false;
             rangeAttackButton.interactable = false;
             healButton.interactable = true;
-        }
-        
-        if (!playerBehaviour.canRangeAttack)
+        };
+        if (playerBehaviour.clickedPlayerIsAdyacent)
         {
             rangeAttackButton.interactable = false;
         }
-
-        if (!clickedPlayerBehaviour.clickedPlayerIsAdyacent)
+        else if (!playerBehaviour.clickedPlayerIsAdyacent)
         {
             meleeAttackButton.interactable = false;
         }
@@ -49,6 +47,7 @@ public class AllowActions : MonoBehaviour
 
     public void Heal()
     {
+
         clickedPlayerBehaviour.Heal(playerBehaviour.heal);
         playerBehaviour.acted = true;
         if (playerBehaviour.movements <= 0)

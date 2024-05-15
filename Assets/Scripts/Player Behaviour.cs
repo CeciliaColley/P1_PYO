@@ -9,10 +9,12 @@ using UnityEngine.UIElements;
 
 public class PlayerBehaviour : MonoBehaviour
 {
+    public GameObject canvas;
     public bool isHealer = false;
     public bool isFighter = false;
     public bool isRange = false;
     public int maxHealth;
+    public int maxMovements;
     public int movements;
     public int meleeAttack;
     public int rangeAttack;
@@ -22,16 +24,18 @@ public class PlayerBehaviour : MonoBehaviour
     public bool clickedPlayerIsAdyacent;
     public bool acted = false;
     public int currentHealth;
-
+    public string playerDisplay;
+    
     [SerializeField] private PlayerActivator playerActivator;
     [SerializeField] private GameObject optionsPanel;
     [SerializeField] private GameObject statsText;
-    [SerializeField] private string playerDisplay;
     [SerializeField] private string currentHealthDisplay;
     [SerializeField] private string movementsDisplay;
+   
 
     private BoardInformation boardInformation;
     private GameObject activePlayer;
+    private PlayerBehaviour clickedPlayerBehaviour;
     
 
 
@@ -45,6 +49,7 @@ public class PlayerBehaviour : MonoBehaviour
         boardInformation = InformationRetriever.Instance.boardInformation;
         PositionPlayerRandomly();
         currentHealth = maxHealth;
+        movements = maxMovements;
         PrintStats();
 
     }
@@ -59,13 +64,10 @@ public class PlayerBehaviour : MonoBehaviour
         stringBuilder.Append(movements);
 
         TextMeshProUGUI textMeshPro = statsText.GetComponent<TextMeshProUGUI>();
-        if ( textMeshPro == null)
-        {
-            Debug.Log("Couldn't find a text mesh component.");
-        }
         textMeshPro.text = stringBuilder.ToString();
     }
 
+    //This goes on in the clicked object
     public void InteractIfInRange()
     {
         InformationRetriever.Instance.clickedPlayer = gameObject;
@@ -77,15 +79,19 @@ public class PlayerBehaviour : MonoBehaviour
             optionsPanel.SetActive(false);
         }
         
-        if (!(Vector3.Distance(transform.position, activePlayer.transform.position) > boardInformation.maxInteractionDistance))
+        if (activePlayerBehaviour.acted)
+        {
+            return;
+        }
+        if ((Vector3.Distance(transform.position, activePlayer.transform.position) <= boardInformation.maxInteractionDistance))
         {
             optionsPanel.transform.position = Camera.main.WorldToScreenPoint(transform.position);
-            clickedPlayerIsAdyacent = true;
+            activePlayerBehaviour.clickedPlayerIsAdyacent = true;
             optionsPanel.SetActive(true);
         }
         else if (activePlayerBehaviour.canRangeAttack)
         {
-
+            activePlayerBehaviour.clickedPlayerIsAdyacent = false;
             optionsPanel.transform.position = Camera.main.WorldToScreenPoint(transform.position);
             optionsPanel.SetActive(true);
         }
@@ -107,7 +113,25 @@ public class PlayerBehaviour : MonoBehaviour
         if (currentHealth <= 0)
         {
             currentHealth = 0;
+            playerActivator.activePlayers.Remove(gameObject);
             gameObject.SetActive(false);
+
+            foreach (var player in playerActivator.activePlayers)
+            {
+                PlayerBehaviour playerBehaviour = player.GetComponent<PlayerBehaviour>();
+                if (!playerBehaviour.isHealer && !playerBehaviour.isFighter && !playerBehaviour.isRange)
+                {
+                    InformationRetriever.Instance.isGameOver = true;
+                    InformationRetriever.Instance.hasWon = false;
+                    break;
+                }
+            }  
+            if (playerActivator.activePlayers.Count == 1)
+            {
+                InformationRetriever.Instance.isGameOver = true;
+                InformationRetriever.Instance.hasWon = true;
+            }
+
         }
         PrintStats();
     }
