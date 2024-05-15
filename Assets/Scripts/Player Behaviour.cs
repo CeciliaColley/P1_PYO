@@ -5,6 +5,9 @@ using UnityEngine;
 public class PlayerBehaviour : MonoBehaviour
 {
     [SerializeField] private PlayerActivator gameManager;
+    [SerializeField] private bool isHealer = false;
+    [SerializeField] private bool isFighter = false;
+    [SerializeField] private bool isRange = false;
     private BoardInformation boardInformation;
 
     void Awake()

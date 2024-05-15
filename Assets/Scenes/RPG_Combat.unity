@@ -1276,8 +1276,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 524348081}
-  - component: {fileID: 524348082}
   - component: {fileID: 524348083}
+  - component: {fileID: 524348082}
   - component: {fileID: 524348084}
   - component: {fileID: 524348085}
   m_Layer: 0
@@ -1318,7 +1318,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae09192cb396a9e448131d921f68ad04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activePlayer: {fileID: 0}
 --- !u!114 &524348083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1343,6 +1342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a25e4d04cdd0074586e701b0826b874, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activePlayer: {fileID: 0}
   activePlayers: []
 --- !u!114 &524348085
 MonoBehaviour:
@@ -1679,6 +1679,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 524348084}
+  isHealer: 0
+  isFighter: 0
+  isRange: 0
 --- !u!1 &631590072
 GameObject:
   m_ObjectHideFlags: 0
@@ -2337,6 +2340,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 524348084}
+  isHealer: 0
+  isFighter: 0
+  isRange: 0
 --- !u!1 &717943949
 GameObject:
   m_ObjectHideFlags: 0
@@ -2947,6 +2953,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 524348084}
+  isHealer: 0
+  isFighter: 0
+  isRange: 0
 --- !u!1 &907294096
 GameObject:
   m_ObjectHideFlags: 0
@@ -3133,6 +3142,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 524348084}
+  isHealer: 0
+  isFighter: 0
+  isRange: 0
 --- !u!1 &947752847
 GameObject:
   m_ObjectHideFlags: 0
@@ -3925,6 +3937,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 524348084}
+  isHealer: 0
+  isFighter: 0
+  isRange: 0
 --- !u!1 &1369051928
 GameObject:
   m_ObjectHideFlags: 0
