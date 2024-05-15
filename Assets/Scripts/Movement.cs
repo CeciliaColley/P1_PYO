@@ -5,23 +5,46 @@ using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour
 {
-    private Vector2 moveInput;
+    private PlayerActivator playerActivator;
     private BoardInformation boardInformation;
-
-    public GameObject activePlayer; // Referenced by Game Manager when Game Manager assigns it's value.
+    private InputReader inputReader;
+    private GameObject activePlayer;
+    private Vector2 moveInput;
 
     private void Start()
     {
+        playerActivator = GetComponent<PlayerActivator>();
         boardInformation = InformationRetriever.Instance.boardInformation;
+        inputReader = gameObject.GetComponent<InputReader>();
+        inputReader.onMovementInput += OnMovementInputPerformed;
     }
 
-    public void Move(Vector2 moveVector)
+    private void OnMovementInputPerformed(Vector2 movementInput, InputActionPhase phase)
+    {
+        if (phase == InputActionPhase.Performed)
+        {
+            Move(movementInput);
+        }
+    }
+    private void Move(Vector2 movementInput)
+    {
+        activePlayer = playerActivator.activePlayer;
+        Vector3 newPosition = GetNewPosition(movementInput);
+        PlayerBehaviour playerBehaviour = activePlayer.GetComponent<PlayerBehaviour>();
+        if (playerBehaviour.IsPositionOccupied(newPosition))
+        {
+            return;
+        }
+        activePlayer.transform.position = newPosition;
+    }
+
+    private Vector3 GetNewPosition(Vector2 moveVector)
     {
         setMovementDirectionAndLength(moveVector);
         Vector3 newPosition = activePlayer.transform.position + new Vector3(moveInput.x, moveInput.y, 0);
         newPosition.x = Mathf.Clamp(newPosition.x, boardInformation.lowestTilesY, boardInformation.boardWidth);
         newPosition.y = Mathf.Clamp(newPosition.y, boardInformation.leftmostTilesX, boardInformation.boardHeight);
-        activePlayer.transform.position = newPosition;
+        return newPosition;
     }
 
     private void setMovementDirectionAndLength(Vector2 inputVector)
