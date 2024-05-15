@@ -40,6 +40,7 @@ public class Movement : MonoBehaviour
         }
         activePlayer.transform.position = newPosition;
         playerBehaviour.movements--;
+        playerBehaviour.PrintStats();
     }
 
     private Vector3 GetNewPosition(Vector2 moveVector)

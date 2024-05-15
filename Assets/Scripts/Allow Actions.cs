@@ -12,12 +12,13 @@ public class AllowActions : MonoBehaviour
 
     private GameObject activePlayer;
     private PlayerBehaviour playerBehaviour;
+    private PlayerBehaviour clickedPlayerBehaviour;
 
     private void OnEnable()
     {
         activePlayer = playerActivator.activePlayer;
         playerBehaviour = activePlayer.GetComponent<PlayerBehaviour>();
-        PlayerBehaviour clickedPlayerBehaviour = InformationRetriever.Instance.clickedPlayer.GetComponent<PlayerBehaviour>();
+        clickedPlayerBehaviour = InformationRetriever.Instance.clickedPlayer.GetComponent<PlayerBehaviour>();
         
         healButton.interactable = true;
         meleeAttackButton.interactable = true;
@@ -32,6 +33,7 @@ public class AllowActions : MonoBehaviour
         {
             meleeAttackButton.interactable = false;
             rangeAttackButton.interactable = false;
+            healButton.interactable = true;
         }
         
         if (!playerBehaviour.canRangeAttack)
@@ -47,42 +49,19 @@ public class AllowActions : MonoBehaviour
 
     public void Heal()
     {
-        activePlayer = playerActivator.activePlayer;
-        PlayerBehaviour activePlayerBehaviour = activePlayer.GetComponent<PlayerBehaviour>();
-        PlayerBehaviour clickedPlayerBehaviour = InformationRetriever.Instance.clickedPlayer.GetComponent<PlayerBehaviour>();
-        clickedPlayerBehaviour.currentHealth += activePlayerBehaviour.heal;
-        if (clickedPlayerBehaviour.currentHealth > clickedPlayerBehaviour.maxHealth)
-        {
-            clickedPlayerBehaviour.currentHealth = clickedPlayerBehaviour.maxHealth;
-        }
+        clickedPlayerBehaviour.Heal(playerBehaviour.heal);
         gameObject.SetActive(false);
     }
 
     public void MeleeAttack()
     {
-        activePlayer = playerActivator.activePlayer;
-        PlayerBehaviour activePlayerBehaviour = activePlayer.GetComponent<PlayerBehaviour>();
-        PlayerBehaviour clickedPlayerBehaviour = InformationRetriever.Instance.clickedPlayer.GetComponent<PlayerBehaviour>();
-        clickedPlayerBehaviour.currentHealth -= activePlayerBehaviour.meleeAttack;
-        if (clickedPlayerBehaviour.currentHealth <= 0)
-        {
-            clickedPlayerBehaviour.currentHealth = 0;
-            InformationRetriever.Instance.clickedPlayer.SetActive(false);
-        }
+        clickedPlayerBehaviour.RecieveDamage(playerBehaviour.meleeAttack);
         gameObject.SetActive(false);
     }
 
     public void RangeAttack()
     {
-        activePlayer = playerActivator.activePlayer;
-        PlayerBehaviour activePlayerBehaviour = activePlayer.GetComponent<PlayerBehaviour>();
-        PlayerBehaviour clickedPlayerBehaviour = InformationRetriever.Instance.clickedPlayer.GetComponent<PlayerBehaviour>();
-        clickedPlayerBehaviour.currentHealth -= activePlayerBehaviour.rangeAttack;
-        if (clickedPlayerBehaviour.currentHealth <= 0)
-        {
-            clickedPlayerBehaviour.currentHealth = 0;
-            InformationRetriever.Instance.clickedPlayer.SetActive(false);
-        }
+        clickedPlayerBehaviour.RecieveDamage(playerBehaviour.rangeAttack);
         gameObject.SetActive(false);
     }
 }

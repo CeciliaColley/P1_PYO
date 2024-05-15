@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -21,7 +23,11 @@ public class PlayerBehaviour : MonoBehaviour
 
     [SerializeField] private PlayerActivator playerActivator;
     [SerializeField] private GameObject optionsPanel;
-    
+    [SerializeField] private GameObject statsText;
+    [SerializeField] private string playerDisplay;
+    [SerializeField] private string currentHealthDisplay;
+    [SerializeField] private string movementsDisplay;
+
     private BoardInformation boardInformation;
     private GameObject activePlayer;
     
@@ -37,7 +43,71 @@ public class PlayerBehaviour : MonoBehaviour
         boardInformation = InformationRetriever.Instance.boardInformation;
         PositionPlayerRandomly();
         currentHealth = maxHealth;
+        PrintStats();
 
+    }
+
+    public void PrintStats()
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.Append(playerDisplay);
+        stringBuilder.Append(currentHealthDisplay);
+        stringBuilder.Append(currentHealth);
+        stringBuilder.Append(movementsDisplay);
+        stringBuilder.Append(movements);
+
+        TextMeshProUGUI textMeshPro = statsText.GetComponent<TextMeshProUGUI>();
+        if ( textMeshPro == null)
+        {
+            Debug.Log("Couldn't find a text mesh component.");
+        }
+        textMeshPro.text = stringBuilder.ToString();
+    }
+
+    public void InteractIfInRange()
+    {
+        InformationRetriever.Instance.clickedPlayer = gameObject;
+        activePlayer = playerActivator.activePlayer;
+        PlayerBehaviour activePlayerBehaviour = activePlayer.GetComponent<PlayerBehaviour>();
+
+        if (optionsPanel.activeSelf)
+        {
+            optionsPanel.SetActive(false);
+        }
+        
+        if (!(Vector3.Distance(transform.position, activePlayer.transform.position) > boardInformation.maxInteractionDistance))
+        {
+            optionsPanel.transform.position = Camera.main.WorldToScreenPoint(transform.position);
+            clickedPlayerIsAdyacent = true;
+            optionsPanel.SetActive(true);
+        }
+        else if (activePlayerBehaviour.canRangeAttack)
+        {
+
+            optionsPanel.transform.position = Camera.main.WorldToScreenPoint(transform.position);
+            optionsPanel.SetActive(true);
+        }
+    }
+
+    public void Heal(int healAmount)
+    {
+        currentHealth += healAmount;
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        PrintStats();
+    }
+
+    public void RecieveDamage(int damageAmount)
+    {
+        currentHealth -= damageAmount;
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+            gameObject.SetActive(false);
+        }
+        PrintStats();
     }
 
     private void PositionPlayerRandomly()
@@ -70,27 +140,5 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
         return false;
-    }
-
-    public void InteractIfInRange()
-    {
-        if (optionsPanel.activeSelf)
-        {
-            optionsPanel .SetActive(false);
-        }
-        InformationRetriever.Instance.clickedPlayer = gameObject;
-        activePlayer = playerActivator.activePlayer;
-        PlayerBehaviour activePlayerBehaviour = activePlayer.GetComponent<PlayerBehaviour>();
-        if (!(Vector3.Distance(transform.position, activePlayer.transform.position) > boardInformation.maxInteractionDistance))
-        {
-            optionsPanel.transform.position = Camera.main.WorldToScreenPoint(transform.position);
-            clickedPlayerIsAdyacent = true;
-            optionsPanel.SetActive(true);
-        }
-        else if (activePlayerBehaviour.canRangeAttack)
-        {
-            optionsPanel.transform.position = Camera.main.WorldToScreenPoint(transform.position);
-            optionsPanel.SetActive(true);
-        }
     }
 }
