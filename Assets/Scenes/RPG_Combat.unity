@@ -1072,8 +1072,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11cbf26787cc5df4e9495658ea88ace3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardInformationSOName: BoardInformation
+  boardSOName: BoardInformation
+  rangeSOName: RangeInformation
+  healerSOName: HealerInformation
+  fighterSOName: FighterInformation
+  enemySOName: EnemyInformation
   boardInformation: {fileID: 0}
+  rangeInformation: {fileID: 0}
+  healerInformation: {fileID: 0}
+  fighterInformation: {fileID: 0}
+  enemyInformation: {fileID: 0}
 --- !u!4 &420798145
 Transform:
   m_ObjectHideFlags: 0

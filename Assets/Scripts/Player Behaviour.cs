@@ -4,21 +4,31 @@ using UnityEngine;
 
 public class PlayerBehaviour : MonoBehaviour
 {
-    [SerializeField] private PlayerActivator gameManager;
-    [SerializeField] private bool isHealer = false;
-    [SerializeField] private bool isFighter = false;
-    [SerializeField] private bool isRange = false;
+    public bool isHealer = false;
+    public bool isFighter = false;
+    public bool isRange = false;
+    
+    [SerializeField] private PlayerActivator playerActivator;
+    
     private BoardInformation boardInformation;
+    public int health;
+    public int movements;
+    public int meleeAttack;
+    public int rangeAttack;
+    public int heal;
+    public bool canRangeAttack;
+    public bool canCureOthers;
 
     void Awake()
     {
-        gameManager.activePlayers.Add(gameObject);
+        playerActivator.activePlayers.Add(gameObject);
     }
 
     private void Start()
     {
         boardInformation = InformationRetriever.Instance.boardInformation;
         PositionPlayerRandomly();
+
     }
 
     private void PositionPlayerRandomly()
@@ -43,7 +53,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public bool IsPositionOccupied(Vector3 position)
     {
-        foreach (GameObject player in gameManager.activePlayers)
+        foreach (GameObject player in playerActivator.activePlayers)
         {
             if (player != gameObject && Vector3.Distance(player.transform.position, position) < 0.01f)
             {

@@ -4,8 +4,16 @@ using UnityEngine;
 
 public class InformationRetriever : MonoBehaviour
 {
-    [SerializeField] private string boardInformationSOName;
+    public string boardSOName;
+    public string rangeSOName;
+    public string healerSOName;
+    public string fighterSOName;
+    public string enemySOName;
     public BoardInformation boardInformation;
+    public RangeInformation rangeInformation;
+    public HealerInformation healerInformation;
+    public FighterInformation fighterInformation;
+    public EnemyInformation enemyInformation;
 
     private static InformationRetriever instance;
     public static InformationRetriever Instance => instance ?? (instance = FindFirstObjectByType<InformationRetriever>());
@@ -22,16 +30,20 @@ public class InformationRetriever : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
 
-        GetBoardInformation();
+        GetInformation(ref boardInformation, boardSOName);
+        GetInformation(ref rangeInformation, rangeSOName);
+        GetInformation(ref healerInformation, healerSOName);
+        GetInformation(ref fighterInformation, fighterSOName);
+        GetInformation(ref enemyInformation, enemySOName);
     }
 
-    public void GetBoardInformation()
+    public void GetInformation<T>(ref T information, string resourceName) where T : ScriptableObject
     {
-        if (boardInformation != null)
+        if (information != null)
         {
-            Destroy(boardInformation);
+            Destroy(information);
         }
-        var reference = Resources.Load<BoardInformation>("Scriptable Objects/" + boardInformationSOName);
-        boardInformation = reference;
+        var reference = Resources.Load<T>("Scriptable Objects/" + resourceName);
+        information = reference;
     }
 }
