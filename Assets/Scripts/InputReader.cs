@@ -10,6 +10,5 @@ public class InputReader : MonoBehaviour
     public void HandleMovementInput(InputAction.CallbackContext ctx)
     {
         onMovementInput.Invoke(ctx.ReadValue<Vector2>(), ctx.phase);
-        Debug.Log("HandleMovementInput");
     }
 }

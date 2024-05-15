@@ -54,9 +54,11 @@ public class GameManager : MonoBehaviour
 
     private void PassActivePlayer(Vector2 movementInput, InputActionPhase phase)
     {
-        Debug.Log("PassingPlayer");
-        movement.activePlayer = activePlayer;
-        movement.OnMove(movementInput);
+        if (phase == InputActionPhase.Performed)
+        {
+            movement.activePlayer = activePlayer;
+            movement.Move(movementInput);
+        }
     }
 
 }

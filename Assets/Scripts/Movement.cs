@@ -7,7 +7,6 @@ public class Movement : MonoBehaviour
 {
     [SerializeField] private string boardInformationSOName;
 
-    //private MovementInputAction movement;
     private Vector2 moveInput;
     private BoardInformation boardInformation;
 
@@ -15,25 +14,11 @@ public class Movement : MonoBehaviour
 
     private void Awake()
     {
-        //movement = new MovementInputAction();
         GetBoardInformation(boardInformationSOName);
     }
 
-    //private void OnEnable()
-    //{
-    //    movement.AM_Movement.Move.performed += OnMove;
-    //    movement.AM_Movement.Enable();
-    //}
-
-    //private void OnDisable()
-    //{
-    //    movement.AM_Movement.Move.performed -= OnMove;
-    //    movement.AM_Movement.Disable();
-    //}
-
-    public void OnMove(Vector2 moveVector)
+    public void Move(Vector2 moveVector)
     {
-        Debug.Log("Moving");
         setMovementDirectionAndLength(moveVector);
         Vector3 newPosition = activePlayer.transform.position + new Vector3(moveInput.x, moveInput.y, 0);
         newPosition.x = Mathf.Clamp(newPosition.x, boardInformation.lowestTilesY, boardInformation.boardWidth);

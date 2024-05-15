@@ -1233,6 +1233,7 @@ GameObject:
   - component: {fileID: 524348082}
   - component: {fileID: 524348083}
   - component: {fileID: 524348084}
+  - component: {fileID: 524348085}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -1298,8 +1299,53 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardInformationSOName: BoardInformation
-  inputReader: {fileID: 0}
   activePlayers: []
+--- !u!114 &524348085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524348080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 38b6bbe64ca3bf747ad01439ee7870dc, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 524348083}
+        m_TargetAssemblyTypeName: InputReader, Assembly-CSharp
+        m_MethodName: HandleMovementInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8157def3-211f-4aad-8331-9aa1f7170630
+    m_ActionName: 'AM_Movement/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: AM_Movement
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &571038481
 GameObject:
   m_ObjectHideFlags: 0
@@ -1588,7 +1634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaabf8e13ddf4184d98455a4926bb97e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 524348084}
 --- !u!1 &631590072
 GameObject:
   m_ObjectHideFlags: 0
@@ -2246,7 +2292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaabf8e13ddf4184d98455a4926bb97e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 524348084}
 --- !u!1 &717943949
 GameObject:
   m_ObjectHideFlags: 0
@@ -2856,7 +2902,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaabf8e13ddf4184d98455a4926bb97e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 524348084}
 --- !u!1 &907294096
 GameObject:
   m_ObjectHideFlags: 0
@@ -3042,7 +3088,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaabf8e13ddf4184d98455a4926bb97e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 524348084}
 --- !u!1 &947752847
 GameObject:
   m_ObjectHideFlags: 0
@@ -3834,7 +3880,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaabf8e13ddf4184d98455a4926bb97e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 524348084}
 --- !u!1 &1369051928
 GameObject:
   m_ObjectHideFlags: 0
