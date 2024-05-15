@@ -9,6 +9,5 @@ public class BoardInformation : ScriptableObject
     [SerializeField] public int lowestTilesY = 1;
     [SerializeField] public int leftmostTilesX = 1;
     [SerializeField] public int playerAmount = 5;
-    
     [SerializeField] public bool tileSharingAllowed = false;
 }

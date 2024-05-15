@@ -5,16 +5,14 @@ using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour
 {
-    [SerializeField] private string boardInformationSOName;
-
     private Vector2 moveInput;
     private BoardInformation boardInformation;
 
     public GameObject activePlayer; // Referenced by Game Manager when Game Manager assigns it's value.
 
-    private void Awake()
+    private void Start()
     {
-        GetBoardInformation(boardInformationSOName);
+        boardInformation = InformationRetriever.Instance.boardInformation;
     }
 
     public void Move(Vector2 moveVector)
@@ -38,15 +36,5 @@ public class Movement : MonoBehaviour
             moveInput = new Vector2(0, inputVector.y);
             moveInput.y = Mathf.Round(moveInput.y) * boardInformation.playerStepLength;
         }
-    }
-
-    private void GetBoardInformation(string scriptableObjectName)
-    {
-        if (boardInformation != null)
-        {
-            Destroy(boardInformation);
-        }
-        var reference = Resources.Load<BoardInformation>("Scriptable Objects/" + scriptableObjectName);
-        boardInformation = reference;
     }
 }
