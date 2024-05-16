@@ -1034,7 +1034,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 420798145}
-  - component: {fileID: 420798144}
+  - component: {fileID: 420798146}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -1042,7 +1042,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &420798144
+--- !u!4 &420798145
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 420798143}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8.957109, y: 6.992045, z: -0.06706433}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &420798146
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1051,7 +1066,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 420798143}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11cbf26787cc5df4e9495658ea88ace3, type: 3}
+  m_Script: {fileID: 11500000, guid: 1324d3feb66b2624a95be7dea3975aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerActivator: {fileID: 524348084}
@@ -1073,21 +1088,6 @@ MonoBehaviour:
   fighterInformation: {fileID: 0}
   enemyInformation: {fileID: 0}
   clickedPlayer: {fileID: 0}
---- !u!4 &420798145
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 420798143}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.957109, y: 6.992045, z: -0.06706433}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &491760265
 GameObject:
   m_ObjectHideFlags: 0
@@ -1293,7 +1293,6 @@ GameObject:
   m_Component:
   - component: {fileID: 524348081}
   - component: {fileID: 524348083}
-  - component: {fileID: 524348082}
   - component: {fileID: 524348084}
   - component: {fileID: 524348086}
   - component: {fileID: 524348085}
@@ -1323,19 +1322,6 @@ Transform:
   - {fileID: 1139927625}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &524348082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 524348080}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae09192cb396a9e448131d921f68ad04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  optionsPanel: {fileID: 994889457}
 --- !u!114 &524348083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2256,22 +2242,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaabf8e13ddf4184d98455a4926bb97e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 1464729245}
-  isHealer: 0
-  isFighter: 0
-  isRange: 1
   maxHealth: 0
   maxMovements: 0
+  maxActions: 0
   movements: 0
   meleeAttack: 0
   rangeAttack: 0
   heal: 0
-  canRangeAttack: 0
+  canRangeAttack: 1
   canHealOthers: 0
-  clickedPlayerIsAdyacent: 0
-  acted: 0
+  isHealer: 0
+  isFighter: 0
+  isRange: 1
+  characterCanvas: {fileID: 1464729245}
+  clickedCharacterIsAdyacent: 0
   currentHealth: 0
-  playerDisplay: Range
+  actionsLeft: 0
+  characterName: Range
   playerActivator: {fileID: 524348084}
   optionsPanel: {fileID: 994889457}
   statsText: {fileID: 1451665149}
@@ -2295,8 +2282,8 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 599381952}
-          m_TargetAssemblyTypeName: PlayerBehaviour, Assembly-CSharp
-          m_MethodName: InteractIfInRange
+          m_TargetAssemblyTypeName: CharacterBehaviour, Assembly-CSharp
+          m_MethodName: OnInteractedWith
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -3003,22 +2990,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaabf8e13ddf4184d98455a4926bb97e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 788817804}
-  isHealer: 0
-  isFighter: 0
-  isRange: 0
   maxHealth: 0
   maxMovements: 0
+  maxActions: 0
   movements: 0
   meleeAttack: 0
   rangeAttack: 0
   heal: 0
   canRangeAttack: 0
   canHealOthers: 0
-  clickedPlayerIsAdyacent: 0
-  acted: 0
+  isHealer: 0
+  isFighter: 0
+  isRange: 0
+  characterCanvas: {fileID: 788817804}
+  clickedCharacterIsAdyacent: 0
   currentHealth: 0
-  playerDisplay: Purple Enemy
+  actionsLeft: 0
+  characterName: Purple Enemy
   playerActivator: {fileID: 524348084}
   optionsPanel: {fileID: 994889457}
   statsText: {fileID: 638505779}
@@ -3042,8 +3030,8 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 708806176}
-          m_TargetAssemblyTypeName: PlayerBehaviour, Assembly-CSharp
-          m_MethodName: InteractIfInRange
+          m_TargetAssemblyTypeName: CharacterBehaviour, Assembly-CSharp
+          m_MethodName: OnInteractedWith
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -3778,22 +3766,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaabf8e13ddf4184d98455a4926bb97e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 777441732}
-  isHealer: 0
-  isFighter: 0
-  isRange: 0
   maxHealth: 0
   maxMovements: 0
+  maxActions: 0
   movements: 0
   meleeAttack: 0
   rangeAttack: 0
   heal: 0
   canRangeAttack: 0
   canHealOthers: 0
-  clickedPlayerIsAdyacent: 0
-  acted: 0
+  isHealer: 0
+  isFighter: 0
+  isRange: 0
+  characterCanvas: {fileID: 777441732}
+  clickedCharacterIsAdyacent: 0
   currentHealth: 0
-  playerDisplay: Red Enemy
+  actionsLeft: 0
+  characterName: Red Enemy
   playerActivator: {fileID: 524348084}
   optionsPanel: {fileID: 994889457}
   statsText: {fileID: 638069750}
@@ -3817,8 +3806,8 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 885225484}
-          m_TargetAssemblyTypeName: PlayerBehaviour, Assembly-CSharp
-          m_MethodName: InteractIfInRange
+          m_TargetAssemblyTypeName: CharacterBehaviour, Assembly-CSharp
+          m_MethodName: OnInteractedWith
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -4052,22 +4041,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaabf8e13ddf4184d98455a4926bb97e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 149601365}
-  isHealer: 1
-  isFighter: 0
-  isRange: 0
   maxHealth: 0
   maxMovements: 0
+  maxActions: 0
   movements: 0
   meleeAttack: 0
   rangeAttack: 0
   heal: 0
-  canRangeAttack: 0
-  canHealOthers: 0
-  clickedPlayerIsAdyacent: 0
-  acted: 0
+  canRangeAttack: 1
+  canHealOthers: 1
+  isHealer: 1
+  isFighter: 0
+  isRange: 0
+  characterCanvas: {fileID: 149601365}
+  clickedCharacterIsAdyacent: 0
   currentHealth: 0
-  playerDisplay: Healer
+  actionsLeft: 0
+  characterName: Healer
   playerActivator: {fileID: 524348084}
   optionsPanel: {fileID: 994889457}
   statsText: {fileID: 1634729044}
@@ -4091,8 +4081,8 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 941165540}
-          m_TargetAssemblyTypeName: PlayerBehaviour, Assembly-CSharp
-          m_MethodName: InteractIfInRange
+          m_TargetAssemblyTypeName: CharacterBehaviour, Assembly-CSharp
+          m_MethodName: OnInteractedWith
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -5293,22 +5283,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaabf8e13ddf4184d98455a4926bb97e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 1543097343}
-  isHealer: 0
-  isFighter: 1
-  isRange: 0
   maxHealth: 0
   maxMovements: 0
+  maxActions: 0
   movements: 0
   meleeAttack: 0
   rangeAttack: 0
   heal: 0
   canRangeAttack: 0
   canHealOthers: 0
-  clickedPlayerIsAdyacent: 0
-  acted: 0
+  isHealer: 0
+  isFighter: 1
+  isRange: 0
+  characterCanvas: {fileID: 1543097343}
+  clickedCharacterIsAdyacent: 0
   currentHealth: 0
-  playerDisplay: Fighter
+  actionsLeft: 0
+  characterName: Fighter
   playerActivator: {fileID: 524348084}
   optionsPanel: {fileID: 994889457}
   statsText: {fileID: 947752847}
@@ -5332,8 +5323,8 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1285768709}
-          m_TargetAssemblyTypeName: PlayerBehaviour, Assembly-CSharp
-          m_MethodName: InteractIfInRange
+          m_TargetAssemblyTypeName: CharacterBehaviour, Assembly-CSharp
+          m_MethodName: OnInteractedWith
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -6327,7 +6318,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 420798144}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InformationRetriever, Assembly-CSharp
         m_MethodName: EndTurn
         m_Mode: 1
@@ -6549,7 +6540,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -0.000011086, y: -59.2}
+  m_AnchoredPosition: {x: -0.000011086, y: -59.19995}
   m_SizeDelta: {x: 376.7406, y: 57.21393}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1505961403
@@ -7630,7 +7621,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -21.2, y: -0.000020980835}
+  m_AnchoredPosition: {x: -21.199951, y: -0.000020980835}
   m_SizeDelta: {x: 158.0669, y: 92.298}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1799437141

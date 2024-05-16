@@ -16,7 +16,7 @@ public class Movement : MonoBehaviour
     private void Start()
     {
         playerActivator = GetComponent<PlayerActivator>();
-        boardInformation = InformationRetriever.Instance.boardInformation;
+        boardInformation = GameManager.Instance.boardInformation;
         inputReader = gameObject.GetComponent<InputReader>();
         inputReader.onMovementInput += OnMovementInputPerformed;
     }
@@ -33,7 +33,7 @@ public class Movement : MonoBehaviour
     {
         activePlayer = playerActivator.activePlayer;
         Vector3 newPosition = GetNewPosition(movementInput);
-        PlayerBehaviour playerBehaviour = activePlayer.GetComponent<PlayerBehaviour>();
+        CharacterBehaviour playerBehaviour = activePlayer.GetComponent<CharacterBehaviour>();
         if (playerBehaviour.IsPositionOccupied(newPosition) || playerBehaviour.movements <= 0)
         {
             return;
@@ -41,9 +41,9 @@ public class Movement : MonoBehaviour
         activePlayer.transform.position = newPosition;
         playerBehaviour.movements--;
         playerBehaviour.PrintStats();
-        if (playerBehaviour.movements == 0 && playerBehaviour.acted)
+        if (playerBehaviour.movements == 0 && playerBehaviour.actionsLeft < 0)
         {
-            InformationRetriever.Instance.EndTurn();
+            GameManager.Instance.EndTurn();
         }
     }
 

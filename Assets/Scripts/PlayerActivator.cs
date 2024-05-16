@@ -17,8 +17,8 @@ public class PlayerActivator : MonoBehaviour
     private void Start()
     {
         activePlayer = activePlayers.First();
-        PlayerBehaviour playerBehaviour= activePlayer.GetComponent<PlayerBehaviour>();
-        activePlayerBox.transform.position = playerBehaviour.canvas.transform.position;
+        CharacterBehaviour playerBehaviour= activePlayer.GetComponent<CharacterBehaviour>();
+        activePlayerBox.transform.position = playerBehaviour.characterCanvas.transform.position;
     }
 
 }

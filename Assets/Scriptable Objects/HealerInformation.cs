@@ -4,6 +4,7 @@ using UnityEngine;
 public class HealerInformation : ScriptableObject
 {
     public int health = 15;
+    public int maxActions = 1;
     public int movements = 2;
     public int meleeAttack = 2;
     public int rangeAttack = 2;
