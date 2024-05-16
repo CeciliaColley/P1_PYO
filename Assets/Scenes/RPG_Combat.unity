@@ -1296,6 +1296,7 @@ GameObject:
   - component: {fileID: 524348084}
   - component: {fileID: 524348086}
   - component: {fileID: 524348085}
+  - component: {fileID: 524348087}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -1408,6 +1409,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04b20c6fed5a04044b87352d8a4b43e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &524348087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524348080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae09192cb396a9e448131d921f68ad04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  optionsPanel: {fileID: 994889457}
 --- !u!1 &529837745
 GameObject:
   m_ObjectHideFlags: 0
@@ -2151,9 +2165,9 @@ GameObject:
   m_Component:
   - component: {fileID: 599381951}
   - component: {fileID: 599381950}
-  - component: {fileID: 599381952}
   - component: {fileID: 599381954}
   - component: {fileID: 599381953}
+  - component: {fileID: 599381955}
   m_Layer: 0
   m_Name: Range
   m_TagString: Untagged
@@ -2230,40 +2244,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 757265375}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &599381952
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 599381949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aaabf8e13ddf4184d98455a4926bb97e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 0
-  maxMovements: 0
-  maxActions: 0
-  movements: 0
-  meleeAttack: 0
-  rangeAttack: 0
-  heal: 0
-  canRangeAttack: 1
-  canHealOthers: 0
-  isHealer: 0
-  isFighter: 0
-  isRange: 1
-  characterCanvas: {fileID: 1464729245}
-  clickedCharacterIsAdyacent: 0
-  currentHealth: 0
-  actionsLeft: 0
-  characterName: Range
-  playerActivator: {fileID: 524348084}
-  optionsPanel: {fileID: 994889457}
-  statsText: {fileID: 1451665149}
-  currentHealthDisplay: '\r\nCurrent health: '
-  movementsDisplay: '\r\nMovements left: '
 --- !u!114 &599381953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2281,7 +2261,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 599381952}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: CharacterBehaviour, Assembly-CSharp
           m_MethodName: OnInteractedWith
           m_Mode: 1
@@ -2330,6 +2310,40 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.86499995}
   m_Size: {x: 1.0199999, y: 1.7299999}
   m_Direction: 0
+--- !u!114 &599381955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599381949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaabf8e13ddf4184d98455a4926bb97e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 0
+  maxMovements: 0
+  maxActions: 0
+  movements: 0
+  meleeAttack: 0
+  rangeAttack: 0
+  heal: 0
+  canRangeAttack: 0
+  canHealOthers: 0
+  characterCanvas: {fileID: 1543097343}
+  clickedCharacterIsAdyacent: 0
+  currentHealth: 0
+  actionsLeft: 0
+  characterName: Fighter
+  playerActivator: {fileID: 524348084}
+  optionsPanel: {fileID: 994889457}
+  statsText: {fileID: 947752847}
+  currentHealthDisplay: '\r\nMovements left: '
+  movementsDisplay: '\r\nMovements left: '
+  isHealer: 0
+  isFighter: 1
+  isRange: 0
 --- !u!1 &628695660
 GameObject:
   m_ObjectHideFlags: 0
@@ -2999,9 +3013,6 @@ MonoBehaviour:
   heal: 0
   canRangeAttack: 0
   canHealOthers: 0
-  isHealer: 0
-  isFighter: 0
-  isRange: 0
   characterCanvas: {fileID: 788817804}
   clickedCharacterIsAdyacent: 0
   currentHealth: 0
@@ -3012,6 +3023,9 @@ MonoBehaviour:
   statsText: {fileID: 638505779}
   currentHealthDisplay: '\r\nCurrent health: '
   movementsDisplay: '\r\nMovements left: '
+  isHealer: 0
+  isFighter: 0
+  isRange: 0
 --- !u!114 &708806177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3775,9 +3789,6 @@ MonoBehaviour:
   heal: 0
   canRangeAttack: 0
   canHealOthers: 0
-  isHealer: 0
-  isFighter: 0
-  isRange: 0
   characterCanvas: {fileID: 777441732}
   clickedCharacterIsAdyacent: 0
   currentHealth: 0
@@ -3788,6 +3799,9 @@ MonoBehaviour:
   statsText: {fileID: 638069750}
   currentHealthDisplay: '\r\nCurrent health: '
   movementsDisplay: '\r\nMovements left: '
+  isHealer: 0
+  isFighter: 0
+  isRange: 0
 --- !u!114 &885225485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4048,11 +4062,8 @@ MonoBehaviour:
   meleeAttack: 0
   rangeAttack: 0
   heal: 0
-  canRangeAttack: 1
-  canHealOthers: 1
-  isHealer: 1
-  isFighter: 0
-  isRange: 0
+  canRangeAttack: 0
+  canHealOthers: 0
   characterCanvas: {fileID: 149601365}
   clickedCharacterIsAdyacent: 0
   currentHealth: 0
@@ -4063,6 +4074,9 @@ MonoBehaviour:
   statsText: {fileID: 1634729044}
   currentHealthDisplay: '\r\nCurrent health: '
   movementsDisplay: '\r\nMovements left: '
+  isHealer: 1
+  isFighter: 0
+  isRange: 0
 --- !u!114 &941165541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5292,9 +5306,6 @@ MonoBehaviour:
   heal: 0
   canRangeAttack: 0
   canHealOthers: 0
-  isHealer: 0
-  isFighter: 1
-  isRange: 0
   characterCanvas: {fileID: 1543097343}
   clickedCharacterIsAdyacent: 0
   currentHealth: 0
@@ -5303,8 +5314,11 @@ MonoBehaviour:
   playerActivator: {fileID: 524348084}
   optionsPanel: {fileID: 994889457}
   statsText: {fileID: 947752847}
-  currentHealthDisplay: '\r\nCurrent Life: '
+  currentHealthDisplay: '\r\nMovements left: '
   movementsDisplay: '\r\nMovements left: '
+  isHealer: 0
+  isFighter: 1
+  isRange: 0
 --- !u!114 &1285768710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6298,7 +6312,7 @@ MonoBehaviour:
     m_NormalColor: {r: 0.1856341, g: 0.44321817, b: 0.19207373, a: 1}
     m_HighlightedColor: {r: 1, g: 0.9940895, b: 0, a: 1}
     m_PressedColor: {r: 0.18431373, g: 0.44313726, b: 0.19215687, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.18431373, g: 0.44313726, b: 0.19215687, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -6318,8 +6332,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: InformationRetriever, Assembly-CSharp
+      - m_Target: {fileID: 420798146}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: EndTurn
         m_Mode: 1
         m_Arguments:

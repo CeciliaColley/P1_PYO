@@ -23,23 +23,25 @@ public class CharacterBehaviour : MonoBehaviour
     public int heal;
     public bool canRangeAttack;
     public bool canHealOthers;
-    public bool isHealer = false;
-    public bool isFighter = false;
-    public bool isRange = false;
-
+    
     // Variables shared for interactions betweens characters
     [SerializeField] public GameObject characterCanvas;
     [SerializeField] public bool clickedCharacterIsAdyacent;
     [SerializeField] public int currentHealth;
     [SerializeField] public int actionsLeft;
     [SerializeField] public string characterName;
-    
+
     // Private variables for self management
     [SerializeField] public PlayerActivator playerActivator;
     [SerializeField] private GameObject optionsPanel;
     [SerializeField] private GameObject statsText;
     [SerializeField] private string currentHealthDisplay;
     [SerializeField] private string movementsDisplay;
+
+    public bool isHealer = false;
+    public bool isFighter = false;
+    public bool isRange = false;
+
 
     // Players add themsleves to the active players list when the game powers up.
     // Initialization happens in Start, and requires the active player list to already be populated
@@ -50,8 +52,8 @@ public class CharacterBehaviour : MonoBehaviour
 
     private void Start()
     {
-        PrintStats();
         InitializeProtectedVariables();
+        PrintStats();
     }
 
     private void InitializeProtectedVariables()

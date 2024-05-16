@@ -31,12 +31,12 @@ public class Initializer : MonoBehaviour
         foreach (GameObject player in playerActivator.activePlayers)
         {
             CharacterBehaviour playerBehaviour = player.GetComponent<CharacterBehaviour>();
-            if (playerBehaviour.canHealOthers && playerBehaviour.canRangeAttack)
+            if (playerBehaviour.isHealer)
             {
                 HealerInformation healerInformation = GameManager.Instance.healerInformation;
                 SetVariables(playerBehaviour, healerInformation);
             }
-            else if (!playerBehaviour.canHealOthers && !playerBehaviour.canRangeAttack)
+            else if (playerBehaviour.isFighter)
             {
                 FighterInformation fighterInformation = GameManager.Instance.fighterInformation;
                 SetVariables(playerBehaviour, fighterInformation);
