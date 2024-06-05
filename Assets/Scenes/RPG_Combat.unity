@@ -967,6 +967,7 @@ MonoBehaviour:
   - {fileID: 885225487}
   - {fileID: 708806179}
   occupiedPositions: []
+  activeCharacter: {fileID: 0}
 --- !u!114 &420798147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2009,6 +2010,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 682b42af77c43cb43bd7733a651ee095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
   playerStatsPath: Player_Range
 --- !u!1 &628695660
 GameObject:
@@ -2724,7 +2726,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19a47212422132749ae1a01519244c05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
   enemyStatsPath: Enemy_Plum
+  target: {fileID: 0}
 --- !u!1 &727419036
 GameObject:
   m_ObjectHideFlags: 0
@@ -3468,7 +3472,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19a47212422132749ae1a01519244c05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
   enemyStatsPath: Enemy_Red
+  target: {fileID: 0}
 --- !u!114 &885225488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3482,7 +3488,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
-  gameManagerObject: {fileID: 420798143}
 --- !u!1 &907294096
 GameObject:
   m_ObjectHideFlags: 0
@@ -3724,6 +3729,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 682b42af77c43cb43bd7733a651ee095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
   playerStatsPath: Player_Healer
 --- !u!1 &947752847
 GameObject:
@@ -4672,6 +4678,7 @@ GameObject:
   - component: {fileID: 1285768711}
   - component: {fileID: 1285768710}
   - component: {fileID: 1285768712}
+  - component: {fileID: 1285768713}
   m_Layer: 0
   m_Name: Fighter
   m_TagString: Untagged
@@ -4814,7 +4821,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 682b42af77c43cb43bd7733a651ee095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
   playerStatsPath: Player_Tank
+--- !u!114 &1285768713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285768706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 454e4da95d1de754bbe7d93b697f3e83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 3
 --- !u!1 &1396466542
 GameObject:
   m_ObjectHideFlags: 0

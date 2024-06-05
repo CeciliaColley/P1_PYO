@@ -7,24 +7,23 @@ public class Enemy : Character
     [Tooltip("The path to the scriptable object that has the enemy's information.")]
     [SerializeField] private string enemyStatsPath;
 
+    public Player target;
+
     private void Start()
     {
         Initialize(enemyStatsPath);
+        characterMovement = GetComponent<EnemyMovement>();
     }
 
-    public Player DetermineTarget(GameManager gameManager)
+    public void DetermineTarget()
     {
-        var players = gameManager.activeCharacters.Where(character => character is Player).Cast<Player>();
+        var players = GameManager.Instance.activeCharacters.Where(character => character is Player).Cast<Player>();
 
         if (players.Any())
         {
-            Player target = players.OrderBy(player =>
+            Player _target = players.OrderBy(player =>
                 Vector2.Distance(this.transform.position, player.transform.position)).FirstOrDefault();
-            return target;
-        }
-        else
-        {
-            return null;
+            target = _target;
         }
     }
 }

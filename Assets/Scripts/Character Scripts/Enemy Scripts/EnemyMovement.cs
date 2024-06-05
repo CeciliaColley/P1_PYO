@@ -4,30 +4,15 @@ using System.Linq;
 
 public class EnemyMovement : MonoBehaviour, ICharacterMovement
 {
-    [Tooltip ("How many seconds the movement animation lasts.")]
+    [Tooltip ("Speed of the movement animation.")]
     [SerializeField] private float moveSpeed = 0.0f;
-    [Tooltip("The object with the game manager script and the board's rules.")]
-    [SerializeField] private GameObject gameManagerObject;
 
-    private GameManager gameManager;
-    private BoardRules boardRules;
     private Enemy enemy;
-
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            Move();
-        }
-    }
 
     private void Start()
     {
         enemy = GetComponent<Enemy>();
-        gameManager = gameManagerObject.GetComponent<GameManager>();
-        boardRules = gameManagerObject.GetComponent<BoardRules>();
-    }
-    
+    }    
     private BoardRules.Direction DetermineHorizontalDirection(Vector2 targetPosition)
     {
         return transform.position.x > targetPosition.x ? BoardRules.Direction.Left : BoardRules.Direction.Right;
@@ -38,8 +23,8 @@ public class EnemyMovement : MonoBehaviour, ICharacterMovement
     }
     private void PrioritizeDirections(Queue<BoardRules.Direction> directionQueue, Vector2 targetPosition, BoardRules.Direction horizontalDirection, BoardRules.Direction verticalDirection)
     {
-        Vector2 resultIfHorizontalMovement = enemy.GetDesiredCell(boardRules, horizontalDirection);
-        Vector2 resultIfVerticalMovement = enemy.GetDesiredCell(boardRules, verticalDirection);
+        Vector2 resultIfHorizontalMovement = enemy.GetDesiredCell(horizontalDirection);
+        Vector2 resultIfVerticalMovement = enemy.GetDesiredCell(verticalDirection);
 
         float distanceIfHorizontalMovement = Vector2.Distance(targetPosition, resultIfHorizontalMovement);
         float distanceIfVerticalMovement = Vector2.Distance(targetPosition, resultIfVerticalMovement);
@@ -75,24 +60,21 @@ public class EnemyMovement : MonoBehaviour, ICharacterMovement
 
         return directionQueue;
     }    
-    public void Move()
+    public void Move(Character character)
     {
-
-        Player target = enemy.DetermineTarget(gameManager);
-        Queue<BoardRules.Direction> movementQueue = CreateMovementQueue(target);
-        while (movementQueue.Count > 0)
+        for (int i = 0; i < character.speed; i++)
         {
-            BoardRules.Direction direction = movementQueue.Dequeue();
-            Vector2 desiredCell = enemy.GetDesiredCell(boardRules, direction);
-            if (boardRules.DesiredCellExists(desiredCell) && boardRules.DesiredCellIsEmpty(desiredCell))
+            enemy.DetermineTarget();
+            Queue<BoardRules.Direction> movementQueue = CreateMovementQueue(enemy.target);
+            while (movementQueue.Count > 0)
             {
-                Vector2 currentPosition = new Vector2(transform.position.x, transform.position.y);
-                gameManager.occupiedPositions.Remove(currentPosition);
-                gameManager.occupiedPositions.Add(desiredCell);
-
-                Vector3 newPosition = new Vector3(desiredCell.x, desiredCell.y, 0);
-                StartCoroutine(enemy.SlideToPosition(newPosition, moveSpeed));
-                break;
+                BoardRules.Direction direction = movementQueue.Dequeue();
+                Vector2 desiredCell = enemy.GetDesiredCell(direction);
+                if (BoardRules.Instance.DesiredCellExists(desiredCell) && BoardRules.Instance.DesiredCellIsEmpty(desiredCell))
+                {
+                    character.MoveTheCharacter(desiredCell, moveSpeed);
+                    break;
+                }
             }
         }
     }

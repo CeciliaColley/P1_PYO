@@ -6,21 +6,22 @@ public class BoardRules : MonoBehaviour
     [Tooltip("The path to the scriptable object that has the board's information.")]
     [SerializeField] private string boardInfoPath;
     private SO_Board boardInfo;
-    private GameManager gameManager;
 
     public enum Direction
-    { Left, Right, Up, Down, Static }
+    { Left, Right, Up, Down, Default }
+
+    public static BoardRules Instance;
 
 
     private void Awake()
     {
         boardInfo = Resources.Load<SO_Board>("ScriptableObjects/" + boardInfoPath);
-        gameManager = GetComponent<GameManager>();
+        Instance = this;
     }
 
     public bool DesiredCellIsEmpty(Vector2 position)
     {
-        if (!gameManager.occupiedPositions.Contains(position))
+        if (!GameManager.Instance.occupiedPositions.Contains(position))
         {
             return true;
         }
@@ -63,7 +64,7 @@ public class BoardRules : MonoBehaviour
             case (Direction.Right):
                 resultingPosition = new Vector2(currentPosition.x + boardInfo.stepLength, currentPosition.y);
                 break;
-            case (Direction.Static):
+            case (Direction.Default):
                 resultingPosition = currentPosition;
                 break;
             default:

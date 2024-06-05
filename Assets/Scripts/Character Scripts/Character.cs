@@ -5,15 +5,16 @@ using System.Collections;
 
 public class Character : MonoBehaviour
 {
+    public int speed;
     protected string characterName;
     protected int initialHealth;
-    protected int speed;
     protected int meleeAttackDamage;
     protected int rangedAttackDamage;
     protected int rangedAttackMaxRange;
     protected int healAmount;
     protected int healMaxRange;
     protected bool canHealOthers;
+    protected ICharacterMovement characterMovement { get; set; }
 
     public void Initialize(string characterStatsPath)
     {
@@ -36,10 +37,20 @@ public class Character : MonoBehaviour
             Debug.LogError("CharacterData not found at path: " + characterStatsPath);
         }
     }
-    public Vector2 GetDesiredCell(BoardRules boardRules, BoardRules.Direction direction)
+
+    public void MoveTheCharacter(Vector2 desiredCell, float moveSpeed)
+    {
+        Vector2 currentPosition = new Vector2(transform.position.x, transform.position.y);
+        GameManager.Instance.occupiedPositions.Remove(currentPosition);
+        GameManager.Instance.occupiedPositions.Add(desiredCell);
+
+        Vector3 newPosition = new Vector3(desiredCell.x, desiredCell.y, 0);
+        StartCoroutine(SlideToPosition(newPosition, moveSpeed));
+    }
+    public Vector2 GetDesiredCell(BoardRules.Direction direction)
     {
         Vector2 desiredPosition = new Vector2();
-        desiredPosition = boardRules.GetStepResult(gameObject, direction);
+        desiredPosition = BoardRules.Instance.GetStepResult(gameObject, direction);
         return desiredPosition;
     }
     public IEnumerator SlideToPosition(Vector3 position, float moveSpeed)
@@ -49,6 +60,15 @@ public class Character : MonoBehaviour
         {
             transform.position = Vector3.MoveTowards(transform.position, position, step);
             yield return null;
+        }
+    }
+
+
+    public void Move()
+    {
+        if (characterMovement != null)
+        {
+            characterMovement.Move(this);
         }
     }
 }

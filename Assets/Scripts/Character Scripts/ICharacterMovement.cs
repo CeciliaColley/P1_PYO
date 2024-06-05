@@ -1,4 +1,4 @@
 public interface ICharacterMovement
 {
-    void Move();
+    void Move(Character character);
 }

@@ -1,4 +1,5 @@
 
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -8,30 +9,29 @@ public class SetterUpper : MonoBehaviour
     [SerializeField] private string boardInfoPath;
     SO_Board boardInfo;
 
-    private GameManager gameManager;
-    private BoardRules boardRules;
-
     private void Awake()
     {
-        gameManager = GetComponent<GameManager>();
-        boardRules = GetComponent<BoardRules>();
         boardInfo = Resources.Load<SO_Board>("ScriptableObjects/" + boardInfoPath);
+    }
+
+    private void Start()
+    {
         PositionCharactersRandomly();
     }
 
     private void PositionCharactersRandomly()
     {
-        foreach (Character character in gameManager.activeCharacters)
+        foreach (Character character in GameManager.Instance.activeCharacters)
         {
             Vector2 position = GenerateRandomPosition();
 
-            while (!boardRules.DesiredCellIsEmpty(position))
+            while (!BoardRules.Instance.DesiredCellIsEmpty(position))
             {
                 position = GenerateRandomPosition();
             }
 
             character.transform.position = new Vector3(position.x, position.y, 0);
-            gameManager.occupiedPositions.Add(position);
+            GameManager.Instance.occupiedPositions.Add(position);
         }
     }
 

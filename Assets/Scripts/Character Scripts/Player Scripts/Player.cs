@@ -8,5 +8,6 @@ public class Player : Character
     private void Start()
     {
         Initialize(playerStatsPath);
+        characterMovement = GetComponent<PlayerMovement>();
     }
 }
