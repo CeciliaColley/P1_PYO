@@ -48,24 +48,20 @@ public class BoardRules : MonoBehaviour
 
     public Vector2 GetStepResult(GameObject character, Direction direction)
     {
-        Vector2 currentPosition = new Vector2(character.transform.position.x, character.transform.position.y);
         Vector2 resultingPosition = new Vector2(0,0);
         switch (direction)
         {
             case (Direction.Up):
-                resultingPosition = new Vector2(currentPosition.x,  currentPosition.y + boardInfo.stepLength);
+                resultingPosition = new Vector2(character.transform.position.x, character.transform.position.y + boardInfo.stepLength);
                 break;
             case (Direction.Down):
-                resultingPosition = new Vector2(currentPosition.x, currentPosition.y - boardInfo.stepLength);
+                resultingPosition = new Vector2(character.transform.position.x, character.transform.position.y - boardInfo.stepLength);
                 break;
             case (Direction.Left):
-                resultingPosition = new Vector2(currentPosition.x - boardInfo.stepLength, currentPosition.y);
+                resultingPosition = new Vector2(character.transform.position.x - boardInfo.stepLength, character.transform.position.y);
                 break;            
             case (Direction.Right):
-                resultingPosition = new Vector2(currentPosition.x + boardInfo.stepLength, currentPosition.y);
-                break;
-            case (Direction.Default):
-                resultingPosition = currentPosition;
+                resultingPosition = new Vector2(character.transform.position.x + boardInfo.stepLength, character.transform.position.y);
                 break;
             default:
                 Debug.LogError("No valid direction was registered by the Board Rules script");

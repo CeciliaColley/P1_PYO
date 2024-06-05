@@ -16,6 +16,8 @@ public class Character : MonoBehaviour
     protected bool canHealOthers;
     protected ICharacterMovement characterMovement { get; set; }
 
+    public bool isMoving = false;
+
     public void Initialize(string characterStatsPath)
     {
         SO_Character characterStats = Resources.Load<SO_Character>("ScriptableObjects/" + characterStatsPath);
@@ -55,11 +57,16 @@ public class Character : MonoBehaviour
     }
     public IEnumerator SlideToPosition(Vector3 position, float moveSpeed)
     {
-        float step = moveSpeed * Time.deltaTime;
-        while (transform.position != position)
+        if (isMoving == false)
         {
-            transform.position = Vector3.MoveTowards(transform.position, position, step);
-            yield return null;
+            isMoving = true;
+            float step = moveSpeed * Time.deltaTime;
+            while (transform.position != position)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, position, step);
+                yield return null;
+            }
+            isMoving = false;
         }
     }
 

@@ -1,7 +1,5 @@
 using UnityEngine.InputSystem;
 using UnityEngine;
-using UnityEditor.Experimental.GraphView;
-using System;
 
 public class PlayerMovement : MonoBehaviour, ICharacterMovement
 {
@@ -28,6 +26,7 @@ public class PlayerMovement : MonoBehaviour, ICharacterMovement
     private BoardRules.Direction GetDesiredDirection(InputAction.CallbackContext ctx)
     {
         Vector2 inputVector = ctx.ReadValue<Vector2>();
+
         if (inputVector == Vector2.up)
         {
             return BoardRules.Direction.Up;
@@ -52,12 +51,14 @@ public class PlayerMovement : MonoBehaviour, ICharacterMovement
 
     private void OnMovementPerformed(InputAction.CallbackContext ctx, Character character)
     {
-        BoardRules.Direction direction = GetDesiredDirection(ctx);
-        Debug.Log($"diection");
-        Vector2 desiredCell = character.GetDesiredCell(direction);
-        if ((BoardRules.Instance.DesiredCellExists(desiredCell) && BoardRules.Instance.DesiredCellIsEmpty(desiredCell)))
+        if ( character.isMoving == false)
         {
-            character.MoveTheCharacter(desiredCell, moveSpeed);
+            BoardRules.Direction direction = GetDesiredDirection(ctx);
+            Vector2 desiredCell = character.GetDesiredCell(direction);
+            if ((BoardRules.Instance.DesiredCellExists(desiredCell) && BoardRules.Instance.DesiredCellIsEmpty(desiredCell)))
+            {
+                character.MoveTheCharacter(desiredCell, moveSpeed);
+            }
         }
     }
 
