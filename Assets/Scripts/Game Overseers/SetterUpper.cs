@@ -13,15 +13,13 @@ public class SetterUpper : MonoBehaviour
     {
         boardInfo = Resources.Load<SO_Board>("ScriptableObjects/" + boardInfoPath);
     }
-
     private void Start()
     {
         PositionCharactersRandomly();
     }
-
     private void PositionCharactersRandomly()
     {
-        foreach (Character character in GameManager.Instance.activeCharacters)
+        foreach (Character character in CharacterTracker.Instance.activeCharacters)
         {
             Vector2 position = GenerateRandomPosition();
 
@@ -31,10 +29,9 @@ public class SetterUpper : MonoBehaviour
             }
 
             character.transform.position = new Vector3(position.x, position.y, 0);
-            GameManager.Instance.occupiedPositions.Add(position);
+            CharacterTracker.Instance.occupiedPositions.Add(position);
         }
     }
-
     private Vector2 GenerateRandomPosition()
     {
         int randomXStep = Random.Range(0, (int)boardInfo.horizontalCells);

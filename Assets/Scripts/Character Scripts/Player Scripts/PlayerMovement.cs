@@ -5,24 +5,16 @@ public class PlayerMovement : MonoBehaviour, ICharacterMovement
 {
     [Tooltip("Speed of the movement animation.")]
     [SerializeField] private float moveSpeed = 0.0f;
-    
     private PlayerMovementActions playerMovement;
+
     private void Awake()
     {
         playerMovement = new PlayerMovementActions();
     }
-
-    private void OnEnable()
-    {
-        Character character = GetComponent<Character>();
-        Move(character);
-    }
-
-    private void OnDisable()
+    private void DisableMovement()
     {
         playerMovement.Disable();
     }
-
     private BoardRules.Direction GetDesiredDirection(InputAction.CallbackContext ctx)
     {
         Vector2 inputVector = ctx.ReadValue<Vector2>();
@@ -48,7 +40,6 @@ public class PlayerMovement : MonoBehaviour, ICharacterMovement
             return BoardRules.Direction.Default;
         }
     }
-
     private void OnMovementPerformed(InputAction.CallbackContext ctx, Character character)
     {
         if ( character.isMoving == false)
@@ -60,8 +51,11 @@ public class PlayerMovement : MonoBehaviour, ICharacterMovement
                 character.MoveTheCharacter(desiredCell, moveSpeed);
             }
         }
+        if (character.movesLeft <= 0)
+        {
+            DisableMovement();
+        }
     }
-
     public void Move(Character character)
     {
         playerMovement.Enable();

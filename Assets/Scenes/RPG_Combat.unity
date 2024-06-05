@@ -926,6 +926,7 @@ GameObject:
   - component: {fileID: 420798146}
   - component: {fileID: 420798148}
   - component: {fileID: 420798147}
+  - component: {fileID: 420798149}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -960,14 +961,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1324d3feb66b2624a95be7dea3975aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeCharacters:
-  - {fileID: 1285768712}
-  - {fileID: 599381955}
-  - {fileID: 941165543}
-  - {fileID: 885225487}
-  - {fileID: 708806179}
-  occupiedPositions: []
-  activeCharacter: {fileID: 0}
 --- !u!114 &420798147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -994,6 +987,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardInfoPath: BoardInformation
+--- !u!114 &420798149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 420798143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10a32a8d668524c478e8a303c4dc9755, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeCharacters:
+  - {fileID: 1285768712}
+  - {fileID: 599381955}
+  - {fileID: 941165543}
+  - {fileID: 885225487}
+  - {fileID: 708806179}
+  occupiedPositions: []
+  activeCharacter: {fileID: 0}
 --- !u!1 &491760265
 GameObject:
   m_ObjectHideFlags: 0
@@ -1868,6 +1881,7 @@ GameObject:
   - component: {fileID: 599381954}
   - component: {fileID: 599381953}
   - component: {fileID: 599381955}
+  - component: {fileID: 599381956}
   m_Layer: 0
   m_Name: Range
   m_TagString: Untagged
@@ -2010,8 +2024,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 682b42af77c43cb43bd7733a651ee095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
+  isMoving: 0
+  hasMoved: 0
+  movesLeft: 0
   playerStatsPath: Player_Range
+--- !u!114 &599381956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599381949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 454e4da95d1de754bbe7d93b697f3e83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 3
 --- !u!1 &628695660
 GameObject:
   m_ObjectHideFlags: 0
@@ -2584,6 +2613,7 @@ GameObject:
   - component: {fileID: 708806178}
   - component: {fileID: 708806177}
   - component: {fileID: 708806179}
+  - component: {fileID: 708806180}
   m_Layer: 0
   m_Name: Enemy2
   m_TagString: Untagged
@@ -2726,9 +2756,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19a47212422132749ae1a01519244c05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
+  isMoving: 0
+  hasMoved: 0
+  movesLeft: 0
   enemyStatsPath: Enemy_Plum
   target: {fileID: 0}
+--- !u!114 &708806180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 708806173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eee56fe256f2034c9390d666e0d9b7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 3
+  seconds: 1
 --- !u!1 &727419036
 GameObject:
   m_ObjectHideFlags: 0
@@ -3472,7 +3518,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19a47212422132749ae1a01519244c05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
+  isMoving: 0
+  hasMoved: 0
+  movesLeft: 0
   enemyStatsPath: Enemy_Red
   target: {fileID: 0}
 --- !u!114 &885225488
@@ -3488,6 +3536,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
+  seconds: 1
 --- !u!1 &907294096
 GameObject:
   m_ObjectHideFlags: 0
@@ -3587,6 +3636,7 @@ GameObject:
   - component: {fileID: 941165542}
   - component: {fileID: 941165541}
   - component: {fileID: 941165543}
+  - component: {fileID: 941165544}
   m_Layer: 0
   m_Name: Healer
   m_TagString: Untagged
@@ -3729,8 +3779,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 682b42af77c43cb43bd7733a651ee095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
+  isMoving: 0
+  hasMoved: 0
+  movesLeft: 0
   playerStatsPath: Player_Healer
+--- !u!114 &941165544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 941165537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 454e4da95d1de754bbe7d93b697f3e83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 3
 --- !u!1 &947752847
 GameObject:
   m_ObjectHideFlags: 0
@@ -4821,7 +4886,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 682b42af77c43cb43bd7733a651ee095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
+  isMoving: 0
+  hasMoved: 0
+  movesLeft: 0
   playerStatsPath: Player_Tank
 --- !u!114 &1285768713
 MonoBehaviour:

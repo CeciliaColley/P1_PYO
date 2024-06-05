@@ -9,7 +9,7 @@ public class Enemy : Character
 
     public Player target;
 
-    private void Start()
+    private void Awake()
     {
         Initialize(enemyStatsPath);
         characterMovement = GetComponent<EnemyMovement>();
@@ -17,7 +17,7 @@ public class Enemy : Character
 
     public void DetermineTarget()
     {
-        var players = GameManager.Instance.activeCharacters.Where(character => character is Player).Cast<Player>();
+        var players = CharacterTracker.Instance.activeCharacters.Where(character => character is Player).Cast<Player>();
 
         if (players.Any())
         {

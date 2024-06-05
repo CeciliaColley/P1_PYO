@@ -5,18 +5,22 @@ using System.Collections;
 
 public class Character : MonoBehaviour
 {
-    public int speed;
-    protected string characterName;
-    protected int initialHealth;
-    protected int meleeAttackDamage;
-    protected int rangedAttackDamage;
-    protected int rangedAttackMaxRange;
-    protected int healAmount;
-    protected int healMaxRange;
-    protected bool canHealOthers;
-    protected ICharacterMovement characterMovement { get; set; }
-
     public bool isMoving = false;
+    public bool hasMoved = false;
+    public int movesLeft;
+    protected ICharacterMovement characterMovement { get; set; }
+    
+    //Make this protected maybe?
+    private int speed;
+    private string characterName;
+    private int initialHealth;
+    private int meleeAttackDamage;
+    private int rangedAttackDamage;
+    private int rangedAttackMaxRange;
+    private int healAmount;
+    private int healMaxRange;
+    private bool canHealOthers;
+
 
     public void Initialize(string characterStatsPath)
     {
@@ -26,6 +30,7 @@ public class Character : MonoBehaviour
         {
             characterName = characterStats.characterName;
             initialHealth = characterStats.initialHealth;
+            movesLeft = characterStats.speed;
             speed = characterStats.speed;
             meleeAttackDamage = characterStats.meleeAttackDamage;
             rangedAttackDamage = characterStats.rangedAttackDamage;
@@ -39,12 +44,11 @@ public class Character : MonoBehaviour
             Debug.LogError("CharacterData not found at path: " + characterStatsPath);
         }
     }
-
     public void MoveTheCharacter(Vector2 desiredCell, float moveSpeed)
     {
         Vector2 currentPosition = new Vector2(transform.position.x, transform.position.y);
-        GameManager.Instance.occupiedPositions.Remove(currentPosition);
-        GameManager.Instance.occupiedPositions.Add(desiredCell);
+        CharacterTracker.Instance.occupiedPositions.Remove(currentPosition);
+        CharacterTracker.Instance.occupiedPositions.Add(desiredCell);
 
         Vector3 newPosition = new Vector3(desiredCell.x, desiredCell.y, 0);
         StartCoroutine(SlideToPosition(newPosition, moveSpeed));
@@ -59,6 +63,7 @@ public class Character : MonoBehaviour
     {
         if (isMoving == false)
         {
+            movesLeft--;
             isMoving = true;
             float step = moveSpeed * Time.deltaTime;
             while (transform.position != position)
@@ -67,15 +72,20 @@ public class Character : MonoBehaviour
                 yield return null;
             }
             isMoving = false;
+            if (movesLeft <= 0) { hasMoved = true; }
         }
     }
-
-
     public void Move()
     {
         if (characterMovement != null)
         {
             characterMovement.Move(this);
         }
+    }
+
+    public void ResetCharacter()
+    {
+        hasMoved = false;
+        movesLeft = speed;
     }
 }

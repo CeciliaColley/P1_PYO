@@ -1,12 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.TextCore.Text;
+using System.Collections;
 
 public class EnemyMovement : MonoBehaviour, ICharacterMovement
 {
     [Tooltip ("Speed of the movement animation.")]
     [SerializeField] private float moveSpeed = 0.0f;
-
+    [Tooltip("Seconds between movement.")]
+    [SerializeField] private float seconds = 0.0f;
     private Enemy enemy;
 
     private void Start()
@@ -62,20 +65,23 @@ public class EnemyMovement : MonoBehaviour, ICharacterMovement
     }    
     public void Move(Character character)
     {
-        for (int i = 0; i < character.speed; i++)
+        enemy.DetermineTarget();
+        Queue<BoardRules.Direction> movementQueue = CreateMovementQueue(enemy.target);
+        while (movementQueue.Count > 0)
         {
-            enemy.DetermineTarget();
-            Queue<BoardRules.Direction> movementQueue = CreateMovementQueue(enemy.target);
-            while (movementQueue.Count > 0)
+            BoardRules.Direction direction = movementQueue.Dequeue();
+            Vector2 desiredCell = enemy.GetDesiredCell(direction);
+            if (BoardRules.Instance.DesiredCellExists(desiredCell) && BoardRules.Instance.DesiredCellIsEmpty(desiredCell))
             {
-                BoardRules.Direction direction = movementQueue.Dequeue();
-                Vector2 desiredCell = enemy.GetDesiredCell(direction);
-                if (BoardRules.Instance.DesiredCellExists(desiredCell) && BoardRules.Instance.DesiredCellIsEmpty(desiredCell))
-                {
-                    character.MoveTheCharacter(desiredCell, moveSpeed);
-                    break;
-                }
+                StartCoroutine(WaitThenMoveEnemy(seconds, character, desiredCell));
+                break;
             }
         }
+    }
+
+    private IEnumerator WaitThenMoveEnemy(float seconds, Character character, Vector2 desiredCell)
+    { 
+        yield return new WaitForSeconds(seconds);
+        character.MoveTheCharacter(desiredCell, moveSpeed);
     }
 }

@@ -21,7 +21,7 @@ public class BoardRules : MonoBehaviour
 
     public bool DesiredCellIsEmpty(Vector2 position)
     {
-        if (!GameManager.Instance.occupiedPositions.Contains(position))
+        if (!CharacterTracker.Instance.occupiedPositions.Contains(position))
         {
             return true;
         }
@@ -30,7 +30,6 @@ public class BoardRules : MonoBehaviour
             return false;
         }
     }
-
     public bool DesiredCellExists(Vector2 position)
     {
         if (position.x >= boardInfo.lowestPositionX && 
@@ -45,7 +44,6 @@ public class BoardRules : MonoBehaviour
             return false;
         }
     }
-
     public Vector2 GetStepResult(GameObject character, Direction direction)
     {
         Vector2 resultingPosition = new Vector2(0,0);

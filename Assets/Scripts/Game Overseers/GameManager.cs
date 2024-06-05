@@ -1,15 +1,52 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class GameManager : MonoBehaviour
 {
-    public List<Character> activeCharacters;
-    public List<Vector2> occupiedPositions = new List<Vector2>();
-    public Character activeCharacter;
+    private int currentCharacterIndex;
 
-    public static GameManager Instance; 
-    private void Awake()
+    void Start()
     {
-        Instance = this;
+        currentCharacterIndex = 0;
+        StartCoroutine(GameLoop());
+    }
+
+    private IEnumerator GameLoop()
+    {
+        while (!IsGameOver())
+        {
+
+            CharacterTracker.Instance.activeCharacter = CharacterTracker.Instance.activeCharacters[currentCharacterIndex];
+
+            while (CharacterTracker.Instance.activeCharacter.movesLeft > 0)
+            {
+                CharacterTracker.Instance.activeCharacter.Move();
+                yield return new WaitUntil(() => CharacterTracker.Instance.activeCharacter.hasMoved);
+            }
+
+            NextCharacter();
+
+            yield return null;
+        }
+    }
+
+    private void NextCharacter()
+    {
+        currentCharacterIndex++;
+        if (currentCharacterIndex >= CharacterTracker.Instance.activeCharacters.Count)
+        {
+            currentCharacterIndex = 0;
+        }
+    }
+
+    private bool IsGameOver()
+    {
+        if (CharacterTracker.Instance.activeCharacters.Count == 1)
+        {
+            return true;
+        }
+        return false;
     }
 }
