@@ -11,5 +11,4 @@ public class SO_Character : ScriptableObject
     public int rangedAttackMaxRange;
     public int healAmount;
     public int healMaxRange;
-    public bool canHealOthers;
 }

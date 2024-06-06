@@ -7,13 +7,18 @@ public class PlayerMovement : MonoBehaviour, ICharacterMovement
     [SerializeField] private float moveSpeed = 0.0f;
     private PlayerMovementActions playerMovement;
 
+    public void Move(Character character)
+    {
+        playerMovement.Movement.Enable();
+        playerMovement.Movement.Move.performed += ctx => OnMovementPerformed(ctx, character);
+    }
     private void Awake()
     {
         playerMovement = new PlayerMovementActions();
     }
     private void DisableMovement()
     {
-        playerMovement.Disable();
+        playerMovement.Movement.Disable();
     }
     private BoardRules.Direction GetDesiredDirection(InputAction.CallbackContext ctx)
     {
@@ -40,25 +45,20 @@ public class PlayerMovement : MonoBehaviour, ICharacterMovement
             return BoardRules.Direction.Default;
         }
     }
-    private void OnMovementPerformed(InputAction.CallbackContext ctx, Character character)
+    private void OnMovementPerformed(InputAction.CallbackContext ctx, Character player)
     {
-        if ( character.isMoving == false)
+        if ( player.isMoving == false)
         {
             BoardRules.Direction direction = GetDesiredDirection(ctx);
-            Vector2 desiredCell = character.GetDesiredCell(direction);
+            Vector2 desiredCell = player.GetDesiredCell(direction);
             if ((BoardRules.Instance.DesiredCellExists(desiredCell) && BoardRules.Instance.DesiredCellIsEmpty(desiredCell)))
             {
-                character.MoveTheCharacter(desiredCell, moveSpeed);
+                player.MoveTheCharacter(desiredCell, moveSpeed);
             }
         }
-        if (character.movesLeft <= 0)
+        if (player.movesLeft <= 0)
         {
             DisableMovement();
         }
-    }
-    public void Move(Character character)
-    {
-        playerMovement.Enable();
-        playerMovement.Movement.Move.performed += ctx => OnMovementPerformed(ctx, character);
     }
 }

@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.UIElements;
+using System.Collections.Generic;
 
 public class BoardRules : MonoBehaviour
 {
@@ -9,7 +9,6 @@ public class BoardRules : MonoBehaviour
 
     public enum Direction
     { Left, Right, Up, Down, Default }
-
     public static BoardRules Instance;
 
 
@@ -18,7 +17,29 @@ public class BoardRules : MonoBehaviour
         boardInfo = Resources.Load<SO_Board>("ScriptableObjects/" + boardInfoPath);
         Instance = this;
     }
-
+    public Vector2 GetStepResult(GameObject character, Direction direction)
+    {
+        Vector2 resultingPosition = new Vector2(0,0);
+        switch (direction)
+        {
+            case (Direction.Up):
+                resultingPosition = new Vector2(character.transform.position.x, character.transform.position.y + boardInfo.stepLength);
+                break;
+            case (Direction.Down):
+                resultingPosition = new Vector2(character.transform.position.x, character.transform.position.y - boardInfo.stepLength);
+                break;
+            case (Direction.Left):
+                resultingPosition = new Vector2(character.transform.position.x - boardInfo.stepLength, character.transform.position.y);
+                break;            
+            case (Direction.Right):
+                resultingPosition = new Vector2(character.transform.position.x + boardInfo.stepLength, character.transform.position.y);
+                break;
+            default:
+                Debug.LogError("No valid direction was registered by the Board Rules script");
+            break;            
+        }
+        return resultingPosition;
+    }
     public bool DesiredCellIsEmpty(Vector2 position)
     {
         if (!CharacterTracker.Instance.occupiedPositions.Contains(position))
@@ -44,27 +65,32 @@ public class BoardRules : MonoBehaviour
             return false;
         }
     }
-    public Vector2 GetStepResult(GameObject character, Direction direction)
+    public bool IsInDiamondRange(Character character, Character target, int range)
     {
-        Vector2 resultingPosition = new Vector2(0,0);
-        switch (direction)
+        float _range = range * boardInfo.stepLength;
+        float horizontalDifference = Mathf.Abs(character.transform.position.x - target.transform.position.x);
+        float verticalDifference = Mathf.Abs(character.transform.position.y - target.transform.position.y);
+
+        if ((horizontalDifference + verticalDifference) <= _range)
         {
-            case (Direction.Up):
-                resultingPosition = new Vector2(character.transform.position.x, character.transform.position.y + boardInfo.stepLength);
-                break;
-            case (Direction.Down):
-                resultingPosition = new Vector2(character.transform.position.x, character.transform.position.y - boardInfo.stepLength);
-                break;
-            case (Direction.Left):
-                resultingPosition = new Vector2(character.transform.position.x - boardInfo.stepLength, character.transform.position.y);
-                break;            
-            case (Direction.Right):
-                resultingPosition = new Vector2(character.transform.position.x + boardInfo.stepLength, character.transform.position.y);
-                break;
-            default:
-                Debug.LogError("No valid direction was registered by the Board Rules script");
-            break;            
+            return true;
         }
-        return resultingPosition;
+        else
+        {
+            return false;
+        }
+    }
+    public bool IsInSquareRange(Character character, Character target, int range)
+    {
+        float _range = range * boardInfo.stepLength;
+        float horizontalDifference = Mathf.Abs(character.transform.position.x - target.transform.position.x);
+        float verticalDifference = Mathf.Abs(character.transform.position.y - target.transform.position.y);
+
+        if (horizontalDifference <= _range && verticalDifference <=range)
+        {
+            return true;
+        }
+        else
+        { return false; }
     }
 }

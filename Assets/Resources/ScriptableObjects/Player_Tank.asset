@@ -15,9 +15,8 @@ MonoBehaviour:
   characterName: Tank
   initialHealth: 20
   speed: 3
-  meleeAttackDamage: -5
+  meleeAttackDamage: 5
   rangedAttackDamage: 0
   rangedAttackMaxRange: 0
   healAmount: 2
   healMaxRange: 0
-  canHealOthers: 0

@@ -12,6 +12,21 @@ public class EnemyMovement : MonoBehaviour, ICharacterMovement
     [SerializeField] private float seconds = 0.0f;
     private Enemy enemy;
 
+    public void Move(Character character)
+    {
+        enemy.DetermineTarget();
+        Queue<BoardRules.Direction> movementQueue = CreateMovementQueue(enemy.target);
+        while (movementQueue.Count > 0)
+        {
+            BoardRules.Direction direction = movementQueue.Dequeue();
+            Vector2 desiredCell = enemy.GetDesiredCell(direction);
+            if (BoardRules.Instance.DesiredCellExists(desiredCell) && BoardRules.Instance.DesiredCellIsEmpty(desiredCell))
+            {
+                StartCoroutine(WaitThenMoveEnemy(seconds, character, desiredCell));
+                break;
+            }
+        }
+    }
     private void Start()
     {
         enemy = GetComponent<Enemy>();
@@ -63,22 +78,6 @@ public class EnemyMovement : MonoBehaviour, ICharacterMovement
 
         return directionQueue;
     }    
-    public void Move(Character character)
-    {
-        enemy.DetermineTarget();
-        Queue<BoardRules.Direction> movementQueue = CreateMovementQueue(enemy.target);
-        while (movementQueue.Count > 0)
-        {
-            BoardRules.Direction direction = movementQueue.Dequeue();
-            Vector2 desiredCell = enemy.GetDesiredCell(direction);
-            if (BoardRules.Instance.DesiredCellExists(desiredCell) && BoardRules.Instance.DesiredCellIsEmpty(desiredCell))
-            {
-                StartCoroutine(WaitThenMoveEnemy(seconds, character, desiredCell));
-                break;
-            }
-        }
-    }
-
     private IEnumerator WaitThenMoveEnemy(float seconds, Character character, Vector2 desiredCell)
     { 
         yield return new WaitForSeconds(seconds);

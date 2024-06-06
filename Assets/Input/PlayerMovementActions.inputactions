@@ -1,5 +1,5 @@
 {
-    "name": "PlayerMovement",
+    "name": "PlayerMovementActions",
     "maps": [
         {
             "name": "Movement",
@@ -235,6 +235,34 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                }
+            ]
+        },
+        {
+            "name": "Interaction",
+            "id": "11aa8619-b4a5-45b8-8cef-49b40cda3962",
+            "actions": [
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "db3650a2-74a9-4125-9dd4-8d2dd2c63869",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b3e3c501-d9ca-49d1-94c5-d7b1ebc6cca0",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

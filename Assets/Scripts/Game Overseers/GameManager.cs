@@ -6,13 +6,11 @@ using UnityEngine.TextCore.Text;
 public class GameManager : MonoBehaviour
 {
     private int currentCharacterIndex;
-
-    void Start()
+    private void Start()
     {
         currentCharacterIndex = 0;
         StartCoroutine(GameLoop());
     }
-
     private IEnumerator GameLoop()
     {
         while (!IsGameOver())
@@ -26,21 +24,23 @@ public class GameManager : MonoBehaviour
                 yield return new WaitUntil(() => CharacterTracker.Instance.activeCharacter.hasMoved);
             }
 
-            NextCharacter();
+            GoToNextCharacter();
 
             yield return null;
         }
     }
-
-    private void NextCharacter()
+    private void GoToNextCharacter()
     {
         currentCharacterIndex++;
         if (currentCharacterIndex >= CharacterTracker.Instance.activeCharacters.Count)
         {
             currentCharacterIndex = 0;
+            foreach (Character character in CharacterTracker.Instance.activeCharacters)
+            {
+                character.ResetCharacter();
+            }
         }
     }
-
     private bool IsGameOver()
     {
         if (CharacterTracker.Instance.activeCharacters.Count == 1)
