@@ -13,6 +13,7 @@ public class Enemy : Character
     {
         Initialize(enemyStatsPath);
         characterMovement = GetComponent<EnemyMovement>();
+        characterAction = GetComponent<EnemyAction>();
     }
 
     public void DetermineTarget()

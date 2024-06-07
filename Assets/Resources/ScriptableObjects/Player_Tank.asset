@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96503d831f42b9646898b1e175ff51af, type: 3}
   m_Name: Player_Tank
   m_EditorClassIdentifier: 
-  characterName: Tank
+  characterName: Tanko
   initialHealth: 20
   speed: 3
   meleeAttackDamage: 5

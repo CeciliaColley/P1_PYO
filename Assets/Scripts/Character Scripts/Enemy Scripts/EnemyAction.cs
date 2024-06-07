@@ -2,19 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAction : MonoBehaviour
+public class EnemyAction : MonoBehaviour, ICharacterAction
 {
-    private Enemy enemy;
-
-    private void Start()
+    public void Act(Character character)
     {
-        enemy = GetComponent<Enemy>();
-    }
-
-    private void Act()
-    {
+        Enemy enemy = character.GetComponent<Enemy>();
         enemy.DetermineTarget();
+        if (enemy.CanMeleeAttack(enemy.target))
+        {
+            enemy.MeleeAttack(enemy.target);
+        }
+        else if (enemy.CanRangeAttack(enemy.target))
+        {
+            enemy.RangeAttack(enemy.target);
+        }
 
+        enemy.hasActed = true;
     }
 
 }

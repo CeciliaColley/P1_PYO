@@ -7,7 +7,8 @@ public class SetterUpper : MonoBehaviour
 {
     [Tooltip("The path to the scriptable object that has the board's information.")]
     [SerializeField] private string boardInfoPath;
-    SO_Board boardInfo;
+    
+    private SO_Board boardInfo;
 
     private void Awake()
     {

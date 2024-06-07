@@ -1,21 +1,26 @@
 using System;
 using UnityEngine;
 using System.Collections;
+using Unity.VisualScripting;
+using static UnityEngine.GraphicsBuffer;
+using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
+    [Tooltip("The UI that displays the stats of the character.")]
+    public RectTransform characterDisplay;
+    public string characterName;
+    public int movesLeft;
+    public float health;
     public bool isMoving = false;
     public bool hasMoved = false;
-    public int movesLeft;
     public bool hasActed = false;
-    public float health;
-    public int meleeAttackDamage;
     protected ICharacterMovement characterMovement { get; set; }
     protected ICharacterAction characterAction { get; set; }
     
     private int speed;
-    private string characterName;
     private int initialHealth;
+    private int meleeAttackDamage;
     private int rangedAttackDamage;
     private int rangedAttackMaxRange;
     private int healAmount;
@@ -76,8 +81,8 @@ public class Character : MonoBehaviour
     {
         if (isMoving == false)
         {
-            movesLeft--;
             isMoving = true;
+            movesLeft--;
             float step = moveSpeed * Time.deltaTime;
             while (transform.position != position)
             {
@@ -92,26 +97,33 @@ public class Character : MonoBehaviour
     {
         hasMoved = false;
         movesLeft = speed;
+        hasActed = false;
     }
     public void RangeAttack(Character target)
     {
-        if (CanRangeAttack(target))
-        {
-            target.health -= rangedAttackDamage;
-        }
+        target.health -= rangedAttackDamage;
+        CheckForKill(target);
+        
     }
     public void MeleeAttack(Character target)
     {
-        if (CanMeleeAttack(target))
+        target.health -= meleeAttackDamage;
+        CheckForKill(target);
+
+    }
+    public void CheckForKill(Character target)
+    {
+        if (target.health <= 0)
         {
-            target.health -= meleeAttackDamage; 
+            target.Die();
         }
     }
     public void Heal(Character target)
     {
-        if (CanHeal(target))
+        target.health += healAmount;
+        if (health > initialHealth)
         {
-            target.health += healAmount;
+            health = initialHealth;
         }
     }
     public bool CanRangeAttack(Character target)
@@ -146,6 +158,12 @@ public class Character : MonoBehaviour
         }
         else return false;
         
+    }
+    public void Die()
+    {
+        CharacterTracker.Instance.activeCharacters.Remove(this);
+        CharacterTracker.Instance.occupiedPositions.Remove(new Vector2(transform.position.x, transform.position.y));
+        gameObject.SetActive(false);
     }
 
 }

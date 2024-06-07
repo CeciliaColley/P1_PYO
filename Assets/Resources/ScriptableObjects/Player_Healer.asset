@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96503d831f42b9646898b1e175ff51af, type: 3}
   m_Name: Player_Healer
   m_EditorClassIdentifier: 
-  characterName: Healer
+  characterName: Hila
   initialHealth: 15
   speed: 2
-  meleeAttackDamage: -2
-  rangedAttackDamage: -2
+  meleeAttackDamage: 2
+  rangedAttackDamage: 2
   rangedAttackMaxRange: 3
   healAmount: 5
   healMaxRange: 2
-  canHealOthers: 1

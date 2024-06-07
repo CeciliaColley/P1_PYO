@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96503d831f42b9646898b1e175ff51af, type: 3}
   m_Name: Player_Range
   m_EditorClassIdentifier: 
-  characterName: Range
+  characterName: Archer
   initialHealth: 15
   speed: 4
-  meleeAttackDamage: -1
-  rangedAttackDamage: -3
+  meleeAttackDamage: 1
+  rangedAttackDamage: 3
   rangedAttackMaxRange: 6
   healAmount: 2
   healMaxRange: 0
-  canHealOthers: 0

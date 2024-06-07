@@ -15,9 +15,8 @@ MonoBehaviour:
   characterName: Plum
   initialHealth: 10
   speed: 1
-  meleeAttackDamage: -3
-  rangedAttackDamage: -1
+  meleeAttackDamage: 3
+  rangedAttackDamage: 1
   rangedAttackMaxRange: 3
   healAmount: 0
   healMaxRange: 0
-  canHealOthers: 0

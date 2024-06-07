@@ -9,20 +9,16 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         currentCharacterIndex = 0;
+        CharacterTracker.Instance.activeCharacter = CharacterTracker.Instance.activeCharacters[currentCharacterIndex];
         StartCoroutine(GameLoop());
     }
     private IEnumerator GameLoop()
     {
         while (!IsGameOver())
         {
-
-            CharacterTracker.Instance.activeCharacter = CharacterTracker.Instance.activeCharacters[currentCharacterIndex];
-
-            while (CharacterTracker.Instance.activeCharacter.movesLeft > 0)
-            {
-                CharacterTracker.Instance.activeCharacter.Move();
-                yield return new WaitUntil(() => CharacterTracker.Instance.activeCharacter.hasMoved);
-            }
+            CharacterTracker.Instance.activeCharacter.Move();
+            CharacterTracker.Instance.activeCharacter.Act();
+            yield return new WaitUntil(() => CharacterTracker.Instance.activeCharacter.hasMoved && CharacterTracker.Instance.activeCharacter.hasActed);
 
             GoToNextCharacter();
 
@@ -35,10 +31,16 @@ public class GameManager : MonoBehaviour
         if (currentCharacterIndex >= CharacterTracker.Instance.activeCharacters.Count)
         {
             currentCharacterIndex = 0;
-            foreach (Character character in CharacterTracker.Instance.activeCharacters)
-            {
-                character.ResetCharacter();
-            }
+            ResetAllCharacters();
+        }
+        CharacterTracker.Instance.activeCharacter = CharacterTracker.Instance.activeCharacters[currentCharacterIndex];
+    }
+
+    private void ResetAllCharacters()
+    {
+        foreach (Character character in CharacterTracker.Instance.activeCharacters)
+        {
+            character.ResetCharacter();
         }
     }
     private bool IsGameOver()

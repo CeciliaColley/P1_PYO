@@ -14,6 +14,7 @@ public class EnemyMovement : MonoBehaviour, ICharacterMovement
 
     public void Move(Character character)
     {
+        bool moved = false;
         enemy.DetermineTarget();
         Queue<BoardRules.Direction> movementQueue = CreateMovementQueue(enemy.target);
         while (movementQueue.Count > 0)
@@ -23,8 +24,13 @@ public class EnemyMovement : MonoBehaviour, ICharacterMovement
             if (BoardRules.Instance.DesiredCellExists(desiredCell) && BoardRules.Instance.DesiredCellIsEmpty(desiredCell))
             {
                 StartCoroutine(WaitThenMoveEnemy(seconds, character, desiredCell));
+                moved = true;
                 break;
             }
+        }
+        if (!moved) 
+        { 
+            character.hasMoved = true; 
         }
     }
     private void Start()
@@ -78,9 +84,13 @@ public class EnemyMovement : MonoBehaviour, ICharacterMovement
 
         return directionQueue;
     }    
-    private IEnumerator WaitThenMoveEnemy(float seconds, Character character, Vector2 desiredCell)
+    private IEnumerator WaitThenMoveEnemy(float seconds, Character enemy, Vector2 desiredCell)
     { 
         yield return new WaitForSeconds(seconds);
-        character.MoveTheCharacter(desiredCell, moveSpeed);
+        enemy.MoveTheCharacter(desiredCell, moveSpeed);
+        if (enemy.movesLeft > 0)
+        {
+            Move(enemy);
+        }
     }
 }

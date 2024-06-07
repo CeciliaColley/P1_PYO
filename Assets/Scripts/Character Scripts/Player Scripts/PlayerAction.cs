@@ -1,40 +1,37 @@
 using UnityEngine.InputSystem;
 using UnityEngine;
+using System.Collections;
 
 public class PlayerAction : MonoBehaviour, ICharacterAction
 {
-    [Tooltip ("A reference to the panel that shows the player's available actions.")]
+    [Tooltip("The game object that displays the player's possible actions.")]
     [SerializeField] private GameObject actionsPanel;
 
-    private PlayerActionsUI playerActionUI;
+    private PlayerActionsEnabler playerActionEnabler;
     private Player player;
-    private PlayerMovementActions playerInteraction;
+    private PlayerInputActions playerInput;
     private Camera mainCamera;
     Character character;
-    public void Act(Character character)
-    {
-        playerInteraction.Interaction.Enable();
-        playerInteraction.Interaction.Interact.performed += ctx => OnInteractionPerformed(ctx, player);
-    }
     private void Awake()
     {
+        playerInput = new PlayerInputActions();
         player = GetComponent<Player>();
         mainCamera = Camera.main;
-        playerInteraction = new PlayerMovementActions();
-        character= GetComponent<Character>();
-        Act(character);
+        playerActionEnabler = actionsPanel.GetComponent<PlayerActionsEnabler>();
     }
-
-    private void Start()
+    public void Act(Character character)
     {
-        playerActionUI = actionsPanel.GetComponent<PlayerActionsUI>();
+        playerInput.Interaction.Enable();
+        playerInput.Interaction.Interact.performed += ctx => OnInteractionPerformed(ctx, player);
+        StartCoroutine(DisableAfterInterction(character));
     }
 
-    private void DisableInteracion()
+    private IEnumerator DisableAfterInterction(Character character)
     {
-        playerInteraction.Interaction.Disable();
+        yield return new WaitUntil(() => character.hasActed);
+        actionsPanel.SetActive(false);
+        playerInput.Interaction.Disable();
     }
-
     private void OnInteractionPerformed(InputAction.CallbackContext ctx, Player player)
     {
         var rayHit = Physics2D.GetRayIntersection(mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue()));
@@ -45,14 +42,12 @@ public class PlayerAction : MonoBehaviour, ICharacterAction
         else
         {
             player.target = rayHit.collider.gameObject.GetComponent<Character>();
-            playerActionUI.toggleActions(player, player.target);
+            playerActionEnabler.toggleActions(player, player.target);
             actionsPanel.transform.position = Camera.main.WorldToScreenPoint(rayHit.collider.gameObject.transform.position);
             actionsPanel.SetActive(true);
         }
-
-        if (player.hasActed)
-        {
-            DisableInteracion();
-        }
     }
+    
+
+
 }

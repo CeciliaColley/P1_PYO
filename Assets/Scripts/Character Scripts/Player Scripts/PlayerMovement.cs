@@ -1,24 +1,27 @@
 using UnityEngine.InputSystem;
 using UnityEngine;
+using System.Collections;
 
 public class PlayerMovement : MonoBehaviour, ICharacterMovement
 {
     [Tooltip("Speed of the movement animation.")]
     [SerializeField] private float moveSpeed = 0.0f;
-    private PlayerMovementActions playerMovement;
+    private PlayerInputActions playerInput;
 
     public void Move(Character character)
     {
-        playerMovement.Movement.Enable();
-        playerMovement.Movement.Move.performed += ctx => OnMovementPerformed(ctx, character);
+        playerInput.Movement.Enable();
+        playerInput.Movement.Move.performed += ctx => OnMovementPerformed(ctx, character);
+        StartCoroutine(DisableAfterMovement(character));
     }
     private void Awake()
     {
-        playerMovement = new PlayerMovementActions();
+        playerInput = new PlayerInputActions();
     }
-    private void DisableMovement()
+    private IEnumerator DisableAfterMovement(Character player)
     {
-        playerMovement.Movement.Disable();
+        yield return new WaitUntil(() => (player.movesLeft <= 0 || player.hasMoved));
+        playerInput.Movement.Disable();
     }
     private BoardRules.Direction GetDesiredDirection(InputAction.CallbackContext ctx)
     {
@@ -55,10 +58,6 @@ public class PlayerMovement : MonoBehaviour, ICharacterMovement
             {
                 player.MoveTheCharacter(desiredCell, moveSpeed);
             }
-        }
-        if (player.movesLeft <= 0)
-        {
-            DisableMovement();
         }
     }
 }
