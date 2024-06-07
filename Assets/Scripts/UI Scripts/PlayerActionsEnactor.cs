@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerActionsEnactor : MonoBehaviour
+public class PlayerActionsEnactor : CharacterActions
 {
     private enum Action
     {
@@ -17,13 +17,13 @@ public class PlayerActionsEnactor : MonoBehaviour
         switch (action)
         {
             case Action.Heal:
-                activePlayer.Heal(activePlayer.target);
+                Heal(activePlayer, activePlayer.target);
                 break;
             case Action.RangeAttack:
-                activePlayer.RangeAttack(activePlayer.target);
+                RangeAttack(activePlayer, activePlayer.target);
                 break;
             case Action.MeleeAttack:
-                activePlayer.MeleeAttack(activePlayer.target);
+                MeleeAttack(activePlayer, activePlayer.target);
                 break;
         }
 

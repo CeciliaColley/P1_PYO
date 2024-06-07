@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
 
-public class PlayerActionsEnabler : MonoBehaviour
+public class PlayerActionsEnabler : CharacterActions
 {
     [Tooltip("A reference to the panel that shows the player's available actions.")]
     [SerializeField] private Button healButton;
@@ -21,7 +21,7 @@ public class PlayerActionsEnabler : MonoBehaviour
     }
     private void toggleMeleeButton(Character player, Character target)
     {
-        if (player.CanMeleeAttack(target))
+        if (CanMeleeAttack(player, target))
         {
             meleeButton.enabled = true;
         }
@@ -29,7 +29,7 @@ public class PlayerActionsEnabler : MonoBehaviour
     }
     private void toggleRangeButton(Character player, Character target)
     {
-        if (player.CanRangeAttack(target))
+        if (CanRangeAttack(player, target))
         {
             rangeButton.enabled = true;
         }
@@ -37,7 +37,7 @@ public class PlayerActionsEnabler : MonoBehaviour
     }
     private void toggleHealButton(Character player, Character target)
     {
-        if (player.CanHeal(target))
+        if (CanHeal(player, target))
         {
             healButton.enabled = true;
         }

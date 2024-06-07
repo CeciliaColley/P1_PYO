@@ -2,7 +2,7 @@ using UnityEngine.InputSystem;
 using UnityEngine;
 using System.Collections;
 
-public class PlayerMovement : MonoBehaviour, ICharacterMovement
+public class PlayerMovement : CharacterMovement, ICharacterMovement
 {
     [Tooltip("Speed of the movement animation.")]
     [SerializeField] private float moveSpeed = 0.0f;
@@ -53,10 +53,10 @@ public class PlayerMovement : MonoBehaviour, ICharacterMovement
         if ( player.isMoving == false)
         {
             BoardRules.Direction direction = GetDesiredDirection(ctx);
-            Vector2 desiredCell = player.GetDesiredCell(direction);
+            Vector2 desiredCell = GetDesiredCell(direction);
             if ((BoardRules.Instance.DesiredCellExists(desiredCell) && BoardRules.Instance.DesiredCellIsEmpty(desiredCell)))
             {
-                player.MoveTheCharacter(desiredCell, moveSpeed);
+                MoveTheCharacter(player, desiredCell, moveSpeed);
             }
         }
     }

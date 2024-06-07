@@ -12,8 +12,8 @@ public class Enemy : Character
     private void Awake()
     {
         Initialize(enemyStatsPath);
-        characterMovement = GetComponent<EnemyMovement>();
-        characterAction = GetComponent<EnemyAction>();
+        CharacterMovementInterface = GetComponent<EnemyMovement>();
+        CharacterActionInterface = GetComponent<EnemyAction>();
     }
 
     public void DetermineTarget()

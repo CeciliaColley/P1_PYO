@@ -10,7 +10,7 @@ public class Player : Character
     private void Awake()
     {
         Initialize(playerStatsPath);
-        characterMovement = GetComponent<PlayerMovement>();
-        characterAction = GetComponent<PlayerAction>();
+        CharacterMovementInterface = GetComponent<PlayerMovement>();
+        CharacterActionInterface = GetComponent<PlayerAction>();
     }
 }

@@ -9,6 +9,7 @@ public class Character : MonoBehaviour
 {
     [Tooltip("The UI that displays the stats of the character.")]
     public GameObject characterDisplay;
+    
     public StatsDisplayer statsDisplayer;
     public string characterName;
     public int movesLeft;
@@ -17,20 +18,20 @@ public class Character : MonoBehaviour
     public bool isMoving = false;
     public bool hasMoved = false;
     public bool hasActed = false;
-    protected ICharacterMovement characterMovement { get; set; }
-    protected ICharacterAction characterAction { get; set; }
-    
+    public int initialHealth;
+    public int meleeAttackDamage;
+    public int rangedAttackDamage;
+    public int rangedAttackMaxRange;
+    public int healAmount;
+    public int healMaxRange;
+    protected ICharacterMovement CharacterMovementInterface { get; set; }
+    protected ICharacterAction CharacterActionInterface { get; set; }
     private int speed;
     private int actions;
-    private int initialHealth;
-    private int meleeAttackDamage;
-    private int rangedAttackDamage;
-    private int rangedAttackMaxRange;
-    private int healAmount;
-    private int healMaxRange;
 
     public void Initialize(string characterStatsPath)
     {
+        statsDisplayer = GetComponent<StatsDisplayer>();
         SO_Character characterStats = Resources.Load<SO_Character>("ScriptableObjects/" + characterStatsPath);
 
         if (characterStats != null)
@@ -48,125 +49,28 @@ public class Character : MonoBehaviour
             healAmount = characterStats.healAmount;
             healMaxRange = characterStats.healMaxRange;
         }
-
-        statsDisplayer = GetComponent<StatsDisplayer>();
     }
     public void Move()
     {
-        if (characterMovement != null)
+        if (CharacterMovementInterface != null)
         {
-            characterMovement.Move(this);
+            CharacterMovementInterface.Move(this);
         }
     }
     public void Act()
     {
-        if (characterAction != null)
+        if (CharacterActionInterface != null)
         {
-            characterAction.Act(this);
+            CharacterActionInterface.Act(this);
         }
-    }
-    public void MoveTheCharacter(Vector2 desiredCell, float moveSpeed)
-    {
-        Vector2 currentPosition = new Vector2(transform.position.x, transform.position.y);
-        CharacterTracker.Instance.occupiedPositions.Remove(currentPosition);
-        CharacterTracker.Instance.occupiedPositions.Add(desiredCell);
-
-        Vector3 newPosition = new Vector3(desiredCell.x, desiredCell.y, 0);
-        StartCoroutine(SlideToPosition(newPosition, moveSpeed));
-        statsDisplayer.UpdateStats();
-    }
-    public Vector2 GetDesiredCell(BoardRules.Direction direction)
-    {
-        Vector2 desiredPosition = new Vector2();
-        desiredPosition = BoardRules.Instance.GetStepResult(gameObject, direction);
-        return desiredPosition;
-    }
-    public IEnumerator SlideToPosition(Vector3 position, float moveSpeed)
-    {
-        if (isMoving == false)
-        {
-            isMoving = true;
-            movesLeft--;
-            float step = moveSpeed * Time.deltaTime;
-            while (transform.position != position)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, position, step);
-                yield return null;
-            }
-            isMoving = false;
-            if (movesLeft <= 0) { hasMoved = true; }
-        }
-    } 
+    }    
     public void ResetCharacter()
     {
         hasMoved = false;
         movesLeft = speed;
         hasActed = false;
         actionsLeft = actions;
-    }
-    public void RangeAttack(Character target)
-    {
-        target.health -= rangedAttackDamage;
-        target.statsDisplayer.UpdateStats();
-        CheckForKill(target);
-        
-    }
-    public void MeleeAttack(Character target)
-    {
-        target.health -= meleeAttackDamage;
-        target.statsDisplayer.UpdateStats();
-        CheckForKill(target);
-
-    }
-    public void CheckForKill(Character target)
-    {
-        if (target.health <= 0)
-        {
-            target.Die();
-        }
-    }
-    public void Heal(Character target)
-    {
-        target.health += healAmount;
-        if (health > initialHealth)
-        {
-            health = initialHealth;
-        }
-        target.statsDisplayer.UpdateStats();
-    }
-    public bool CanRangeAttack(Character target)
-    {
-        if ((target != this) &
-            (rangedAttackDamage > 0) &&
-            BoardRules.Instance.IsInDiamondRange(this, target, rangedAttackMaxRange) &&
-            !BoardRules.Instance.IsInSquareRange(this, target, 1))
-        {
-            return true;
-        }
-        else return false;
-    }
-    public bool CanMeleeAttack(Character target)
-    {
-        if ((target != this) &&
-            (meleeAttackDamage > 0) &&
-            BoardRules.Instance.IsInSquareRange(this, target, 1))
-        {
-            return true;
-        }
-        else return false;
-    }
-    public bool CanHeal(Character target)
-    {
-        if ((healAmount > 0 && target == this) ||
-            (healMaxRange > 0 &&
-            healAmount > 0 &&
-            BoardRules.Instance.IsInDiamondRange(this, target, healMaxRange)))
-        {
-            return true;
-        }
-        else return false;
-        
-    }
+    }    
     public void Die()
     {
         statsDisplayer.UpdateStats(false);

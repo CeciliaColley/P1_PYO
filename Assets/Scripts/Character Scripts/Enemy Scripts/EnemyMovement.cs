@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine.TextCore.Text;
 using System.Collections;
 
-public class EnemyMovement : MonoBehaviour, ICharacterMovement
+public class EnemyMovement : CharacterMovement, ICharacterMovement
 {
     [Tooltip ("Speed of the movement animation.")]
     [SerializeField] private float moveSpeed = 0.0f;
@@ -20,7 +20,7 @@ public class EnemyMovement : MonoBehaviour, ICharacterMovement
         while (movementQueue.Count > 0)
         {
             BoardRules.Direction direction = movementQueue.Dequeue();
-            Vector2 desiredCell = enemy.GetDesiredCell(direction);
+            Vector2 desiredCell = GetDesiredCell(direction);
             if (BoardRules.Instance.DesiredCellExists(desiredCell) && BoardRules.Instance.DesiredCellIsEmpty(desiredCell))
             {
                 StartCoroutine(WaitThenMoveEnemy(seconds, character, desiredCell));
@@ -47,8 +47,8 @@ public class EnemyMovement : MonoBehaviour, ICharacterMovement
     }
     private void PrioritizeDirections(Queue<BoardRules.Direction> directionQueue, Vector2 targetPosition, BoardRules.Direction horizontalDirection, BoardRules.Direction verticalDirection)
     {
-        Vector2 resultIfHorizontalMovement = enemy.GetDesiredCell(horizontalDirection);
-        Vector2 resultIfVerticalMovement = enemy.GetDesiredCell(verticalDirection);
+        Vector2 resultIfHorizontalMovement = GetDesiredCell(horizontalDirection);
+        Vector2 resultIfVerticalMovement = GetDesiredCell(verticalDirection);
 
         float distanceIfHorizontalMovement = Vector2.Distance(targetPosition, resultIfHorizontalMovement);
         float distanceIfVerticalMovement = Vector2.Distance(targetPosition, resultIfVerticalMovement);
@@ -87,7 +87,7 @@ public class EnemyMovement : MonoBehaviour, ICharacterMovement
     private IEnumerator WaitThenMoveEnemy(float seconds, Character enemy, Vector2 desiredCell)
     { 
         yield return new WaitForSeconds(seconds);
-        enemy.MoveTheCharacter(desiredCell, moveSpeed);
+        MoveTheCharacter(enemy, desiredCell, moveSpeed);
         if (enemy.movesLeft > 0)
         {
             Move(enemy);
