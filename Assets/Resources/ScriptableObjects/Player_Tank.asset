@@ -15,6 +15,7 @@ MonoBehaviour:
   characterName: Tanko
   initialHealth: 20
   speed: 3
+  actions: 1
   meleeAttackDamage: 5
   rangedAttackDamage: 0
   rangedAttackMaxRange: 0

@@ -8,10 +8,12 @@ using UnityEngine.UI;
 public class Character : MonoBehaviour
 {
     [Tooltip("The UI that displays the stats of the character.")]
-    public RectTransform characterDisplay;
+    public GameObject characterDisplay;
+    public StatsDisplayer statsDisplayer;
     public string characterName;
     public int movesLeft;
     public float health;
+    public float actionsLeft;
     public bool isMoving = false;
     public bool hasMoved = false;
     public bool hasActed = false;
@@ -19,6 +21,7 @@ public class Character : MonoBehaviour
     protected ICharacterAction characterAction { get; set; }
     
     private int speed;
+    private int actions;
     private int initialHealth;
     private int meleeAttackDamage;
     private int rangedAttackDamage;
@@ -36,6 +39,8 @@ public class Character : MonoBehaviour
             initialHealth = characterStats.initialHealth;
             health = characterStats.initialHealth;
             movesLeft = characterStats.speed;
+            actions = characterStats.actions;
+            actionsLeft = characterStats.actions;
             speed = characterStats.speed;
             meleeAttackDamage = characterStats.meleeAttackDamage;
             rangedAttackDamage = characterStats.rangedAttackDamage;
@@ -43,10 +48,8 @@ public class Character : MonoBehaviour
             healAmount = characterStats.healAmount;
             healMaxRange = characterStats.healMaxRange;
         }
-        else
-        {
-            Debug.LogError("CharacterData not found at path: " + characterStatsPath);
-        }
+
+        statsDisplayer = GetComponent<StatsDisplayer>();
     }
     public void Move()
     {
@@ -70,6 +73,7 @@ public class Character : MonoBehaviour
 
         Vector3 newPosition = new Vector3(desiredCell.x, desiredCell.y, 0);
         StartCoroutine(SlideToPosition(newPosition, moveSpeed));
+        statsDisplayer.UpdateStats();
     }
     public Vector2 GetDesiredCell(BoardRules.Direction direction)
     {
@@ -98,16 +102,19 @@ public class Character : MonoBehaviour
         hasMoved = false;
         movesLeft = speed;
         hasActed = false;
+        actionsLeft = actions;
     }
     public void RangeAttack(Character target)
     {
         target.health -= rangedAttackDamage;
+        target.statsDisplayer.UpdateStats();
         CheckForKill(target);
         
     }
     public void MeleeAttack(Character target)
     {
         target.health -= meleeAttackDamage;
+        target.statsDisplayer.UpdateStats();
         CheckForKill(target);
 
     }
@@ -125,6 +132,7 @@ public class Character : MonoBehaviour
         {
             health = initialHealth;
         }
+        target.statsDisplayer.UpdateStats();
     }
     public bool CanRangeAttack(Character target)
     {
@@ -161,6 +169,7 @@ public class Character : MonoBehaviour
     }
     public void Die()
     {
+        statsDisplayer.UpdateStats(false);
         CharacterTracker.Instance.activeCharacters.Remove(this);
         CharacterTracker.Instance.occupiedPositions.Remove(new Vector2(transform.position.x, transform.position.y));
         gameObject.SetActive(false);

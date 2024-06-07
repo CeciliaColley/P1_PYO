@@ -15,6 +15,7 @@ MonoBehaviour:
   characterName: Hila
   initialHealth: 15
   speed: 2
+  actions: 1
   meleeAttackDamage: 2
   rangedAttackDamage: 2
   rangedAttackMaxRange: 3

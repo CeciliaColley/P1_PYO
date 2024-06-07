@@ -11,13 +11,16 @@ public class EnemyAction : MonoBehaviour, ICharacterAction
         if (enemy.CanMeleeAttack(enemy.target))
         {
             enemy.MeleeAttack(enemy.target);
+            enemy.actionsLeft--;
         }
         else if (enemy.CanRangeAttack(enemy.target))
         {
             enemy.RangeAttack(enemy.target);
+            enemy.actionsLeft--;
         }
 
         enemy.hasActed = true;
+        enemy.statsDisplayer.UpdateStats();
     }
 
 }

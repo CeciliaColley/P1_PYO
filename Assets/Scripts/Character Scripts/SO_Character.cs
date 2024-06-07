@@ -6,6 +6,7 @@ public class SO_Character : ScriptableObject
     public string characterName;
     public int initialHealth;
     public int speed;
+    public int actions;
     public int meleeAttackDamage;
     public int rangedAttackDamage;
     public int rangedAttackMaxRange;

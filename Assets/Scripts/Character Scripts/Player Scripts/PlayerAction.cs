@@ -11,7 +11,7 @@ public class PlayerAction : MonoBehaviour, ICharacterAction
     private Player player;
     private PlayerInputActions playerInput;
     private Camera mainCamera;
-    Character character;
+    private Character character;
     private void Awake()
     {
         playerInput = new PlayerInputActions();

@@ -26,7 +26,19 @@ public class PlayerActionsEnactor : MonoBehaviour
                 activePlayer.MeleeAttack(activePlayer.target);
                 break;
         }
-        activePlayer.hasActed = true;
+
+        UpdateActions(activePlayer);
+    }
+
+    private void UpdateActions(Player activePlayer)
+    {
+        activePlayer.actionsLeft--;
+        if (activePlayer.actionsLeft <= 0)
+        {
+            activePlayer.hasActed = true;
+        }
+
+        activePlayer.statsDisplayer.UpdateStats();
     }
 
     public void Heal()

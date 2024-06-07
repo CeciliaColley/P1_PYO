@@ -15,6 +15,7 @@ MonoBehaviour:
   characterName: Archer
   initialHealth: 15
   speed: 4
+  actions: 1
   meleeAttackDamage: 1
   rangedAttackDamage: 3
   rangedAttackMaxRange: 6

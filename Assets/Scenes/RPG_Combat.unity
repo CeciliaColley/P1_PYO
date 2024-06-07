@@ -379,7 +379,6 @@ GameObject:
   m_Component:
   - component: {fileID: 149601366}
   - component: {fileID: 149601368}
-  - component: {fileID: 149601367}
   m_Layer: 5
   m_Name: Healer
   m_TagString: Untagged
@@ -408,36 +407,6 @@ RectTransform:
   m_AnchoredPosition: {x: 727.95264, y: -13.900024}
   m_SizeDelta: {x: -1618.2349, y: -980}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &149601367
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 149601365}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &149601368
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1016,7 +985,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeCharacters:
-  - {fileID: 1285768712}
+  - {fileID: 1285768715}
   - {fileID: 599381955}
   - {fileID: 941165543}
   - {fileID: 885225487}
@@ -1897,6 +1866,7 @@ GameObject:
   - component: {fileID: 599381955}
   - component: {fileID: 599381956}
   - component: {fileID: 599381957}
+  - component: {fileID: 599381958}
   m_Layer: 0
   m_Name: Range
   m_TagString: Untagged
@@ -2022,10 +1992,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 682b42af77c43cb43bd7733a651ee095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterDisplay: {fileID: 1464729246}
+  characterDisplay: {fileID: 0}
+  statsDisplayer: {fileID: 0}
   characterName: 
   movesLeft: 0
   health: 0
+  actionsLeft: 0
   isMoving: 0
   hasMoved: 0
   hasActed: 0
@@ -2057,6 +2029,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionsPanel: {fileID: 994889457}
+--- !u!114 &599381958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599381949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d9cc89edfc506d488dbee49217af288, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterDisplay: {fileID: 1464729245}
 --- !u!1 &628695660
 GameObject:
   m_ObjectHideFlags: 0
@@ -2630,6 +2615,7 @@ GameObject:
   - component: {fileID: 708806179}
   - component: {fileID: 708806180}
   - component: {fileID: 708806181}
+  - component: {fileID: 708806182}
   m_Layer: 0
   m_Name: Enemy2
   m_TagString: Untagged
@@ -2755,10 +2741,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19a47212422132749ae1a01519244c05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterDisplay: {fileID: 788817805}
+  characterDisplay: {fileID: 0}
+  statsDisplayer: {fileID: 0}
   characterName: 
   movesLeft: 0
   health: 0
+  actionsLeft: 0
   isMoving: 0
   hasMoved: 0
   hasActed: 0
@@ -2790,6 +2778,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83bc246d44e64834b99a739dcb396973, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &708806182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 708806173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d9cc89edfc506d488dbee49217af288, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterDisplay: {fileID: 788817804}
 --- !u!1 &727419036
 GameObject:
   m_ObjectHideFlags: 0
@@ -3008,7 +3009,6 @@ GameObject:
   m_Component:
   - component: {fileID: 777441733}
   - component: {fileID: 777441735}
-  - component: {fileID: 777441734}
   m_Layer: 5
   m_Name: Enemy1
   m_TagString: Untagged
@@ -3037,36 +3037,6 @@ RectTransform:
   m_AnchoredPosition: {x: 727.95264, y: -157.40002}
   m_SizeDelta: {x: -1618.2349, y: -980}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &777441734
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 777441732}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &777441735
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3085,7 +3055,6 @@ GameObject:
   m_Component:
   - component: {fileID: 788817805}
   - component: {fileID: 788817807}
-  - component: {fileID: 788817806}
   m_Layer: 5
   m_Name: Enemy2
   m_TagString: Untagged
@@ -3114,36 +3083,6 @@ RectTransform:
   m_AnchoredPosition: {x: 727.95264, y: -297.59998}
   m_SizeDelta: {x: -1618.2349, y: -980}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &788817806
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 788817804}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &788817807
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3316,6 +3255,7 @@ GameObject:
   - component: {fileID: 885225487}
   - component: {fileID: 885225488}
   - component: {fileID: 885225489}
+  - component: {fileID: 885225490}
   m_Layer: 0
   m_Name: Enemy1
   m_TagString: Untagged
@@ -3441,10 +3381,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19a47212422132749ae1a01519244c05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterDisplay: {fileID: 777441733}
+  characterDisplay: {fileID: 0}
+  statsDisplayer: {fileID: 0}
   characterName: 
   movesLeft: 0
   health: 0
+  actionsLeft: 0
   isMoving: 0
   hasMoved: 0
   hasActed: 0
@@ -3476,6 +3418,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83bc246d44e64834b99a739dcb396973, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &885225490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 885225481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d9cc89edfc506d488dbee49217af288, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterDisplay: {fileID: 777441732}
 --- !u!1 &907294096
 GameObject:
   m_ObjectHideFlags: 0
@@ -3576,6 +3531,7 @@ GameObject:
   - component: {fileID: 941165543}
   - component: {fileID: 941165544}
   - component: {fileID: 941165545}
+  - component: {fileID: 941165546}
   m_Layer: 0
   m_Name: Healer
   m_TagString: Untagged
@@ -3701,10 +3657,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 682b42af77c43cb43bd7733a651ee095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterDisplay: {fileID: 149601366}
+  characterDisplay: {fileID: 0}
+  statsDisplayer: {fileID: 0}
   characterName: 
   movesLeft: 0
   health: 0
+  actionsLeft: 0
   isMoving: 0
   hasMoved: 0
   hasActed: 0
@@ -3736,6 +3694,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionsPanel: {fileID: 994889457}
+--- !u!114 &941165546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 941165537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d9cc89edfc506d488dbee49217af288, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterDisplay: {fileID: 149601365}
 --- !u!1 &947752847
 GameObject:
   m_ObjectHideFlags: 0
@@ -4710,9 +4681,10 @@ GameObject:
   - component: {fileID: 1285768708}
   - component: {fileID: 1285768707}
   - component: {fileID: 1285768711}
-  - component: {fileID: 1285768712}
+  - component: {fileID: 1285768715}
   - component: {fileID: 1285768713}
   - component: {fileID: 1285768714}
+  - component: {fileID: 1285768716}
   m_Layer: 0
   m_Name: Fighter
   m_TagString: Untagged
@@ -4826,27 +4798,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.81}
   m_Size: {x: 1.5999999, y: 1.7899998}
   m_Direction: 0
---- !u!114 &1285768712
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1285768706}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 682b42af77c43cb43bd7733a651ee095, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterDisplay: {fileID: 1543097344}
-  characterName: 
-  movesLeft: 0
-  health: 0
-  isMoving: 0
-  hasMoved: 0
-  hasActed: 0
-  playerStatsPath: Player_Tank
-  target: {fileID: 0}
 --- !u!114 &1285768713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4873,6 +4824,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionsPanel: {fileID: 994889457}
+--- !u!114 &1285768715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285768706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 682b42af77c43cb43bd7733a651ee095, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterDisplay: {fileID: 0}
+  statsDisplayer: {fileID: 0}
+  characterName: 
+  movesLeft: 0
+  health: 0
+  actionsLeft: 0
+  isMoving: 0
+  hasMoved: 0
+  hasActed: 0
+  playerStatsPath: Player_Tank
+  target: {fileID: 0}
+--- !u!114 &1285768716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285768706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d9cc89edfc506d488dbee49217af288, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterDisplay: {fileID: 1543097343}
 --- !u!1 &1396466542
 GameObject:
   m_ObjectHideFlags: 0
@@ -5581,7 +5568,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1464729246}
   - component: {fileID: 1464729248}
-  - component: {fileID: 1464729247}
   m_Layer: 5
   m_Name: Range
   m_TagString: Untagged
@@ -5610,36 +5596,6 @@ RectTransform:
   m_AnchoredPosition: {x: 727.95264, y: 117.5}
   m_SizeDelta: {x: -1618.2349, y: -980}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1464729247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1464729245}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &1464729248
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6078,7 +6034,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1543097344}
   - component: {fileID: 1543097346}
-  - component: {fileID: 1543097345}
   m_Layer: 5
   m_Name: Fighter
   m_TagString: Untagged
@@ -6107,36 +6062,6 @@ RectTransform:
   m_AnchoredPosition: {x: 727.95264, y: 244.16}
   m_SizeDelta: {x: -1618.2349, y: -980}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1543097345
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1543097343}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &1543097346
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
-public class GameStatsDisplayer : MonoBehaviour
+public class TurnTracker : MonoBehaviour
 {
     [Tooltip ("The textbox that displays the current character's turn.")]
     [SerializeField] private TextMeshProUGUI playerTurnText;
@@ -30,7 +30,7 @@ public class GameStatsDisplayer : MonoBehaviour
     }
     public void DisplayCurrentPlayersName()
     {
-        playerTurnText.text = CharacterTracker.Instance.activeCharacter.characterName;
+        playerTurnText.text = (CharacterTracker.Instance.activeCharacter.characterName + "'s turn!");
     }
 
     public void SlideActiveBoxOverCurrentCharacter()
@@ -41,7 +41,8 @@ public class GameStatsDisplayer : MonoBehaviour
     private IEnumerator SlideCoroutine()
     {
         Vector3 startPosition = activeBox.position;
-        Vector3 targetPosition = CharacterTracker.Instance.activeCharacter.characterDisplay.position;
+        RectTransform targetRectTransform = CharacterTracker.Instance.activeCharacter.characterDisplay.GetComponent<RectTransform>();
+        Vector3 targetPosition = targetRectTransform.position;
 
         float elapsedTime = 0;
 
