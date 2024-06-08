@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using static UnityEngine.GraphicsBuffer;
 using UnityEngine.UI;
@@ -12,9 +13,6 @@ public class Character : MonoBehaviour
     
     public StatsDisplayer statsDisplayer;
     public string characterName;
-    public int movesLeft;
-    public float health;
-    public float actionsLeft;
     public bool isMoving = false;
     public bool hasMoved = false;
     public bool hasActed = false;
@@ -26,8 +24,53 @@ public class Character : MonoBehaviour
     public int healMaxRange;
     protected ICharacterMovement CharacterMovementInterface { get; set; }
     protected ICharacterAction CharacterActionInterface { get; set; }
+    
     private int speed;
     private int actions;
+
+    private float _movesLeft;
+    public float MovesLeft
+    {
+        get { return _movesLeft; }
+        set 
+        {
+            if (_movesLeft != value)
+            {
+                _movesLeft = value;
+                DisplayedStatChanged?.Invoke(_movesLeft);
+            }
+        }
+    }
+
+    private float _health;
+    public float Health
+    {
+        get { return _health; }
+        set
+        {
+            if (value != _health)
+            {
+                _health = value;
+                DisplayedStatChanged?.Invoke(_health);
+            }
+        }
+    }
+
+    private float _actionsLeft;
+    public float ActionsLeft
+    {
+        get { return _actionsLeft; }
+        set 
+        { 
+            if (_actionsLeft != value)
+            {
+                _actionsLeft = value;
+                DisplayedStatChanged?.Invoke(_actionsLeft);
+            }
+        }
+    }
+
+    public event Action<float> DisplayedStatChanged;
 
     public void Initialize(string characterStatsPath)
     {
@@ -38,10 +81,10 @@ public class Character : MonoBehaviour
         {
             characterName = characterStats.characterName;
             initialHealth = characterStats.initialHealth;
-            health = characterStats.initialHealth;
-            movesLeft = characterStats.speed;
+            _health = characterStats.initialHealth;
+            _movesLeft = characterStats.speed;
             actions = characterStats.actions;
-            actionsLeft = characterStats.actions;
+            _actionsLeft = characterStats.actions;
             speed = characterStats.speed;
             meleeAttackDamage = characterStats.meleeAttackDamage;
             rangedAttackDamage = characterStats.rangedAttackDamage;
@@ -67,9 +110,9 @@ public class Character : MonoBehaviour
     public void ResetCharacter()
     {
         hasMoved = false;
-        movesLeft = speed;
+        _movesLeft = speed;
         hasActed = false;
-        actionsLeft = actions;
+        _actionsLeft = actions;
     }    
     public void Die()
     {

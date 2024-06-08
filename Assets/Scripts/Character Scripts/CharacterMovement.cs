@@ -24,7 +24,7 @@ public class CharacterMovement : MonoBehaviour
         if (isMoving == false)
         {
             character.isMoving = true;
-            character.movesLeft--;
+            character.MovesLeft--;
             float step = moveSpeed * Time.deltaTime;
             while (transform.position != position)
             {
@@ -32,7 +32,7 @@ public class CharacterMovement : MonoBehaviour
                 yield return null;
             }
             character.isMoving = false;
-            if (character.movesLeft <= 0) 
+            if (character.MovesLeft <= 0) 
             {
                 character.hasMoved = true; 
             }

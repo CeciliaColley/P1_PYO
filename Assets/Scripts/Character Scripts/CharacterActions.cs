@@ -6,29 +6,29 @@ public class CharacterActions : MonoBehaviour
 {
     public void CheckForKill(Character target)
     {
-        if (target.health <= 0)
+        if (target.Health <= 0)
         {
             target.Die();
         }
     }
     public void RangeAttack(Character attacker, Character target)
     {
-        target.health -= attacker.rangedAttackDamage;
+        target.Health -= attacker.rangedAttackDamage;
         CheckForKill(target);
 
     }
     public void MeleeAttack(Character attacker, Character target)
     {
-        target.health -= attacker.meleeAttackDamage;
+        target.Health -= attacker.meleeAttackDamage;
         CheckForKill(target);
 
     }
     public void Heal(Character healer, Character target)
     {
-        target.health += healer.healAmount;
-        if (target.health > target.initialHealth)
+        target.Health += healer.healAmount;
+        if (target.Health > target.initialHealth)
         {
-            target.health = target.initialHealth;
+            target.Health = target.initialHealth;
         }
     }
     public bool CanRangeAttack(Character attacker, Character target)

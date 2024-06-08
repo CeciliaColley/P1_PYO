@@ -1,9 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerActionsEnactor : CharacterActions
-{
+{    
+    [Tooltip("The action this button should perform.")]
+    [SerializeField] private Action action;
+    [Tooltip("The color of the button's image when it's enabled.")]
+    [SerializeField] private Color enabledColor;
+    private Button button;
+    private ButtonNoise buttonNoise;
     private enum Action
     {
         Heal,
@@ -11,8 +18,20 @@ public class PlayerActionsEnactor : CharacterActions
         MeleeAttack
     }
 
-    private void PerformAction(Action action)
+    private void Start()
     {
+        button = GetComponent<Button>();
+        buttonNoise = GetComponent<ButtonNoise>();
+    }
+
+    private void PerformAction(Action action, bool buttonUsesEnabledColor)
+    {
+        if ( buttonNoise != null)
+        {
+            buttonNoise.PlaySound(buttonUsesEnabledColor);
+        }        
+        if (!buttonUsesEnabledColor) { return; }
+
         Player activePlayer = CharacterTracker.Instance.activeCharacter.GetComponent<Player>();
         switch (action)
         {
@@ -32,27 +51,22 @@ public class PlayerActionsEnactor : CharacterActions
 
     private void UpdateActions(Player activePlayer)
     {
-        activePlayer.actionsLeft--;
-        if (activePlayer.actionsLeft <= 0)
+        activePlayer.ActionsLeft--;
+        if (activePlayer.ActionsLeft <= 0)
         {
             activePlayer.hasActed = true;
         }
-
-        activePlayer.statsDisplayer.UpdateStats();
     }
 
-    public void Heal()
+    public void OnActionClick()
     {
-        PerformAction(Action.Heal);
-    }
-
-    public void RangeAttack()
-    {
-        PerformAction(Action.RangeAttack);
-    }
-
-    public void MeleeAttack()
-    {
-        PerformAction(Action.MeleeAttack);
+        if (button.image.color == enabledColor)
+        {
+            PerformAction(action, true);
+        }
+        else
+        {
+            PerformAction(action, false);
+        }
     }
 }

@@ -13,11 +13,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(GameLoop());
     }
     private IEnumerator GameLoop()
-    {
-        foreach (Character character in CharacterTracker.Instance.activeCharacters)
-        {
-            character.statsDisplayer.UpdateStats();
-        }
+    {        
         while (!IsGameOver())
         {
             CharacterTracker.Instance.activeCharacter.Move();

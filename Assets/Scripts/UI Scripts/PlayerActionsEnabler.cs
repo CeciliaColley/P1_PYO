@@ -6,6 +6,10 @@ using static UnityEngine.GraphicsBuffer;
 
 public class PlayerActionsEnabler : CharacterActions
 {
+    [Tooltip("The color of the button when it's enabled.")]
+    [SerializeField] private Color enabledColor;
+    [Tooltip("The color of the button when it's disabled.")]
+    [SerializeField] private Color disabledColor;
     [Tooltip("A reference to the panel that shows the player's available actions.")]
     [SerializeField] private Button healButton;
     [Tooltip("A reference to the panel that shows the player's available actions.")]
@@ -23,24 +27,33 @@ public class PlayerActionsEnabler : CharacterActions
     {
         if (CanMeleeAttack(player, target))
         {
-            meleeButton.enabled = true;
+            meleeButton.image.color = enabledColor;
         }
-        else meleeButton.enabled = false;
+        else
+        {
+            meleeButton.image.color = disabledColor;
+        }
     }
     private void toggleRangeButton(Character player, Character target)
     {
         if (CanRangeAttack(player, target))
         {
-            rangeButton.enabled = true;
+            rangeButton.image.color = enabledColor;
         }
-        else rangeButton.enabled = false;
+        else
+        {
+            rangeButton.image.color = disabledColor;
+        }
     }
     private void toggleHealButton(Character player, Character target)
     {
         if (CanHeal(player, target))
         {
-            healButton.enabled = true;
+            healButton.image.color = enabledColor;
         }
-        else healButton.enabled = false;
+        else
+        {
+            healButton.image.color = disabledColor;
+        }
     }
 }

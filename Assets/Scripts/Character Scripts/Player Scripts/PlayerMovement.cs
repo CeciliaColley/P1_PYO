@@ -20,7 +20,7 @@ public class PlayerMovement : CharacterMovement, ICharacterMovement
     }
     private IEnumerator DisableAfterMovement(Character player)
     {
-        yield return new WaitUntil(() => (player.movesLeft <= 0 || player.hasMoved));
+        yield return new WaitUntil(() => (player.MovesLeft <= 0 || player.hasMoved));
         playerInput.Movement.Disable();
     }
     private BoardRules.Direction GetDesiredDirection(InputAction.CallbackContext ctx)

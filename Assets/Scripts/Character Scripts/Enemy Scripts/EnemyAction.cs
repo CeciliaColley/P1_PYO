@@ -11,12 +11,12 @@ public class EnemyAction : CharacterActions, ICharacterAction
         if (CanMeleeAttack(enemy, enemy.target))
         {
             MeleeAttack(enemy, enemy.target);
-            enemy.actionsLeft--;
+            enemy.ActionsLeft--;
         }
         else if (CanRangeAttack(enemy, enemy.target))
         {
             RangeAttack(enemy, enemy.target);
-            enemy.actionsLeft--;
+            enemy.ActionsLeft--;
         }
 
         enemy.hasActed = true;

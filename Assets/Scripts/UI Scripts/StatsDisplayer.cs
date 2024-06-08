@@ -21,9 +21,11 @@ public class StatsDisplayer : MonoBehaviour
     private void Start()
     {
         textComponent  = characterDisplay.GetComponentInChildren<TextMeshProUGUI>();
+        character.DisplayedStatChanged += UpdateStats;
+        UpdateStats(0);
     }
 
-    public void UpdateStats()
+    public void UpdateStats(float newValue)
     {
         textComponent.text = BuildCharacterInfo();
     }
@@ -39,9 +41,9 @@ public class StatsDisplayer : MonoBehaviour
     {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.AppendLine(character.characterName);
-        stringBuilder.AppendLine("Health: " + character.health);
-        stringBuilder.AppendLine("Moves left: " + character.movesLeft);
-        stringBuilder.AppendLine("Actions left: " + character.actionsLeft);
+        stringBuilder.AppendLine("Health: " + character.Health);
+        stringBuilder.AppendLine("Moves left: " + character.MovesLeft);
+        stringBuilder.AppendLine("Actions left: " + character.ActionsLeft);
 
         return stringBuilder.ToString();
     }

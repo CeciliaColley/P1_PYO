@@ -6,8 +6,9 @@ public class CharacterTracker : MonoBehaviour
 {
     public List<Character> activeCharacters;
     public List<Vector2> occupiedPositions = new List<Vector2>();
-    private Character _activeCharacter;
     public static CharacterTracker Instance; 
+    
+    private Character _activeCharacter;
     public Character activeCharacter
     {
         get { return _activeCharacter; }

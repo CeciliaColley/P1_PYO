@@ -88,7 +88,7 @@ public class EnemyMovement : CharacterMovement, ICharacterMovement
     { 
         yield return new WaitForSeconds(seconds);
         MoveTheCharacter(enemy, desiredCell, moveSpeed);
-        if (enemy.movesLeft > 0)
+        if (enemy.MovesLeft > 0)
         {
             Move(enemy);
         }
