@@ -7,6 +7,7 @@ public class CharacterTracker : MonoBehaviour
     public List<Character> activeCharacters;
     public List<Vector2> occupiedPositions = new List<Vector2>();
     public static CharacterTracker Instance; 
+    public event Action<Character> OnActiveCharacterChanged;
     
     private Character _activeCharacter;
     public Character activeCharacter
@@ -21,9 +22,6 @@ public class CharacterTracker : MonoBehaviour
             }
         }
     }
-
-    public event Action<Character> OnActiveCharacterChanged;
-
     private void Awake()
     {
         if (Instance == null)

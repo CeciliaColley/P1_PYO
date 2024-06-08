@@ -17,12 +17,10 @@ public class TurnTracker : MonoBehaviour
     {
         CharacterTracker.Instance.OnActiveCharacterChanged += OnActiveCharacterChanged; 
     }
-
     private void OnDisable()
     {
         CharacterTracker.Instance.OnActiveCharacterChanged -= OnActiveCharacterChanged;
     }
-
     private void OnActiveCharacterChanged(Character newCharacter)
     {
         DisplayCurrentPlayersName();
@@ -32,12 +30,10 @@ public class TurnTracker : MonoBehaviour
     {
         playerTurnText.text = (CharacterTracker.Instance.activeCharacter.characterName + "'s turn!");
     }
-
     public void SlideActiveBoxOverCurrentCharacter()
     {
         StartCoroutine(SlideCoroutine());
     }
-
     private IEnumerator SlideCoroutine()
     {
         Vector3 startPosition = activeBox.position;

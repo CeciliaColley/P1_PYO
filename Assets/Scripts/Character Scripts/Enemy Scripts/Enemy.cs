@@ -6,16 +6,18 @@ public class Enemy : Character
 {
     [Tooltip("The path to the scriptable object that has the enemy's information.")]
     [SerializeField] private string enemyStatsPath;
+    [Tooltip("The path to the scriptable object that has the enemy's reaction information.")]
+    [SerializeField] private string enemyReactionPath;
 
     public Player target;
 
     private void Awake()
     {
         Initialize(enemyStatsPath);
+        CharacterReactionInfo = Resources.Load<SO_CharacterReaction>("ScriptableObjects/" + enemyReactionPath);
         CharacterMovementInterface = GetComponent<EnemyMovement>();
         CharacterActionInterface = GetComponent<EnemyAction>();
     }
-
     public void DetermineTarget()
     {
         var players = CharacterTracker.Instance.activeCharacters.Where(character => character is Player).Cast<Player>();

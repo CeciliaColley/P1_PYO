@@ -26,7 +26,6 @@ public class ButtonNoise : MonoBehaviour
             audioSource.Play();
         }
     }
-
     public void PlaySound(bool buttonUsesEnabledColor)
     {
         if (buttonUsesEnabledColor)

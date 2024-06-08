@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CharacterActions : MonoBehaviour
 {
+    protected ReactToAction reactToAction;
     public void CheckForKill(Character target)
     {
         if (target.Health <= 0)
@@ -15,13 +16,21 @@ public class CharacterActions : MonoBehaviour
     {
         target.Health -= attacker.rangedAttackDamage;
         CheckForKill(target);
-
+        if (reactToAction != null)
+        {
+            reactToAction.Flash(target, target.CharacterReactionInfo.attackedColor);
+            reactToAction.PlaySound(target.CharacterReactionInfo.rangeAttackedSound);
+        }
     }
     public void MeleeAttack(Character attacker, Character target)
     {
         target.Health -= attacker.meleeAttackDamage;
         CheckForKill(target);
-
+        if (reactToAction != null)
+        {
+            reactToAction.Flash(target, target.CharacterReactionInfo.attackedColor);
+            reactToAction.PlaySound(target.CharacterReactionInfo.meleeAttackedSound);
+        }
     }
     public void Heal(Character healer, Character target)
     {
@@ -29,6 +38,11 @@ public class CharacterActions : MonoBehaviour
         if (target.Health > target.initialHealth)
         {
             target.Health = target.initialHealth;
+        }
+        if (reactToAction != null)
+        {
+            reactToAction.Flash(target, target.CharacterReactionInfo.healedColor);
+            reactToAction.PlaySound(target.CharacterReactionInfo.healSound);
         }
     }
     public bool CanRangeAttack(Character attacker, Character target)

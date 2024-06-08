@@ -1213,6 +1213,135 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &502132620
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 502132622}
+  - component: {fileID: 502132621}
+  m_Layer: 0
+  m_Name: Character Audio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &502132621
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 502132620}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &502132622
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 502132620}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2003,6 +2132,7 @@ GameObject:
   - component: {fileID: 599381956}
   - component: {fileID: 599381957}
   - component: {fileID: 599381958}
+  - component: {fileID: 599381959}
   m_Layer: 0
   m_Name: Range
   m_TagString: Untagged
@@ -2129,18 +2259,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterDisplay: {fileID: 0}
-  statsDisplayer: {fileID: 0}
-  characterName: 
   isMoving: 0
   hasMoved: 0
   hasActed: 0
+  characterName: 
   initialHealth: 0
   meleeAttackDamage: 0
   rangedAttackDamage: 0
   rangedAttackMaxRange: 0
   healAmount: 0
   healMaxRange: 0
+  CharacterReactionInfo: {fileID: 0}
   playerStatsPath: Player_Range
+  playerReactionPath: DefaultReaction
   target: {fileID: 0}
 --- !u!114 &599381956
 MonoBehaviour:
@@ -2181,6 +2312,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterDisplay: {fileID: 1464729245}
+--- !u!114 &599381959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599381949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d0b5188712a8b49bd3dc99bef48d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 502132621}
 --- !u!1 &628695660
 GameObject:
   m_ObjectHideFlags: 0
@@ -2755,6 +2899,7 @@ GameObject:
   - component: {fileID: 708806180}
   - component: {fileID: 708806181}
   - component: {fileID: 708806182}
+  - component: {fileID: 708806183}
   m_Layer: 0
   m_Name: Enemy2
   m_TagString: Untagged
@@ -2881,18 +3026,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterDisplay: {fileID: 0}
-  statsDisplayer: {fileID: 0}
-  characterName: 
   isMoving: 0
   hasMoved: 0
   hasActed: 0
+  characterName: 
   initialHealth: 0
   meleeAttackDamage: 0
   rangedAttackDamage: 0
   rangedAttackMaxRange: 0
   healAmount: 0
   healMaxRange: 0
+  CharacterReactionInfo: {fileID: 0}
   enemyStatsPath: Enemy_Plum
+  enemyReactionPath: DefaultReaction
   target: {fileID: 0}
 --- !u!114 &708806180
 MonoBehaviour:
@@ -2933,6 +3079,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterDisplay: {fileID: 788817804}
+--- !u!114 &708806183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 708806173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d0b5188712a8b49bd3dc99bef48d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 502132621}
 --- !u!1 &727419036
 GameObject:
   m_ObjectHideFlags: 0
@@ -3398,6 +3557,7 @@ GameObject:
   - component: {fileID: 885225488}
   - component: {fileID: 885225489}
   - component: {fileID: 885225490}
+  - component: {fileID: 885225491}
   m_Layer: 0
   m_Name: Enemy1
   m_TagString: Untagged
@@ -3524,18 +3684,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterDisplay: {fileID: 0}
-  statsDisplayer: {fileID: 0}
-  characterName: 
   isMoving: 0
   hasMoved: 0
   hasActed: 0
+  characterName: 
   initialHealth: 0
   meleeAttackDamage: 0
   rangedAttackDamage: 0
   rangedAttackMaxRange: 0
   healAmount: 0
   healMaxRange: 0
+  CharacterReactionInfo: {fileID: 0}
   enemyStatsPath: Enemy_Red
+  enemyReactionPath: DefaultReaction
   target: {fileID: 0}
 --- !u!114 &885225488
 MonoBehaviour:
@@ -3576,6 +3737,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterDisplay: {fileID: 777441732}
+--- !u!114 &885225491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 885225481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d0b5188712a8b49bd3dc99bef48d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 502132621}
 --- !u!1 &907294096
 GameObject:
   m_ObjectHideFlags: 0
@@ -3677,6 +3851,7 @@ GameObject:
   - component: {fileID: 941165544}
   - component: {fileID: 941165545}
   - component: {fileID: 941165546}
+  - component: {fileID: 941165547}
   m_Layer: 0
   m_Name: Healer
   m_TagString: Untagged
@@ -3803,18 +3978,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterDisplay: {fileID: 0}
-  statsDisplayer: {fileID: 0}
-  characterName: 
   isMoving: 0
   hasMoved: 0
   hasActed: 0
+  characterName: 
   initialHealth: 0
   meleeAttackDamage: 0
   rangedAttackDamage: 0
   rangedAttackMaxRange: 0
   healAmount: 0
   healMaxRange: 0
+  CharacterReactionInfo: {fileID: 0}
   playerStatsPath: Player_Healer
+  playerReactionPath: DefaultReaction
   target: {fileID: 0}
 --- !u!114 &941165544
 MonoBehaviour:
@@ -3855,6 +4031,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterDisplay: {fileID: 149601365}
+--- !u!114 &941165547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 941165537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d0b5188712a8b49bd3dc99bef48d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 502132621}
 --- !u!1 &947752847
 GameObject:
   m_ObjectHideFlags: 0
@@ -4884,7 +5073,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 2024288839}
   disabledSound: {fileID: 8300000, guid: 9de8fda92d102a5489d945ddd5df8a02, type: 3}
-  enabledSound: {fileID: 8300000, guid: 165b5b4dfffbf924a8532fd8b5c73bb7, type: 3}
+  enabledSound: {fileID: 8300000, guid: 6295fff1cfa2c174dacd2aeae9e5fd06, type: 3}
 --- !u!1 &1252218202
 GameObject:
   m_ObjectHideFlags: 0
@@ -4975,6 +5164,7 @@ GameObject:
   - component: {fileID: 1285768713}
   - component: {fileID: 1285768714}
   - component: {fileID: 1285768716}
+  - component: {fileID: 1285768717}
   m_Layer: 0
   m_Name: Fighter
   m_TagString: Untagged
@@ -5127,18 +5317,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterDisplay: {fileID: 0}
-  statsDisplayer: {fileID: 0}
-  characterName: 
   isMoving: 0
   hasMoved: 0
   hasActed: 0
+  characterName: 
   initialHealth: 0
   meleeAttackDamage: 0
   rangedAttackDamage: 0
   rangedAttackMaxRange: 0
   healAmount: 0
   healMaxRange: 0
+  CharacterReactionInfo: {fileID: 0}
   playerStatsPath: Player_Tank
+  playerReactionPath: DefaultReaction
   target: {fileID: 0}
 --- !u!114 &1285768716
 MonoBehaviour:
@@ -5153,6 +5344,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterDisplay: {fileID: 1543097343}
+--- !u!114 &1285768717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285768706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d0b5188712a8b49bd3dc99bef48d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 502132621}
 --- !u!1 &1396466542
 GameObject:
   m_ObjectHideFlags: 0
@@ -5316,7 +5520,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 2024288839}
   disabledSound: {fileID: 8300000, guid: 9de8fda92d102a5489d945ddd5df8a02, type: 3}
-  enabledSound: {fileID: 8300000, guid: 0e01478f095fa1241a47b8f49cc7555e, type: 3}
+  enabledSound: {fileID: 8300000, guid: 6295fff1cfa2c174dacd2aeae9e5fd06, type: 3}
 --- !u!1 &1419245783
 GameObject:
   m_ObjectHideFlags: 0
@@ -7308,7 +7512,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 2024288839}
   disabledSound: {fileID: 8300000, guid: 9de8fda92d102a5489d945ddd5df8a02, type: 3}
-  enabledSound: {fileID: 8300000, guid: c260e8511c5100c48b2fc16d16dad862, type: 3}
+  enabledSound: {fileID: 8300000, guid: 6295fff1cfa2c174dacd2aeae9e5fd06, type: 3}
 --- !u!1 &1852200626
 GameObject:
   m_ObjectHideFlags: 0
@@ -7739,7 +7943,7 @@ GameObject:
   - component: {fileID: 2024288840}
   - component: {fileID: 2024288839}
   m_Layer: 5
-  m_Name: Audio Player
+  m_Name: ButtonAudio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8090,6 +8294,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 2024288840}
+  - {fileID: 502132622}
   - {fileID: 1120140930}
   - {fileID: 524348081}
   - {fileID: 757265375}

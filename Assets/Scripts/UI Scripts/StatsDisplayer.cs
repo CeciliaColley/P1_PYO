@@ -17,26 +17,22 @@ public class StatsDisplayer : MonoBehaviour
         character = GetComponent<Character>();
         character.characterDisplay = characterDisplay;
     }
-
     private void Start()
     {
         textComponent  = characterDisplay.GetComponentInChildren<TextMeshProUGUI>();
         character.DisplayedStatChanged += UpdateStats;
         UpdateStats(0);
     }
-
     public void UpdateStats(float newValue)
     {
         textComponent.text = BuildCharacterInfo();
     }
-
     public void UpdateStats(bool isAlive)
     {
         textComponent.text = "Eliminated";
         Image characterImage = characterDisplay.GetComponentInChildren<Image>();
         characterImage.color = Color.black;
     }
-
     public string BuildCharacterInfo()
     {
         StringBuilder stringBuilder = new StringBuilder();

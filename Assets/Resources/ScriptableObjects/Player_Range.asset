@@ -18,6 +18,6 @@ MonoBehaviour:
   actions: 1
   meleeAttackDamage: 1
   rangedAttackDamage: 3
-  rangedAttackMaxRange: 6
+  rangedAttackMaxRange: 8
   healAmount: 2
   healMaxRange: 0

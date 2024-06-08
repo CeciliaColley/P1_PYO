@@ -9,26 +9,31 @@ using UnityEngine.UI;
 public class Character : MonoBehaviour
 {
     [Tooltip("The UI that displays the stats of the character.")]
-    public GameObject characterDisplay;
-    
-    public StatsDisplayer statsDisplayer;
-    public string characterName;
+    public GameObject characterDisplay;    
     public bool isMoving = false;
     public bool hasMoved = false;
     public bool hasActed = false;
+    public string characterName;
     public int initialHealth;
     public int meleeAttackDamage;
     public int rangedAttackDamage;
     public int rangedAttackMaxRange;
     public int healAmount;
     public int healMaxRange;
+    public event Action<float> DisplayedStatChanged;
+    public SO_CharacterReaction CharacterReactionInfo;
+
     protected ICharacterMovement CharacterMovementInterface { get; set; }
     protected ICharacterAction CharacterActionInterface { get; set; }
     
+    // YOU MADE STATS DISPLAYER PRIVATE AND WE DON?T KNOW WHY IT WAS PUBLIC
+    private StatsDisplayer statsDisplayer;
+    private float _movesLeft;
     private int speed;
     private int actions;
+    private float _health;
+    private float _actionsLeft;
 
-    private float _movesLeft;
     public float MovesLeft
     {
         get { return _movesLeft; }
@@ -41,8 +46,6 @@ public class Character : MonoBehaviour
             }
         }
     }
-
-    private float _health;
     public float Health
     {
         get { return _health; }
@@ -55,8 +58,6 @@ public class Character : MonoBehaviour
             }
         }
     }
-
-    private float _actionsLeft;
     public float ActionsLeft
     {
         get { return _actionsLeft; }
@@ -69,9 +70,6 @@ public class Character : MonoBehaviour
             }
         }
     }
-
-    public event Action<float> DisplayedStatChanged;
-
     public void Initialize(string characterStatsPath)
     {
         statsDisplayer = GetComponent<StatsDisplayer>();
@@ -91,6 +89,7 @@ public class Character : MonoBehaviour
             rangedAttackMaxRange = characterStats.rangedAttackMaxRange;
             healAmount = characterStats.healAmount;
             healMaxRange = characterStats.healMaxRange;
+
         }
     }
     public void Move()

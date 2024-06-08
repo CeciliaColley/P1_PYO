@@ -2,22 +2,22 @@ using UnityEngine.InputSystem;
 using UnityEngine;
 using System.Collections;
 
-public class PlayerAction : MonoBehaviour, ICharacterAction
+public class PlayerAction : CharacterActions, ICharacterAction
 {
     [Tooltip("The game object that displays the player's possible actions.")]
     [SerializeField] private GameObject actionsPanel;
-
     private PlayerActionsEnabler playerActionEnabler;
     private Player player;
     private PlayerInputActions playerInput;
     private Camera mainCamera;
-    private Character character;
+    //private Character character;
     private void Awake()
     {
         playerInput = new PlayerInputActions();
         player = GetComponent<Player>();
         mainCamera = Camera.main;
         playerActionEnabler = actionsPanel.GetComponent<PlayerActionsEnabler>();
+        reactToAction = GetComponent<ReactToAction>();
     }
     public void Act(Character character)
     {
@@ -25,7 +25,6 @@ public class PlayerAction : MonoBehaviour, ICharacterAction
         playerInput.Interaction.Interact.performed += ctx => OnInteractionPerformed(ctx, player);
         StartCoroutine(DisableAfterInterction(character));
     }
-
     private IEnumerator DisableAfterInterction(Character character)
     {
         yield return new WaitUntil(() => character.hasActed);
@@ -47,7 +46,4 @@ public class PlayerAction : MonoBehaviour, ICharacterAction
             actionsPanel.SetActive(true);
         }
     }
-    
-
-
 }

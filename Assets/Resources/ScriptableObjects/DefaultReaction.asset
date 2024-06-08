@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9bdd76359341cc44b45d6b02479f67b, type: 3}
+  m_Name: DefaultReaction
+  m_EditorClassIdentifier: 
+  attackedColor: {r: 1, g: 0, b: 0, a: 1}
+  healedColor: {r: 0, g: 1, b: 0.0013892651, a: 1}
+  reactionDuration: 0.5
+  meleeAttackedSound: {fileID: 8300000, guid: 0e01478f095fa1241a47b8f49cc7555e, type: 3}
+  rangeAttackedSound: {fileID: 8300000, guid: c260e8511c5100c48b2fc16d16dad862, type: 3}
+  healSound: {fileID: 8300000, guid: 165b5b4dfffbf924a8532fd8b5c73bb7, type: 3}

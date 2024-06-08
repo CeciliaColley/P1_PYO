@@ -13,6 +13,7 @@ public class SetterUpper : MonoBehaviour
     private void Awake()
     {
         boardInfo = Resources.Load<SO_Board>("ScriptableObjects/" + boardInfoPath);
+        
     }
     private void Start()
     {
