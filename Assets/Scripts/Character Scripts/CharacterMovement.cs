@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
+    [SerializeField] private AudioClip stepSound;
+    protected ReactToAction reactToAction;
     public Vector2 GetDesiredCell(BoardRules.Direction direction)
     {
         Vector2 desiredPosition = new Vector2();
@@ -31,11 +33,9 @@ public class CharacterMovement : MonoBehaviour
                 transform.position = Vector3.MoveTowards(transform.position, position, step);
                 yield return null;
             }
+            if (reactToAction != null) { reactToAction.PlaySound(stepSound); }
             character.isMoving = false;
-            if (character.MovesLeft <= 0) 
-            {
-                character.hasMoved = true; 
-            }
+            if (character.MovesLeft <= 0) { character.hasMoved = true; }
         }
     }
 }

@@ -22,12 +22,13 @@ public class Character : MonoBehaviour
     public int healMaxRange;
     public event Action<float> DisplayedStatChanged;
     public SO_CharacterReaction CharacterReactionInfo;
+    public SO_Character characterInfo;
 
     protected ICharacterMovement CharacterMovementInterface { get; set; }
     protected ICharacterAction CharacterActionInterface { get; set; }
     
     // YOU MADE STATS DISPLAYER PRIVATE AND WE DON?T KNOW WHY IT WAS PUBLIC
-    private StatsDisplayer statsDisplayer;
+    private ChangingStatsDisplayer statsDisplayer;
     private float _movesLeft;
     private int speed;
     private int actions;
@@ -72,23 +73,23 @@ public class Character : MonoBehaviour
     }
     public void Initialize(string characterStatsPath)
     {
-        statsDisplayer = GetComponent<StatsDisplayer>();
-        SO_Character characterStats = Resources.Load<SO_Character>("ScriptableObjects/" + characterStatsPath);
+        statsDisplayer = GetComponent<ChangingStatsDisplayer>();
+        characterInfo = Resources.Load<SO_Character>("ScriptableObjects/" + characterStatsPath);
 
-        if (characterStats != null)
+        if (characterInfo != null)
         {
-            characterName = characterStats.characterName;
-            initialHealth = characterStats.initialHealth;
-            _health = characterStats.initialHealth;
-            _movesLeft = characterStats.speed;
-            actions = characterStats.actions;
-            _actionsLeft = characterStats.actions;
-            speed = characterStats.speed;
-            meleeAttackDamage = characterStats.meleeAttackDamage;
-            rangedAttackDamage = characterStats.rangedAttackDamage;
-            rangedAttackMaxRange = characterStats.rangedAttackMaxRange;
-            healAmount = characterStats.healAmount;
-            healMaxRange = characterStats.healMaxRange;
+            characterName = characterInfo.characterName;
+            initialHealth = characterInfo.initialHealth;
+            _health = characterInfo.initialHealth;
+            _movesLeft = characterInfo.speed;
+            actions = characterInfo.actions;
+            _actionsLeft = characterInfo.actions;
+            speed = characterInfo.speed;
+            meleeAttackDamage = characterInfo.meleeAttackDamage;
+            rangedAttackDamage = characterInfo.rangedAttackDamage;
+            rangedAttackMaxRange = characterInfo.rangedAttackMaxRange;
+            healAmount = characterInfo.healAmount;
+            healMaxRange = characterInfo.healMaxRange;
 
         }
     }

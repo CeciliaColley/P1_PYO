@@ -9,6 +9,10 @@ public class PlayerMovement : CharacterMovement, ICharacterMovement
     [SerializeField] private InputManager inputManager;
     private Character player;
 
+    private void Start()
+    {
+        reactToAction = GetComponent<ReactToAction>();
+    }
     public void Move(Character character)
     {
         Debug.Log("Moving the character");

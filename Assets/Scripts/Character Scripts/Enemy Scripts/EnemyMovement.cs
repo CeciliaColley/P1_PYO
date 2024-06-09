@@ -36,6 +36,7 @@ public class EnemyMovement : CharacterMovement, ICharacterMovement
     private void Start()
     {
         enemy = GetComponent<Enemy>();
+        reactToAction = GetComponent<ReactToAction>();
     }    
     private BoardRules.Direction DetermineHorizontalDirection(Vector2 targetPosition)
     {
