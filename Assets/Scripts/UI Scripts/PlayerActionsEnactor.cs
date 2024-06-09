@@ -26,10 +26,7 @@ public class PlayerActionsEnactor : MonoBehaviour
     }
     private void PerformAction(Action action, bool buttonUsesEnabledColor)
     {
-        if ( buttonNoise != null)
-        {
-            buttonNoise.PlaySound(buttonUsesEnabledColor);
-        }        
+        PlayButtonSound(buttonUsesEnabledColor);
         if (!buttonUsesEnabledColor) { return; }
 
         Player activePlayer = CharacterTracker.Instance.activeCharacter.GetComponent<Player>();
@@ -67,5 +64,13 @@ public class PlayerActionsEnactor : MonoBehaviour
         {
             PerformAction(action, false);
         }
+    }
+
+    private void PlayButtonSound(bool buttonUsesEnabledColor)
+    {
+        if (buttonNoise != null)
+        {
+            buttonNoise.PlaySound(buttonUsesEnabledColor);
+        }        
     }
 }

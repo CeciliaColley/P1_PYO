@@ -15,6 +15,9 @@ MonoBehaviour:
   attackedColor: {r: 1, g: 0, b: 0, a: 1}
   healedColor: {r: 0, g: 1, b: 0.0013892651, a: 1}
   reactionDuration: 0.5
-  meleeAttackedSound: {fileID: 8300000, guid: 0e01478f095fa1241a47b8f49cc7555e, type: 3}
-  rangeAttackedSound: {fileID: 8300000, guid: c260e8511c5100c48b2fc16d16dad862, type: 3}
+  attackSound1: {fileID: 8300000, guid: 0e01478f095fa1241a47b8f49cc7555e, type: 3}
+  attackSound2: {fileID: 8300000, guid: b29454b040ee4f2418475ad72d7b964b, type: 3}
+  attackSound3: {fileID: 8300000, guid: 3eacdfbfd2fbaa246ad036000db1061b, type: 3}
+  attackSound4: {fileID: 8300000, guid: c260e8511c5100c48b2fc16d16dad862, type: 3}
+  attackSound5: {fileID: 8300000, guid: 73eb2a136c9590044a3868e2534d958f, type: 3}
   healSound: {fileID: 8300000, guid: 165b5b4dfffbf924a8532fd8b5c73bb7, type: 3}

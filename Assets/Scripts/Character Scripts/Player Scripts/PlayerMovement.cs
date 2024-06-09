@@ -1,4 +1,3 @@
-using UnityEngine.InputSystem;
 using UnityEngine;
 using System.Collections;
 
@@ -6,27 +5,33 @@ public class PlayerMovement : CharacterMovement, ICharacterMovement
 {
     [Tooltip("Speed of the movement animation.")]
     [SerializeField] private float moveSpeed = 0.0f;
-    private PlayerInputActions playerInput;
+    [Tooltip("Game object with the script that detects input.")]
+    [SerializeField] private InputManager inputManager;
+    private Character player;
 
     public void Move(Character character)
     {
-        playerInput.Movement.Enable();
-        playerInput.Movement.Move.performed += ctx => OnMovementPerformed(ctx, character);
-        StartCoroutine(DisableAfterMovement(character));
+        Debug.Log("Moving the character");
+        player = character;
+        inputManager.onMovementInput += OnMovementPerformed;
+        StartCoroutine(DisableAfterMovement(player));
     }
-    private void Awake()
-    {
-        playerInput = new PlayerInputActions();
-    }
-    private IEnumerator DisableAfterMovement(Character player)
-    {
-        yield return new WaitUntil(() => (player.MovesLeft <= 0 || player.hasMoved));
-        playerInput.Movement.Disable();
-    }
-    private BoardRules.Direction GetDesiredDirection(InputAction.CallbackContext ctx)
-    {
-        Vector2 inputVector = ctx.ReadValue<Vector2>();
 
+    private void OnMovementPerformed(Vector2 inputVector) 
+    {
+        if (player.isMoving == false)
+        {
+            BoardRules.Direction direction = GetDesiredDirection(inputVector);
+            Vector2 desiredCell = GetDesiredCell(direction);
+            if ((BoardRules.Instance.DesiredCellExists(desiredCell) && BoardRules.Instance.DesiredCellIsEmpty(desiredCell)))
+            {
+                MoveTheCharacter(player, desiredCell, moveSpeed);
+            }
+        }
+    }
+
+    private BoardRules.Direction GetDesiredDirection(Vector2 inputVector)
+    {
         if (inputVector == Vector2.up)
         {
             return BoardRules.Direction.Up;
@@ -48,16 +53,15 @@ public class PlayerMovement : CharacterMovement, ICharacterMovement
             return BoardRules.Direction.Default;
         }
     }
-    private void OnMovementPerformed(InputAction.CallbackContext ctx, Character player)
+
+    private IEnumerator DisableAfterMovement(Character player)
     {
-        if ( player.isMoving == false)
-        {
-            BoardRules.Direction direction = GetDesiredDirection(ctx);
-            Vector2 desiredCell = GetDesiredCell(direction);
-            if ((BoardRules.Instance.DesiredCellExists(desiredCell) && BoardRules.Instance.DesiredCellIsEmpty(desiredCell)))
-            {
-                MoveTheCharacter(player, desiredCell, moveSpeed);
-            }
-        }
+        yield return new WaitUntil(() => (player.MovesLeft <= 0 || player.hasMoved));
+        inputManager.onMovementInput -= OnMovementPerformed;
+    }
+
+    private void OnDisable()
+    {
+        inputManager.onMovementInput -= OnMovementPerformed;
     }
 }

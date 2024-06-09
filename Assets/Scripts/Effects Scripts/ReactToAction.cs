@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class ReactToAction : MonoBehaviour
 {
@@ -39,5 +40,27 @@ public class ReactToAction : MonoBehaviour
     {
         audioSource.clip = sound;
         audioSource.Play();
+    }
+
+    public AudioClip GetRandomSound(params AudioClip[] sounds)
+    {
+        if (sounds == null || sounds.Length == 0)
+        {
+            return null;
+        }
+
+        int randomIndex = Random.Range(0, sounds.Length);
+        return sounds[randomIndex];
+    }
+
+    public void DefaultAttackReaction(Character target)
+    {
+        Flash(target, target.CharacterReactionInfo.attackedColor);
+        AudioClip sound = GetRandomSound(target.CharacterReactionInfo.attackSound1,
+                                          target.CharacterReactionInfo.attackSound2,
+                                          target.CharacterReactionInfo.attackSound3,
+                                          target.CharacterReactionInfo.attackSound4,
+                                          target.CharacterReactionInfo.attackSound5);
+        PlaySound(sound);
     }
 }

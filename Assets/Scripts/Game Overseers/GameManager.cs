@@ -1,15 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
 public class GameManager : MonoBehaviour
 {
+    [Tooltip ("The game object where the end screen is.")]
+    [SerializeField] private GameObject endScreen;
+    [Tooltip ("The game object where the win panel is.")]
+    [SerializeField] private GameObject winPanel;
+    [Tooltip ("The game object where the lose panel is.")]
+    [SerializeField] private GameObject losePanel;
     private int currentCharacterIndex;
+    private bool hasWon;
+    private int initialPlayerAmount;
     private void Start()
     {
         currentCharacterIndex = 0;
         CharacterTracker.Instance.activeCharacter = CharacterTracker.Instance.activeCharacters[currentCharacterIndex];
+    }
+
+    public void StartGame()
+    {
         StartCoroutine(GameLoop());
     }
     private IEnumerator GameLoop()
@@ -24,6 +37,10 @@ public class GameManager : MonoBehaviour
 
             yield return null;
         }
+
+        endScreen.SetActive(true);
+        if (hasWon) { winPanel.SetActive(true); }
+        else { losePanel.SetActive(true); }
     }
     private void GoToNextCharacter()
     {
@@ -45,10 +62,20 @@ public class GameManager : MonoBehaviour
     }
     private bool IsGameOver()
     {
-        if (CharacterTracker.Instance.activeCharacters.Count == 1)
+        if (CharacterTracker.Instance.activeCharacters.Exists(character => character is Enemy) &&
+            CharacterTracker.Instance.activeCharacters.Count(character => character is Player) < initialPlayerAmount)
         {
+            hasWon = false;
             return true;
         }
+
+        if (CharacterTracker.Instance.activeCharacters.Count == 1)
+        {
+            hasWon = true;
+            return true;
+        }
+
         return false;
     }
+
 }

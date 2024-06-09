@@ -112,6 +112,7 @@ public class Character : MonoBehaviour
         _movesLeft = speed;
         hasActed = false;
         _actionsLeft = actions;
+        statsDisplayer.UpdateStats(0);
     }    
     public void Die()
     {

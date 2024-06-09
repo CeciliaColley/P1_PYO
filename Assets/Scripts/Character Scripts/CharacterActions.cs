@@ -18,8 +18,7 @@ public class CharacterActions : MonoBehaviour
         CheckForKill(target);
         if (reactToAction != null)
         {
-            reactToAction.Flash(target, target.CharacterReactionInfo.attackedColor);
-            reactToAction.PlaySound(target.CharacterReactionInfo.rangeAttackedSound);
+            reactToAction.DefaultAttackReaction(target);
         }
     }
     public void MeleeAttack(Character attacker, Character target)
@@ -28,8 +27,7 @@ public class CharacterActions : MonoBehaviour
         CheckForKill(target);
         if (reactToAction != null)
         {
-            reactToAction.Flash(target, target.CharacterReactionInfo.attackedColor);
-            reactToAction.PlaySound(target.CharacterReactionInfo.meleeAttackedSound);
+            reactToAction.DefaultAttackReaction(target);
         }
     }
     public void Heal(Character healer, Character target)

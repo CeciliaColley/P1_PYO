@@ -4,46 +4,47 @@ using System.Collections;
 
 public class PlayerAction : CharacterActions, ICharacterAction
 {
+    [Tooltip("Game object with the script that detects input.")]
+    [SerializeField] private InputManager inputManager;
     [Tooltip("The game object that displays the player's possible actions.")]
     [SerializeField] private GameObject actionsPanel;
     private PlayerActionsEnabler playerActionEnabler;
-    private Player player;
-    private PlayerInputActions playerInput;
+    public Player player;
     private Camera mainCamera;
-    //private Character character;
-    private void Awake()
+
+    private void Start()
     {
-        playerInput = new PlayerInputActions();
+        playerActionEnabler = actionsPanel.GetComponent<PlayerActionsEnabler>();
         player = GetComponent<Player>();
         mainCamera = Camera.main;
-        playerActionEnabler = actionsPanel.GetComponent<PlayerActionsEnabler>();
         reactToAction = GetComponent<ReactToAction>();
     }
-    public void Act(Character character)
+
+    public void Act (Character character)
     {
-        playerInput.Interaction.Enable();
-        playerInput.Interaction.Interact.performed += ctx => OnInteractionPerformed(ctx, player);
-        StartCoroutine(DisableAfterInterction(character));
+        inputManager.onInteractionInput += OnInteractionPerformed;
+        StartCoroutine(DisableAfterInteraction());
     }
-    private IEnumerator DisableAfterInterction(Character character)
+
+    public void OnInteractionPerformed()
     {
-        yield return new WaitUntil(() => character.hasActed);
-        actionsPanel.SetActive(false);
-        playerInput.Interaction.Disable();
-    }
-    private void OnInteractionPerformed(InputAction.CallbackContext ctx, Player player)
-    {
+        Debug.Log("DoingThing");
         var rayHit = Physics2D.GetRayIntersection(mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue()));
-        if (!rayHit.collider)
-        {
-            return;
-        }
-        else
-        {
-            player.target = rayHit.collider.gameObject.GetComponent<Character>();
-            playerActionEnabler.toggleActions(player, player.target);
-            actionsPanel.transform.position = Camera.main.WorldToScreenPoint(rayHit.collider.gameObject.transform.position);
-            actionsPanel.SetActive(true);
-        }
+        if (!rayHit.collider) { return; }
+        player.target = rayHit.collider.gameObject.GetComponent<Character>();
+        playerActionEnabler.toggleActions(player, player.target);
+        actionsPanel.transform.position = Camera.main.WorldToScreenPoint(rayHit.collider.gameObject.transform.position);
+        actionsPanel.SetActive(true);
+    }
+    private IEnumerator DisableAfterInteraction()
+    {
+        yield return new WaitUntil(() => player.hasActed);
+        actionsPanel.SetActive(false);
+        inputManager.onInteractionInput -= OnInteractionPerformed;
+    }
+
+    private void OnDisable()
+    {
+        inputManager.onInteractionInput -= OnInteractionPerformed;
     }
 }

@@ -1,8 +1,8 @@
 {
-    "name": "PlayerMovementActions",
+    "name": "PlayerInputActions",
     "maps": [
         {
-            "name": "Movement",
+            "name": "PlayerActions",
             "id": "7053f66d-5ff7-4c33-a62c-5feaba496be7",
             "actions": [
                 {
@@ -13,6 +13,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "b35c3461-c709-4684-b31e-3e108eec5ec8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -235,27 +244,10 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
-                }
-            ]
-        },
-        {
-            "name": "Interaction",
-            "id": "11aa8619-b4a5-45b8-8cef-49b40cda3962",
-            "actions": [
-                {
-                    "name": "Interact",
-                    "type": "Button",
-                    "id": "db3650a2-74a9-4125-9dd4-8d2dd2c63869",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
+                },
                 {
                     "name": "",
-                    "id": "b3e3c501-d9ca-49d1-94c5-d7b1ebc6cca0",
+                    "id": "c03954f1-e018-4bc3-8b33-04f0de64fd62",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
