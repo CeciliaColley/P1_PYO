@@ -15,7 +15,6 @@ public class PlayerMovement : CharacterMovement, ICharacterMovement
     }
     public void Move(Character character)
     {
-        Debug.Log("Moving the character");
         player = character;
         inputManager.onMovementInput += OnMovementPerformed;
         StartCoroutine(DisableAfterMovement(player));

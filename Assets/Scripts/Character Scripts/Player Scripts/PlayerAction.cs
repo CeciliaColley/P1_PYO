@@ -28,7 +28,6 @@ public class PlayerAction : CharacterActions, ICharacterAction
 
     public void OnInteractionPerformed()
     {
-        Debug.Log("DoingThing");
         var rayHit = Physics2D.GetRayIntersection(mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue()));
         if (!rayHit.collider) { return; }
         player.target = rayHit.collider.gameObject.GetComponent<Character>();

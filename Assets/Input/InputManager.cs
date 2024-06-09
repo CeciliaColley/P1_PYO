@@ -31,13 +31,11 @@ public class InputManager : MonoBehaviour
 
     public void HandleMovementInput(InputAction.CallbackContext ctx)
     {
-        Debug.Log("registering movement");
         onMovementInput.Invoke(ctx.ReadValue<Vector2>());
     }
 
     public void HandleInteractionInput(InputAction.CallbackContext ctx)
     {
-        Debug.Log("registering input");
         onInteractionInput.Invoke();
     }
 }
