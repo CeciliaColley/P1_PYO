@@ -56,6 +56,7 @@ public class PlayerActionsEnactor : MonoBehaviour
     }
     public void OnActionClick()
     {
+        if (button == null) { return; }
         if (button.image.color == enabledColor)
         {
             PerformAction(action, true);
@@ -65,7 +66,6 @@ public class PlayerActionsEnactor : MonoBehaviour
             PerformAction(action, false);
         }
     }
-
     private void PlayButtonSound(bool buttonUsesEnabledColor)
     {
         if (buttonNoise != null)

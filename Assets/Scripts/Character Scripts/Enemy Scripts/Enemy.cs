@@ -13,8 +13,14 @@ public class Enemy : Character
 
     private void Awake()
     {
-        Initialize(enemyStatsPath);
-        CharacterReactionInfo = Resources.Load<SO_CharacterReaction>("ScriptableObjects/" + enemyReactionPath);
+        if (enemyStatsPath != null)
+        {
+            Initialize(enemyStatsPath);
+        }
+        if (enemyReactionPath != null)
+        {
+            CharacterReactionInfo = Resources.Load<SO_CharacterReaction>("ScriptableObjects/" + enemyReactionPath);
+        }
         CharacterMovementInterface = GetComponent<EnemyMovement>();
         CharacterActionInterface = GetComponent<EnemyAction>();
     }

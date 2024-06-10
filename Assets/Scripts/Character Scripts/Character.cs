@@ -27,7 +27,6 @@ public class Character : MonoBehaviour
     protected ICharacterMovement CharacterMovementInterface { get; set; }
     protected ICharacterAction CharacterActionInterface { get; set; }
     
-    // YOU MADE STATS DISPLAYER PRIVATE AND WE DON?T KNOW WHY IT WAS PUBLIC
     private ChangingStatsDisplayer statsDisplayer;
     private float _movesLeft;
     private int speed;
@@ -113,13 +112,22 @@ public class Character : MonoBehaviour
         _movesLeft = speed;
         hasActed = false;
         _actionsLeft = actions;
-        statsDisplayer.UpdateStats(0);
+        if (statsDisplayer != null)
+        {
+            statsDisplayer.UpdateStats();
+        }
     }    
     public void Die()
     {
-        statsDisplayer.UpdateStats(false);
-        CharacterTracker.Instance.activeCharacters.Remove(this);
-        CharacterTracker.Instance.occupiedPositions.Remove(new Vector2(transform.position.x, transform.position.y));
+        if (statsDisplayer != null)
+        {
+            statsDisplayer.UpdateStats(false);
+        }
+        if (CharacterTracker.Instance.activeCharacters != null)
+        {
+            CharacterTracker.Instance.occupiedPositions.Remove(new Vector2(transform.position.x, transform.position.y));
+            CharacterTracker.Instance.activeCharacters.Remove(this);
+        }
         gameObject.SetActive(false);
     }
 

@@ -14,6 +14,7 @@ public class EnemyMovement : CharacterMovement, ICharacterMovement
 
     public void Move(Character character)
     {
+        if (enemy == null) { return; }
         bool moved = false;
         enemy.DetermineTarget();
         Queue<BoardRules.Direction> movementQueue = CreateMovementQueue(enemy.target);

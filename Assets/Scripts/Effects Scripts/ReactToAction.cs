@@ -7,8 +7,14 @@ public class ReactToAction : MonoBehaviour
 {
     [Tooltip("The Game Object with the audio source component that will play the reaction sound.")]
     [SerializeField] private AudioSource audioSource;
+
     public IEnumerator ChangeColor(SpriteRenderer spriteRenderer, Color originalColor, Color targetColor, float duration)
     {
+        if (spriteRenderer == null)
+        {
+            yield break;
+        }
+
         float timer = 0f;
 
         while (timer < duration)
@@ -23,9 +29,19 @@ public class ReactToAction : MonoBehaviour
 
     public IEnumerator FlashColor(Character character, Color targetColor)
     {
+        if (character == null)
+        {
+            yield break;
+        }
+
         SpriteRenderer spriteRenderer = character.GetComponent<SpriteRenderer>();
+        if (spriteRenderer == null)
+        {
+            yield break;
+        }
+
         Color originalColor = spriteRenderer.color;
-        float duration = character.CharacterReactionInfo.reactionDuration;
+        float duration = character.CharacterReactionInfo != null ? character.CharacterReactionInfo.reactionDuration : 0f;
         StartCoroutine(ChangeColor(spriteRenderer, originalColor, targetColor, duration));
         yield return new WaitUntil(() => spriteRenderer.color == targetColor);
         StartCoroutine(ChangeColor(spriteRenderer, targetColor, originalColor, duration));
@@ -33,13 +49,19 @@ public class ReactToAction : MonoBehaviour
 
     public void Flash(Character character, Color targetColor)
     {
-        StartCoroutine(FlashColor(character, targetColor));
+        if (character != null)
+        {
+            StartCoroutine(FlashColor(character, targetColor));
+        }
     }
 
     public void PlaySound(AudioClip sound)
     {
-        audioSource.clip = sound;
-        audioSource.Play();
+        if (audioSource != null && sound != null)
+        {
+            audioSource.clip = sound;
+            audioSource.Play();
+        }
     }
 
     public AudioClip GetRandomSound(params AudioClip[] sounds)
@@ -55,12 +77,15 @@ public class ReactToAction : MonoBehaviour
 
     public void DefaultAttackReaction(Character target)
     {
-        Flash(target, target.CharacterReactionInfo.attackedColor);
-        AudioClip sound = GetRandomSound(target.CharacterReactionInfo.attackSound1,
-                                          target.CharacterReactionInfo.attackSound2,
-                                          target.CharacterReactionInfo.attackSound3,
-                                          target.CharacterReactionInfo.attackSound4,
-                                          target.CharacterReactionInfo.attackSound5);
-        PlaySound(sound);
+        if (target != null && target.CharacterReactionInfo != null)
+        {
+            Flash(target, target.CharacterReactionInfo.attackedColor);
+            AudioClip sound = GetRandomSound(target.CharacterReactionInfo.attackSound1,
+                                              target.CharacterReactionInfo.attackSound2,
+                                              target.CharacterReactionInfo.attackSound3,
+                                              target.CharacterReactionInfo.attackSound4,
+                                              target.CharacterReactionInfo.attackSound5);
+            PlaySound(sound);
+        }
     }
 }

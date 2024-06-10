@@ -19,15 +19,17 @@ public class PlayerAction : CharacterActions, ICharacterAction
         mainCamera = Camera.main;
         reactToAction = GetComponent<ReactToAction>();
     }
-
     public void Act (Character character)
     {
-        inputManager.onInteractionInput += OnInteractionPerformed;
-        StartCoroutine(DisableAfterInteraction());
+        if (inputManager != null)
+        {
+            inputManager.onInteractionInput += OnInteractionPerformed;
+            StartCoroutine(DisableAfterInteraction());
+        }        
     }
-
     public void OnInteractionPerformed()
     {
+        if (player == null || playerActionEnabler == null || actionsPanel == null) { return;  }
         var rayHit = Physics2D.GetRayIntersection(mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue()));
         if (!rayHit.collider) { return; }
         player.target = rayHit.collider.gameObject.GetComponent<Character>();
@@ -37,13 +39,16 @@ public class PlayerAction : CharacterActions, ICharacterAction
     }
     private IEnumerator DisableAfterInteraction()
     {
+        if (player == null || actionsPanel == null || inputManager == null) { yield break; }
         yield return new WaitUntil(() => player.hasActed);
         actionsPanel.SetActive(false);
         inputManager.onInteractionInput -= OnInteractionPerformed;
     }
-
     private void OnDisable()
     {
-        inputManager.onInteractionInput -= OnInteractionPerformed;
+        if (inputManager != null)
+        {
+            inputManager.onInteractionInput -= OnInteractionPerformed;
+        }        
     }
 }

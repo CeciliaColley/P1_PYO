@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
         currentCharacterIndex = 0;
         CharacterTracker.Instance.activeCharacter = CharacterTracker.Instance.activeCharacters[currentCharacterIndex];
     }
-
     public void StartGame()
     {
         StartCoroutine(GameLoop());
@@ -52,7 +51,6 @@ public class GameManager : MonoBehaviour
         }
         CharacterTracker.Instance.activeCharacter = CharacterTracker.Instance.activeCharacters[currentCharacterIndex];
     }
-
     private void ResetAllCharacters()
     {
         foreach (Character character in CharacterTracker.Instance.activeCharacters)

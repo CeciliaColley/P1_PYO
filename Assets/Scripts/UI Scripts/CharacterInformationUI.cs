@@ -32,7 +32,6 @@ public class CharacterInformationUI : MonoBehaviour
 
         return stringBuilder.ToString();
     }
-
     public string BuildCharacterInfo(SO_Character characterSO)
     {
         StringBuilder stringBuilder = new StringBuilder();

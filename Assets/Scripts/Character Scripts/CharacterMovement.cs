@@ -33,7 +33,7 @@ public class CharacterMovement : MonoBehaviour
                 transform.position = Vector3.MoveTowards(transform.position, position, step);
                 yield return null;
             }
-            if (reactToAction != null) { reactToAction.PlaySound(stepSound); }
+            if (reactToAction != null && stepSound != null) { reactToAction.PlaySound(stepSound); }
             character.isMoving = false;
             if (character.MovesLeft <= 0) { character.hasMoved = true; }
         }

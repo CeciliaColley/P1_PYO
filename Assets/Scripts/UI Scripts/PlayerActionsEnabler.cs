@@ -24,22 +24,18 @@ public class PlayerActionsEnabler : CharacterActions
     {
         inputManager.onMovementInput += CloseOnMovement;
     }
-
     private void OnEnable()
     {
         inputManager.onInteractionInput -= CharacterTracker.Instance.activeCharacter.GetComponent<PlayerAction>().OnInteractionPerformed;
     }
-
     private void OnDisable()
     {
         inputManager.onInteractionInput += CharacterTracker.Instance.activeCharacter.GetComponent<PlayerAction>().OnInteractionPerformed;
     }
-
     private void CloseOnMovement(Vector2 inputVector)
     {
         gameObject.SetActive(false);
     }
-
     public void toggleActions(Character player, Character target)
     {
         toggleMeleeButton(player, target);

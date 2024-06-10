@@ -16,7 +16,11 @@ public class ChangingStatsDisplayer : CharacterInformationUI
     {
         textComponent  = characterDisplay.GetComponentInChildren<TextMeshProUGUI>();
         character.DisplayedStatChanged += UpdateStats;
-        UpdateStats(0);
+        UpdateStats();
+    }
+    public void UpdateStats()
+    {
+        textComponent.text = BuildCharacterInfo("Name: ", character.characterName, "Health: ", character.Health, "Moves left: ", character.MovesLeft, "Actions left: ", character.ActionsLeft);
     }
     public void UpdateStats(float newValue)
     {
