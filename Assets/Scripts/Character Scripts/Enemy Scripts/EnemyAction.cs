@@ -16,7 +16,7 @@ public class EnemyAction : CharacterActions, ICharacterAction
     {
         yield return new WaitUntil(() => character.hasMoved);
         Enemy enemy = character.GetComponent<Enemy>();
-        if (enemy != null) { yield break; }
+        if (enemy == null) { yield break; }
         enemy.DetermineTarget();
 
         if (CanMeleeAttack(enemy, enemy.target))
